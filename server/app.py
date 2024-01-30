@@ -11,7 +11,7 @@ import os
 from config import app, db, api
 from helpers import validate_not_blank, validate_type
 from dotenv import load_dotenv
-from models import Product, Category, Order, OrderDetail, ProductCategory, User
+from models import Item, Category, Order, OrderDetail, ItemCategory, User
 
 # Builds app, set attributes
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -27,10 +27,10 @@ def index():
     return "<h1>Retro Relics</h1>"
 
 
-# PRODUCTS
+# ITEMS
 
 
-class Products(Resource):
+class Items(Resource):
     def to_dict(self, convert_price_to_dollars=False):
         data = {
             "id": self.id,
@@ -44,17 +44,16 @@ class Products(Resource):
 
     def get(self):
         try:
-            products = [product.to_dict() for product in Product.query.all()]
-            products = [
-                product.to_dict(convert_price_to_dollars=True)
-                for product in Product.query.all()
+            items = [item.to_dict() for item in Item.query.all()]
+            items = [
+                item.to_dict(convert_price_to_dollars=True) for item in Item.query.all()
             ]
-            return make_response({"products": products}, 200)
+            return make_response({"items": items}, 200)
         except Exception as error:
             return make_response({"error": str(error)}, 500)
 
     def post(self):
-        product_data = request.get_json()
+        item_data = request.get_json()
         try:
             required_fields = [
                 "name",
@@ -63,22 +62,22 @@ class Products(Resource):
                 "image_url",
                 "imageAlt",
             ]
-            if not all(field in product_data for field in required_fields):
+            if not all(field in item_data for field in required_fields):
                 return make_response({"error": "Missing required fields"}, 400)
 
             # Convert price to cents
-            new_product_price = int(float(product_data["price"]) * 100)
-            new_product = Product(
-                name=product_data["name"],
-                description=product_data["description"],
-                price=new_product_price,
-                item_quantity=product_data["item_quantity"],
-                image_url=product_data["image_url"],
-                imageAlt=product_data["imageAlt"],
+            new_item_price = int(float(item_data["price"]) * 100)
+            new_item = Item(
+                name=item_data["name"],
+                description=item_data["description"],
+                price=new_item_price,
+                item_quantity=item_data["item_quantity"],
+                image_url=item_data["image_url"],
+                imageAlt=item_data["imageAlt"],
             )
-            db.session.add(new_product)
+            db.session.add(new_item)
             db.session.commit()
-            return make_response({"new_product": new_product.to_dict()}, 201)
+            return make_response({"new_item": new_item.to_dict()}, 201)
         except ValueError:
             return make_response(
                 {"error": "Item creation failed due to a database error."}, 400
@@ -87,47 +86,47 @@ class Products(Resource):
             return make_response({"error": str(error)}, 500)
 
 
-api.add_resource(Products, "/products")
+api.add_resource(Items, "/items")
 
-# PRODUCTS BY ID
+# ITEMS BY ID
 
 
-class ProductsById(Resource):
+class ItemsById(Resource):
     def get(self, id):
-        product = Product.query.get(id)
-        if product:
-            return make_response(product.to_dict(convert_price_to_dollars=True), 200)
+        item = Item.query.get(id)
+        if item:
+            return make_response(item.to_dict(convert_price_to_dollars=True), 200)
         else:
             return make_response({"error": "Item not found"}, 404)
 
     def patch(self, id):
-        product = Product.query.get(id)
-        if product:
+        item = Item.query.get(id)
+        if item:
             data = request.get_json()
             try:
                 for attr in data:
-                    setattr(product, attr, data[attr])
+                    setattr(item, attr, data[attr])
                 db.session.commit()
-                return make_response(product.to_dict(), 202)
+                return make_response(item.to_dict(), 202)
             except ValueError:
                 return make_response({"errors": ["validation errors"]}, 400)
         else:
-            return make_response({"error": "Product not found"}, 404)
+            return make_response({"error": "Item not found"}, 404)
 
     def delete(self, id):
         try:
-            product = Product.query.get(id)
-            if product:
-                db.session.delete(product)
+            item = Item.query.get(id)
+            if item:
+                db.session.delete(item)
                 db.session.commit()
                 return jsonify({}), 204
             else:
-                return make_response({"error": "Product not found"}), 404
+                return make_response({"error": "Item not found"}), 404
         except Exception as error:
             return make_response({"error": str(error)}), 500
 
 
-api.add_resource(ProductsById, "/products/<int:id>")
+api.add_resource(ItemsById, "/items/<int:id>")
 
 # USERS
 
@@ -282,33 +281,29 @@ class Categories(Resource):
 
 api.add_resource(Categories, "/categories")
 
-# PRODUCT CATEGORIES
+# ITEM CATEGORIES
 
 
-class ProductCategories(Resource):
+class ItemCategories(Resource):
     def get(self):
-        product_categories = ProductCategory.query.all()
+        item_categories = ItemCategory.query.all()
         return make_response(
-            [product_category.to_dict() for product_category in product_categories], 200
+            [item_category.to_dict() for item_category in item_categories], 200
         )
 
     def post(self):
         data = request.get_json()
-        product_id = data.get("product_id")
+        item_id = data.get("item_id")
         category_id = data.get("category_id")
 
         try:
-            validate_type(product_id, "product_id", int)
+            validate_type(item_id, "item_id", int)
             validate_type(category_id, "category_id", int)
 
-            new_product_category = ProductCategory(
-                product_id=product_id, category_id=category_id
-            )
-            db.session.add(new_product_category)
+            new_item_category = ItemCategory(item_id=item_id, category_id=category_id)
+            db.session.add(new_item_category)
             db.session.commit()
-            return make_response(
-                {"message": "ProductCategory created successfully"}, 201
-            )
+            return make_response({"message": "ItemCategory created successfully"}, 201)
         except ValueError as e:
             return make_response({"error": str(e)}, 400)
         except Exception as e:
@@ -318,7 +313,7 @@ class ProductCategories(Resource):
             )
 
 
-api.add_resource(ProductCategories, "/product_categories")
+api.add_resource(ItemCategories, "/item_categories")
 
 # LOGIN
 

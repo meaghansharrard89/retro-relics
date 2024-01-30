@@ -17,8 +17,8 @@ from helpers import (
 # This class represents the products that we're selling.
 
 
-class Product(db.Model, SerializerMixin):
-    __tablename__ = "products"
+class Item(db.Model, SerializerMixin):
+    __tablename__ = "items"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -29,14 +29,14 @@ class Product(db.Model, SerializerMixin):
 
     # Relationships
 
-    product_categories = db.relationship(
-        "ProductCategory", back_populates="product", cascade="all, delete-orphan"
+    item_categories = db.relationship(
+        "ItemCategory", back_populates="item", cascade="all, delete-orphan"
     )
-    categories = association_proxy("product_categories", "category")
+    categories = association_proxy("item_categories", "category")
 
     # Serializations
 
-    serialize_rules = ("-product_categories",)
+    serialize_rules = ("-item_categories.item",)
 
     # Validations
 
@@ -54,7 +54,7 @@ class Product(db.Model, SerializerMixin):
 
 
 # Category Model
-# This class represents the categories (houseware, clothing, other) of products that we're selling.
+# This class represents the categories (housewares, clothing, misc) of products that we're selling.
 
 
 class Category(db.Model, SerializerMixin):
@@ -64,14 +64,14 @@ class Category(db.Model, SerializerMixin):
 
     # Relationships
 
-    product_categories = db.relationship(
-        "ProductCategory", back_populates="category", cascade="all, delete-orphan"
+    item_categories = db.relationship(
+        "ItemCategory", back_populates="category", cascade="all, delete-orphan"
     )
-    products = association_proxy("product_categories", "product")
+    items = association_proxy("item_categories", "item")
 
     # Serializations
 
-    serialize_rules = ("-product_categories",)
+    serialize_rules = ("-item_categories.category",)
 
     # Validations
 
@@ -83,33 +83,33 @@ class Category(db.Model, SerializerMixin):
         return f"<Category {self.name}>"
 
 
-# ProductCategory Model
+# ItemCategory Model
 # This class represents the relationship between products and categories.
 # This is a many to many relationship between products and categories.
 
 
-class ProductCategory(db.Model, SerializerMixin):
-    __tablename__ = "product_categories"
+class ItemCategory(db.Model, SerializerMixin):
+    __tablename__ = "item_categories"
 
     id = db.Column(db.Integer, primary_key=True)
 
     # ForeignKeys
 
-    product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey("items.id"), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
 
     # Relationships
 
-    product = db.relationship("Product", back_populates="product_categories")
-    category = db.relationship("Category", back_populates="product_categories")
+    item = db.relationship("Item", back_populates="item_categories")
+    category = db.relationship("Category", back_populates="item_categories")
 
     # Serializations
 
-    serialize_rules = ("-product", "-category")
+    serialize_rules = ("-item.item_categories", "-category.item_categories")
 
     # Validations
 
-    @validates("product_id", "category_id")
+    @validates("item_id", "category_id")
     def validate_ids(self, key, value):
         value = validate_type(value, key, int)
         if value is None:
@@ -117,7 +117,7 @@ class ProductCategory(db.Model, SerializerMixin):
         return value
 
     def __repr__(self):
-        return f"<ProductCategory Product: {self.product_id}, Category: {self.category_id}>"
+        return f"<ItemCategory Item: {self.product_id}, Category: {self.category_id}>"
 
 
 # User Model
@@ -194,16 +194,16 @@ class OrderDetail(db.Model, SerializerMixin):
     __tablename__ = "order_details"
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey("orders.id"), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey("products.id"), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey("items.id"), nullable=False)
 
     # Relationships
 
     order = db.relationship("Order", back_populates="order_details")
-    product = db.relationship("Product")
+    item = db.relationship("Item")
 
     # Serializations
 
     serialize_rules = (
         "-order",
-        "-product",
+        "-item",
     )

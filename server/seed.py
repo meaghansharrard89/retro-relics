@@ -6,7 +6,7 @@ from random import randint, choice as rc
 # Remote library imports
 from faker import Faker
 from config import app, db
-from models import Product, Category, Order, OrderDetail, ProductCategory, User
+from models import Item, Category, Order, OrderDetail, ItemCategory, User
 from flask_bcrypt import Bcrypt
 from helpers import dollar_to_cents
 
@@ -14,24 +14,22 @@ from helpers import dollar_to_cents
 from app import app
 from models import db
 
-bcrypt = Bcrypt(app)
-fake = Faker()
-
 if __name__ == "__main__":
+    bcrypt = Bcrypt(app)
     fake = Faker()
     with app.app_context():
         print("Deleting data...")
         Category.query.delete()
-        Product.query.delete()
+        Item.query.delete()
         Order.query.delete()
         OrderDetail.query.delete()
-        ProductCategory.query.delete()
+        ItemCategory.query.delete()
         User.query.delete()
 
         print("Starting seed...")
 
-        print("Creating products...")
-        product1 = Product(
+        print("Creating items...")
+        item1 = Item(
             name="shirt",
             description="70s floral shirt",
             price=9,
@@ -39,11 +37,34 @@ if __name__ == "__main__":
             imageAlt="striped 70s shirt",
         )
 
-        products = [product1]
-
-        db.session.add_all(products)
-        db.session.commit()
+        items = [item1]
 
         print("Creating users...")
+
+        users = []
+
+        print("Creating categories...")
+
+        categories = []
+
+        print("Creating orders...")
+
+        orders = []
+
+        print("Creating order details...")
+
+        order_details = []
+
+        print("Creating item categories...")
+
+        item_categories = []
+
+        db.session.add_all(items)
+        db.session.add_all(users)
+        db.session.add_all(categories)
+        db.session.add_all(orders)
+        db.session.add_all(order_details)
+        db.session.add_all(item_categories)
+        db.session.commit()
 
         print("Seeding done!")
