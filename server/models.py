@@ -1,18 +1,17 @@
 # Import necessary modules from SQLAlchemy and SerializerMixin for serialization.
 import re
 
-# from config import bcrypt, db
 from config import bcrypt, db
 from sqlalchemy import MetaData, null
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
-
-# metadata = MetaData(
-#     naming_convention={
-#         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-#     }
-# )
+from helpers import (
+    dollar_to_cents,
+    validate_not_blank,
+    validate_positive_number,
+    validate_type,
+)
 
 # Product Model
 # This class represents the products that we're selling.
@@ -41,6 +40,15 @@ class Product(db.Model, SerializerMixin):
 
     # Validations
 
+    @validates("name", "description", "image_url", "imageAlt")
+    def validate_not_blank(self, key, value):
+        return validate_not_blank(value, key)
+
+    @validates("price")
+    def validate_price(self, key, price):
+        price_in_cents = validate_positive_number(dollar_to_cents(price), key)
+        return price_in_cents
+
     def __repr__(self):
         return f"<Product {self.name}>"
 
@@ -66,6 +74,10 @@ class Category(db.Model, SerializerMixin):
     serialize_rules = ("-product_categories",)
 
     # Validations
+
+    @validates("name")
+    def validate_name(self, key, name):
+        return validate_not_blank(name, key)
 
     def __repr__(self):
         return f"<Category {self.name}>"
@@ -97,6 +109,13 @@ class ProductCategory(db.Model, SerializerMixin):
 
     # Validations
 
+    @validates("product_id", "category_id")
+    def validate_ids(self, key, value):
+        value = validate_type(value, key, int)
+        if value is None:
+            raise ValueError(f"{key} must not be null.")
+        return value
+
     def __repr__(self):
         return f"<ProductCategory Product: {self.product_id}, Category: {self.category_id}>"
 
@@ -127,6 +146,28 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ("-orders",)
 
     # Validations
+    # every field needs to be required/have validation
+
+    @property
+    def password(self):
+        raise AttributeError("password is not a readable attribute")
+
+    @password.setter
+    def password(self, password):
+        self._password_hash = bcrypt.generate_password_hash(password).decode("utf-8")
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password)
+
+    @validates("email")
+    def validate_email(self, key, email):
+        if not re.match("[^@]+@[^@]+\.[^@]+", email):
+            raise ValueError("Invalid email address.")
+        return email
+
+    @validates("username")
+    def validate_username(self, key, username):
+        return validate_not_blank(username, key)
 
 
 # Order Model

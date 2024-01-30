@@ -5,19 +5,32 @@ from random import randint, choice as rc
 
 # Remote library imports
 from faker import Faker
-from models import Product
+from config import app, db
+from models import Product, Category, Order, OrderDetail, ProductCategory, User
+from flask_bcrypt import Bcrypt
+from helpers import dollar_to_cents
 
 # Local imports
 from app import app
 from models import db
 
+bcrypt = Bcrypt(app)
+fake = Faker()
+
 if __name__ == "__main__":
     fake = Faker()
     with app.app_context():
+        print("Deleting data...")
+        Category.query.delete()
+        Product.query.delete()
+        Order.query.delete()
+        OrderDetail.query.delete()
+        ProductCategory.query.delete()
+        User.query.delete()
+
         print("Starting seed...")
 
-        print("Creating product")
-
+        print("Creating products...")
         product1 = Product(
             name="shirt",
             description="70s floral shirt",
@@ -30,5 +43,7 @@ if __name__ == "__main__":
 
         db.session.add_all(products)
         db.session.commit()
+
+        print("Creating users...")
 
         print("Seeding done!")
