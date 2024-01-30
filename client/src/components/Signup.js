@@ -23,13 +23,13 @@ export default function Signup({ user, setUser }) {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      if (response.status === 201) {
         const user = await response.json();
-        localStorage.setItem("userID", user.id); // Store user ID in local storage
-        // Redirect to the appropriate page or display a success message
+        localStorage.setItem("userID", user.id);
         setUser(user);
       } else {
-        // Handle signup error (e.g., display error message)
+        const errorData = await response.json();
+        // Handle signup error (e.g., display error message using errorData)
       }
     } catch (error) {
       // Handle network errors

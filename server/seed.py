@@ -18,54 +18,61 @@ bcrypt = Bcrypt(app)
 
 items_data = [
     {
-        "name": "70s striped shirt",
+        "name": "70's Striped Shirt",
         "imageSrc": "https://img1.shopcider.com/product/1690024871000-82YaD4.jpg?x-oss-process=image/resize,w_1050,m_lfit/quality,Q_80/interlace,1",
         "imageAlt": "Striped 70s shirt",
         "description": "The grooviest striped shirt; you'll feel like Donna in That 70's show!",
         "category_name": "Clothing",
     },
-    # {
-    #     "name": "Horologe Elegance Alpine",
-    #     "imageSrc": "img/horologe_elegance_alpine.png",
-    #     "imageAlt": "The Horologe Elegance Alpine watch blends tradition with alpine scenery.",
-    #     "category_name": "Elite",
-    # },
-    # {
-    #     "name": "Pastoral Reflection",
-    #     "imageSrc": "img/pastoral_reflection.png",
-    #     "imageAlt": "The Pastoral Reflection watch, where time meets the tranquility of nature.",
-    #     "category_name": "Genesis",
-    # },
-    # {
-    #     "name": "Urban Allegory",
-    #     "imageSrc": "img/urban_allegory.png",
-    #     "imageAlt": "Urban Allegory, a watch that embodies the spirit of the metropolis.",
-    #     "category_name": "Elite",
-    # },
-    # {
-    #     "name": "Haute Society",
-    #     "imageSrc": "img/haute_society.png",
-    #     "imageAlt": "Haute Society, the watch that epitomizes the zenith of luxury.",
-    #     "category_name": "Genesis",
-    # },
-    # {
-    #     "name": "Alpine Precision",
-    #     "imageSrc": "img/alpine_precision.png",
-    #     "imageAlt": "Alpine Precision, a watch that defines accuracy and Swiss elegance.",
-    #     "category_name": "Elite",
-    # },
-    # {
-    #     "name": "Alpine Enforcer",
-    #     "imageSrc": "img/alpine_enforcer.png",
-    #     "imageAlt": "The Alpine Enforcer watch, robustness and precision in one piece.",
-    #     "category_name": ["Genesis", "Elite"],
-    # },
-    # {
-    #     "name": "Urban Reflection",
-    #     "imageSrc": "img/urban_reflection.png",
-    #     "imageAlt": "Urban Reflection, the essence of city life on your wrist.",
-    #     "category_name": ["Genesis", "Elite"],
-    # },
+    {
+        "name": "Corduroy Skirt",
+        "imageSrc": "https://www.lulus.com/images/product/xlarge/4471890_913762.jpg?w=743&hdpi=1",
+        "imageAlt": "Brown corduroy mini skirt",
+        "description": "The cutest little skirt that goes with anything."
+        "category_name": "Clothing",
+    },
+    {
+        "name": "Brown Knee-High Boots",
+        "imageSrc": "https://marcfisherfootwear.com/cdn/shop/files/102b49ecd20a771ffb5c7b6793341649ebbc83c4_5000x.jpg?v=1687960331",
+        "imageAlt": "Brown knee-high boots",
+        "description": "Perfect for Fall (or any season, really), these boots will go with any outfit."
+        "category_name": "Clothing",
+    },
+    {
+        "name": "Brass Candlestick Holders",
+        "imageSrc": "https://m.media-amazon.com/images/I/61FW5ipX1dL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+        "imageAlt": "Brass candlestick holders",
+        "description": "This set of three candlestick holders will add elegance to any room.",
+        "category_name": "Housewares",
+    },
+    {
+        "name": "Record Table",
+        "imageSrc": "https://ashleyfurniture.scene7.com/is/image/AshleyFurniture/A600061638_1?$AFHS-PDP-Zoomed$",
+        "imageAlt": "Wooden record table",
+        "description": "Tap into mid-century aesthetics with this vinyl record display stand.",
+        "category_name": "Housewares",
+    },
+    {
+        "name": "90's Leather Jacket",
+        "imageSrc": "https://img1.shopcider.com/product/1658232685000-7zRZim.jpg?x-oss-process=image/resize,w_350,m_lfit/quality,Q_80/interlace,1",
+        "imageAlt": "Brown leather jacket",
+        "description": "Oversized and perfectly worn-in, this jacket would go perfectly with skirts, dresses, or jeans."
+        "category_name": "Clothing",
+    },
+    {
+        "name": "Flower Power Sweater",
+        "imageSrc": "https://img1.shopcider.com/product/1699332844000-cXJRyb.jpg?x-oss-process=image/resize,w_350,m_lfit/quality,Q_80/interlace,1",
+        "imageAlt": "Bright green sweater with embroidered flowers",
+        "description": "The cutest sweater ever, this would look adorable over a sundress!"
+        "category_name": "Clothing",
+    },
+    {
+        "name": "Tamagotchi",
+        "imageSrc": "https://images.urbndata.com/is/image/UrbanOutfitters/86237773_010_b?$xlarge$&fit=constrain&fmt=webp&qlt=80&wid=960",
+        "imageAlt": "Vintage Tamagotchi toy",
+        "description": "The OG ‘90s kid fave- get it while you can!"
+        "category_name": "Misc",
+    },
     # {
     #     "name": "Velocity Visionary",
     #     "imageSrc": "img/velocity_visionary.png",

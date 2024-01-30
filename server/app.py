@@ -11,6 +11,7 @@ from sqlalchemy.exc import IntegrityError
 # Local imports
 from config import app, db, api
 from helpers import validate_not_blank, validate_type
+from os import environ
 from dotenv import load_dotenv
 from models import Item, Category, Order, OrderDetail, ItemCategory, User
 
@@ -20,7 +21,7 @@ DATABASE = os.environ.get(
     "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'instance', 'app.db')}"
 )
 load_dotenv()
-app.secret_key = os.environ.get("SECRET_KEY")
+app.secret_key = environ.get("SECRET_KEY")
 
 
 @app.route("/")
@@ -47,6 +48,7 @@ def index():
 #     if (request.endpoint) not in open_access_list and (not session.get("user_id")):
 #         return {"error": "401 Unauthorized"}, 401
 
+# TEST
 
 # SIGNUP
 
@@ -73,15 +75,16 @@ class Signup(Resource):
             zip=zip,
         )
         # the setter will encrypt this
-        user.password_hash = password
         try:
+            user.password_hash = password
             db.session.add(user)
             db.session.commit()
             user_id = user.id
             session["user_id"] = user_id
             return user.to_dict(), 201
-        except ValueError as e:
-            return make_response({"error": e.__str__()}, 400)
+        except Exception as e:
+            db.session.rollback()  # Rollback the changes if an error occurs
+            return {"error": str(e)}, 422
         except IntegrityError:
             return {"error": "422 Unprocessable Entity"}, 422
 

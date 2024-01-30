@@ -12,6 +12,7 @@ from helpers import (
     validate_positive_number,
     validate_type,
 )
+from sqlalchemy.ext.hybrid import hybrid_property
 
 # Product Model
 # This class represents the products that we're selling.
@@ -140,8 +141,8 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(255), nullable=True)
     lastname = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    _password_hash = db.Column("password_hash", db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    _password_hash = db.Column(db.String(255), nullable=False)
     address = db.Column((db.Text), nullable=False)
     city = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(255), nullable=False)
@@ -158,16 +159,17 @@ class User(db.Model, SerializerMixin):
     # Validations
     # every field needs to be required/have validation
 
-    @property
-    def password(self):
-        raise AttributeError("password is not a readable attribute")
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError("Password hashes may not be viewed.")
 
-    @password.setter
-    def password(self, password):
-        self._password_hash = bcrypt.generate_password_hash(password).decode("utf-8")
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode("utf-8"))
+        self._password_hash = password_hash.decode("utf-8")
 
     def authenticate(self, password):
-        return bcrypt.check_password_hash(self._password_hash, password)
+        return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
 
     @validates("email")
     def validate_email(self, key, email):
