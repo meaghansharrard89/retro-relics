@@ -36,7 +36,7 @@ class Item(db.Model, SerializerMixin):
 
     # Serializations
 
-    serialize_rules = ("-item_categories.item",)
+    serialize_rules = ("-item_categories",)
 
     # Validations
 
@@ -48,6 +48,17 @@ class Item(db.Model, SerializerMixin):
     def validate_price(self, key, price):
         price_in_cents = validate_positive_number(dollar_to_cents(price), key)
         return price_in_cents
+
+    def to_dict(self, convert_price_to_dollars=False):
+        data = {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "price": self.price / 100 if convert_price_to_dollars else self.price,
+            "image_url": self.image_url,
+            "imageAlt": self.imageAlt,
+        }
+        return data
 
     def __repr__(self):
         return f"<Product {self.name}>"
@@ -71,7 +82,7 @@ class Category(db.Model, SerializerMixin):
 
     # Serializations
 
-    serialize_rules = ("-item_categories.category",)
+    serialize_rules = ("-item_categories",)
 
     # Validations
 
@@ -127,15 +138,14 @@ class ItemCategory(db.Model, SerializerMixin):
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255), unique=True, nullable=False)
+    firstname = db.Column(db.String(255), nullable=True)
+    lastname = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
-    first_name = db.Column(db.String(255), nullable=True)
-    last_name = db.Column(db.String(255), nullable=False)
     _password_hash = db.Column("password_hash", db.String(255), nullable=False)
-    shipping_address = db.Column((db.Text), nullable=False)
-    shipping_city = db.Column(db.String(255), nullable=False)
-    shipping_state = db.Column(db.String(255), nullable=False)
-    shipping_zip = db.Column(db.String(255), nullable=False)
+    address = db.Column((db.Text), nullable=False)
+    city = db.Column(db.String(255), nullable=False)
+    state = db.Column(db.String(255), nullable=False)
+    zip = db.Column(db.String(255), nullable=False)
 
     # Relationships
 
@@ -164,10 +174,6 @@ class User(db.Model, SerializerMixin):
         if not re.match("[^@]+@[^@]+\.[^@]+", email):
             raise ValueError("Invalid email address.")
         return email
-
-    @validates("username")
-    def validate_username(self, key, username):
-        return validate_not_blank(username, key)
 
 
 # Order Model

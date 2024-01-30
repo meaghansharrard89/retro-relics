@@ -3,9 +3,10 @@
 # Standard library imports
 
 # Remote library imports
-from flask import jsonify, make_response, request
+from flask import jsonify, make_response, session, request
 from flask_restful import Resource
 import os
+from sqlalchemy.exc import IntegrityError
 
 # Local imports
 from config import app, db, api
@@ -27,21 +28,113 @@ def index():
     return "<h1>Retro Relics</h1>"
 
 
+# AUTHENTICATION
+
+
+# @app.before_request
+# def check_if_logged_in():
+#     open_access_list = [
+#         "signup",
+#         "login",
+#         "check_session",
+#         "about",
+#         "shop",
+#         "cart",
+#         "social",
+#         "home",
+#     ]
+
+#     if (request.endpoint) not in open_access_list and (not session.get("user_id")):
+#         return {"error": "401 Unauthorized"}, 401
+
+
+# SIGNUP
+
+
+class Signup(Resource):
+    def post(self):
+        request_json = request.get_json()
+
+        firstname = request_json.get("firstname")
+        lastname = request_json.get("lastname")
+        email = request_json.get("email")
+        address = request_json.get("address")
+        city = request_json.get("city")
+        state = request_json.get("state")
+        zip = request_json.get("zip")
+        password = request_json.get("password")
+        user = User(
+            firstname=firstname,
+            lastname=lastname,
+            email=email,
+            address=address,
+            city=city,
+            state=state,
+            zip=zip,
+        )
+        # the setter will encrypt this
+        user.password_hash = password
+        try:
+            db.session.add(user)
+            db.session.commit()
+            user_id = user.id
+            session["user_id"] = user_id
+            return user.to_dict(), 201
+        except ValueError as e:
+            return make_response({"error": e.__str__()}, 400)
+        except IntegrityError:
+            return {"error": "422 Unprocessable Entity"}, 422
+
+
+api.add_resource(Signup, "/signup", endpoint="signup")
+
+# CHECK SESSION
+
+
+class CheckSession(Resource):
+    def get(self):
+        user_id = session.get("user_id")
+        if user_id:
+            user = User.query.filter(User.id == user_id).first()
+            return user.to_dict(), 200
+        return {}, 401
+
+
+api.add_resource(CheckSession, "/check_session", endpoint="check_session")
+
+# LOGIN
+
+
+class Login(Resource):
+    def post(self):
+        request_json = request.get_json()
+        email = request_json.get("email")
+        password = request_json.get("password")
+        user = User.query.filter(User.email == email).first()
+        if user:
+            if user.authenticate(password):
+                session["user_id"] = user.id
+                return user.to_dict(), 200
+        return {"error": "401 Unauthorized"}, 401
+
+
+api.add_resource(Login, "/login", endpoint="login")
+
+# LOGOUT
+
+
+class Logout(Resource):
+    def delete(self):
+        session.clear()
+        return {}, 204
+
+
+api.add_resource(Logout, "/logout", endpoint="logout")
+
 # ITEMS
 
 
 class Items(Resource):
-    def to_dict(self, convert_price_to_dollars=False):
-        data = {
-            "id": self.id,
-            "name": self.name,
-            "description": self.description,
-            "price": self.price / 100 if convert_price_to_dollars else self.price,
-            "image_url": self.image_url,
-            "imageAlt": self.imageAlt,
-        }
-        return data
-
     def get(self):
         try:
             items = [item.to_dict() for item in Item.query.all()]
@@ -71,7 +164,6 @@ class Items(Resource):
                 name=item_data["name"],
                 description=item_data["description"],
                 price=new_item_price,
-                item_quantity=item_data["item_quantity"],
                 image_url=item_data["image_url"],
                 imageAlt=item_data["imageAlt"],
             )
@@ -139,29 +231,24 @@ class Users(Resource):
         user_data = request.get_json()
         try:
             new_user = User(
-                username=user_data["username"],
                 email=user_data["email"],
-                first_name=user_data.get("first_name", ""),
-                last_name=user_data.get("last_name", ""),
-                shipping_address=user_data.get("shipping_address", ""),
-                shipping_city=user_data.get("shipping_city", ""),
-                shipping_state=user_data.get("shipping_state", ""),
-                shipping_zip=user_data.get("shipping_zip", ""),
+                firstname=user_data.get("firstname", ""),
+                lastname=user_data.get("lastname", ""),
+                address=user_data.get("address", ""),
+                city=user_data.get("city", ""),
+                state=user_data.get("state", ""),
+                zip=user_data.get("zip", ""),
             )
             new_user.password = user_data["password"]
             db.session.add(new_user)
             db.session.commit()
-
             return make_response({"message": "User created successfully"}, 201)
         except ValueError as e:
             db.session.rollback()
             if "UNIQUE constraint failed" in str(e):
-                return make_response(
-                    {"error": "Username or email already exists."}, 409
-                )
+                return make_response({"error": "Email already exists."}, 409)
             else:
                 return make_response({"error": "Database integrity error."}, 500)
-
         except Exception as error:
             db.session.rollback()
             return make_response({"error": "User creation failed: " + str(error)}, 500)
@@ -169,13 +256,11 @@ class Users(Resource):
     def delete(self):
         try:
             data = request.get_json()
-            if not all(key in data for key in ("username", "password")):
-                return make_response(
-                    {"error": "Username and password are required"}, 400
-                )
-            username = data["username"]
+            if not all(key in data for key in ("email", "password")):
+                return make_response({"error": "Email and password are required"}, 400)
+            email = data["email"]
             password = data["password"]
-            user = User.query.filter_by(username=username).first()
+            user = User.query.filter_by(email=email).first()
             if user and user.authenticate(password):
                 user_to_delete = user
                 db.session.delete(user_to_delete)
@@ -189,13 +274,13 @@ class Users(Resource):
     def patch(self):
         data = request.get_json()
         try:
-            if not all(key in data for key in ("username", "password", "newPassword")):
+            if not all(key in data for key in ("email", "password", "newPassword")):
                 return make_response({"error": "Required fields are missing"}, 400)
-            username = data["username"]
+            email = data["email"]
             password = data["password"]
             new_password = data["newPassword"]
 
-            user = User.query.filter_by(username=username).first()
+            user = User.query.filter_by(email=email).first()
             if user and user.authenticate(password):
                 user.password = new_password
                 db.session.commit()
@@ -281,6 +366,18 @@ class Categories(Resource):
 
 api.add_resource(Categories, "/categories")
 
+
+def get_or_create_category(category_name):
+    category = (
+        db.session.query(Category).filter_by(name=category_name).first()
+    )  # first row is more effcient than all() as it only takes one in memory.Filters one where the anem matches.
+    if category is None:
+        category = Category(name=category_name)
+        db.session.add(category)
+        db.session.commit()
+    return category
+
+
 # ITEM CATEGORIES
 
 
@@ -318,23 +415,23 @@ api.add_resource(ItemCategories, "/item_categories")
 # LOGIN
 
 
-class Login(Resource):
-    def post(self):
-        data = request.get_json()
-        if not all(key in data for key in ("username", "password")):
-            return make_response({"error": "Username and password are required"}, 400)
-        username = data["username"]
-        password = data["password"]
-        user = User.query.filter_by(username=username).first()
-        if user and user.authenticate(password):
-            return make_response(
-                {"message": "Login successful", "user_id": user.id}, 200
-            )
-        else:
-            return make_response({"error": "Invalid credentials"}, 401)
+# class Login(Resource):
+#     def post(self):
+#         data = request.get_json()
+#         if not all(key in data for key in ("username", "password")):
+#             return make_response({"error": "Username and password are required"}, 400)
+#         username = data["username"]
+#         password = data["password"]
+#         user = User.query.filter_by(username=username).first()
+#         if user and user.authenticate(password):
+#             return make_response(
+#                 {"message": "Login successful", "user_id": user.id}, 200
+#             )
+#         else:
+#             return make_response({"error": "Invalid credentials"}, 401)
 
 
-api.add_resource(Login, "/login")
+# api.add_resource(Login, "/login")
 
 
 if __name__ == "__main__":
