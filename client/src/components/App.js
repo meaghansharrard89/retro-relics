@@ -13,6 +13,7 @@ import Social from "../pages/Social";
 import NavBar from "./NavBar";
 import ScrollToTop from "../components/ScrollToTop";
 import Login from "./Login";
+import Checkout from "../components/Checkout";
 
 function App() {
   const [user, setUser] = useState();
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/checkout">
+            <Checkout />
           </Route>
         </Switch>
       </main>

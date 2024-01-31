@@ -5,8 +5,7 @@ import { useLocation, useHistory } from "react-router-dom";
 function Shop({ user, setUser }) {
   const [items, setItems] = useState([]);
   const location = useLocation();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
   const itemList = {
     listStyle: "none",
@@ -18,6 +17,13 @@ function Shop({ user, setUser }) {
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
+  };
+
+  const handleClick = (item) => {
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const updatedCart = [...existingCart, item];
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    history.push("/cart");
   };
 
   useEffect(() => {
@@ -33,14 +39,14 @@ function Shop({ user, setUser }) {
     // });
   }, []);
 
-  useEffect(() => {
-    const el = document.getElementById("shop");
-    el &&
-      window.scrollTo({
-        behavior: "smooth",
-        top: el.offsetTop,
-      });
-  }, [location]);
+  // useEffect(() => {
+  //   const el = document.getElementById("shop");
+  //   el &&
+  //     window.scrollTo({
+  //       behavior: "smooth",
+  //       top: el.offsetTop,
+  //     });
+  // }, [location]);
 
   return (
     <>
@@ -56,7 +62,7 @@ function Shop({ user, setUser }) {
             <p>Price: {item.price}</p>
             <img src={item.image_url} alt={item.imageAlt} width="200px" />
             <br />
-            <button>Add to Cart</button>
+            <button onClick={() => handleClick(item)}>Add to Cart</button>
           </div>
         ))}
       </div>

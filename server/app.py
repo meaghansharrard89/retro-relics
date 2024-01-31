@@ -313,11 +313,10 @@ class Orders(Resource):
             new_order = Order(user_id=order_data["user_id"])
             db.session.add(new_order)
             db.session.flush()
-            for detail in order_data["order_details"]:
+            for detail in order_data.get("order_details", []):
                 order_detail = OrderDetail(
                     order_id=new_order.id,
-                    product_id=detail["product_id"],
-                    quantity=detail["quantity"],
+                    item_id=detail["item_id"],
                 )
                 db.session.add(order_detail)
             db.session.commit()
