@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-function NavBar() {
+function NavBar({ cartCount }) {
   const linkStyle = {
     color: "white",
     backgroundColor: "#A8672A",
@@ -26,7 +26,7 @@ function NavBar() {
         Social
       </NavLink>
       <NavLink to="/cart" style={linkStyle}>
-        Cart
+        Cart <span>{cartCount}</span>
       </NavLink>
     </>
   );

@@ -17,15 +17,21 @@ import Checkout from "../components/Checkout";
 
 function App() {
   const [user, setUser] = useState();
+  const [cartCount, setCartCount] = useState(0);
+
   useEffect(() => {
     fetch("/check_session")
       .then((r) => r.json())
       .then((u) => setUser(u));
   }, []);
 
+  const updateCartCount = (count) => {
+    setCartCount(count);
+  };
+
   return (
     <Router>
-      <NavBar />
+      <NavBar cartCount={cartCount} />
       <main>
         <Switch>
           <Route exact path="/">
@@ -35,13 +41,22 @@ function App() {
             <About user={user} setUser={setUser} />
           </Route>
           <Route exact path="/shop">
-            <Shop user={user} setUser={setUser} />
+            <Shop
+              user={user}
+              setUser={setUser}
+              updateCartCount={updateCartCount}
+            />
           </Route>
           <Route exact path="/social">
             <Social user={user} setUser={setUser} />
           </Route>
           <Route exact path="/cart">
-            <Cart user={user} setUser={setUser} />
+            <Cart
+              user={user}
+              setUser={setUser}
+              updateCartCount={updateCartCount}
+              cartCount={cartCount}
+            />
           </Route>
           <Route exact path="/login">
             <Login />

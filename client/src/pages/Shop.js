@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { useLocation, useHistory } from "react-router-dom";
 
-function Shop({ user, setUser }) {
+function Shop({ user, setUser, updateCartCount }) {
   const [items, setItems] = useState([]);
   const location = useLocation();
   const history = useHistory();
@@ -23,7 +23,7 @@ function Shop({ user, setUser }) {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const updatedCart = [...existingCart, item];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    history.push("/cart");
+    updateCartCount(updatedCart.length);
   };
 
   useEffect(() => {

@@ -5,10 +5,12 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import Checkout from "../components/Checkout";
 
-function Cart({ user, setUser }) {
+function Cart({ user, setUser, cartCount, updateCartCount }) {
   const location = useLocation();
   const [cartItems, setCartItems] = useState([]);
   const history = useHistory();
+  const [orderDetails, setOrderDetails] = useState([]);
+  const [error, setError] = useState(""); // Add error state
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + item.price, 0).toFixed(2);
@@ -19,10 +21,17 @@ function Cart({ user, setUser }) {
     currentCart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(currentCart));
     setCartItems(currentCart);
+    updateCartCount(cartCount.length);
   };
 
   const handleCheckout = async (e) => {
     try {
+      if (cartItems.length === 0) {
+        // Alert the user or provide some feedback that the cart is empty
+        window.alert("Cannot checkout with an empty cart.");
+        return;
+      }
+
       const orderDetails = cartItems.map((item) => ({
         item_id: item.id,
       }));
@@ -44,9 +53,12 @@ function Cart({ user, setUser }) {
         throw new Error("Network response was not ok.");
       }
 
-      console.log("Order placed successfully!");
+      localStorage.removeItem("cart");
+      window.alert("Order placed successfully!");
+      history.push("/checkout", { username: user.firstname });
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
+      window.alert(`Error: ${error.message}`);
     }
   };
 
