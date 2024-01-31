@@ -27,8 +27,7 @@ export default function Login({ user, setUser }) {
     } catch (error) {
       // Handle network errors
     }
-    // Handle existing user form submission logic here
-    // Redirect to /login after submission
+    console.log("I was submitted");
   };
 
   return (
