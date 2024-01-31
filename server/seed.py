@@ -8,7 +8,8 @@ from faker import Faker
 from config import app, db
 from models import Item, Category, Order, OrderDetail, ItemCategory, User
 from flask_bcrypt import Bcrypt
-from helpers import dollar_to_cents
+
+# from helpers import dollar_to_cents
 
 # Local imports
 from app import app, get_or_create_category
@@ -23,7 +24,7 @@ items_data = [
         "imageAlt": "Striped 70s shirt",
         "description": "The grooviest striped shirt; you'll feel like Donna in That 70's show!",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$20.00",
     },
     {
         "name": "Corduroy Skirt",
@@ -31,7 +32,7 @@ items_data = [
         "imageAlt": "Brown corduroy mini skirt",
         "description": "The cutest little skirt that goes with anything.",
         "category_name": "Clothing",
-        "price": ,
+        "price": "$30.00",
     },
     {
         "name": "Brown Knee-High Boots",
@@ -39,7 +40,7 @@ items_data = [
         "imageAlt": "Brown knee-high boots",
         "description": "Perfect for Fall (or any season, really), these boots will go with any outfit.",
         "category_name": "Clothing",
-        "price": ,
+        "price": "$50.00",
     },
     {
         "name": "Brass Candlestick Holders",
@@ -47,7 +48,7 @@ items_data = [
         "imageAlt": "Brass candlestick holders",
         "description": "This set of three candlestick holders will add elegance to any room.",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$60.00",
     },
     {
         "name": "Record Table",
@@ -55,7 +56,7 @@ items_data = [
         "imageAlt": "Wooden record table",
         "description": "Tap into mid-century aesthetics with this vinyl record display stand.",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$100.00",
     },
     {
         "name": "90's Leather Jacket",
@@ -63,7 +64,7 @@ items_data = [
         "imageAlt": "Brown leather jacket",
         "description": "Oversized and perfectly worn-in, this jacket would go perfectly with skirts, dresses, or jeans.",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$100.00",
     },
     {
         "name": "Flower Power Sweater",
@@ -71,7 +72,7 @@ items_data = [
         "imageAlt": "Bright green sweater with embroidered flowers",
         "description": "The cutest sweater ever, this would look adorable over a sundress!",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$30.00",
     },
     {
         "name": "Tamagotchi",
@@ -79,7 +80,7 @@ items_data = [
         "imageAlt": "Vintage Tamagotchi toy",
         "description": "The OG ‘90s kid fave- get it while you can!",
         "category_name": "Misc",
-        "price": "",
+        "price": "$20.00",
     },
     {
         "name": "Yellow Storage Locker",
@@ -87,7 +88,7 @@ items_data = [
         "imageAlt": "Yellow storage locker",
         "description": "School is officially back in session with this adorable storage locker!",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$150.00",
     },
     {
         "name": "Off-Shoulder Knitted Top",
@@ -95,7 +96,7 @@ items_data = [
         "imageAlt": "Off-shoulder knitted top",
         "description": "Perfect for date night, or any night, really!",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$20.00",
     },
     {
         "name": "Geometric Knitted Mini Dress",
@@ -103,7 +104,7 @@ items_data = [
         "imageAlt": "Geometric knitted mini dress",
         "description": "Get ready to dance the night away in this adorable dress!",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$40.00",
     },
     {
         "name": "High Neck Floral Shirt",
@@ -111,7 +112,7 @@ items_data = [
         "imageAlt": "High-neck floral shirt",
         "description": "An amazing layering piece, this can be paired with anything.",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$20.00",
     },
     {
         "name": "Gold Ornate Mirror",
@@ -119,7 +120,7 @@ items_data = [
         "imageAlt": "Gold ornate mirror",
         "description": "An elegant, vintage wall mirror featuring an arched silhouette with and intricately carved wood frame that infuses your space your space with effortless charm.",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$75.00",
     },
     {
         "name": "Macrame Tulip Wall Set",
@@ -127,7 +128,7 @@ items_data = [
         "imageAlt": "Macrame tulip wall set",
         "description": "Transform your space into a whimsical garden scene with this set of macrame wall hangings featuring four multi-colored tulips and one itty bitty bee.",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$75.00",
     },
     {
         "name": "Denim High-Waisted Jeans",
@@ -135,7 +136,7 @@ items_data = [
         "imageAlt": "Denim high-waisted jeans",
         "description": "The grooviest jeans ever! Wear these with platform sandals for the ultimate 70's look.",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$80.00",
     },
     {
         "name": "Beaded Mushroom Throw Pillow",
@@ -143,7 +144,7 @@ items_data = [
         "imageAlt": "Beaded mushroom throw pillow",
         "description": "Create a whimsical feel in your space with this shaped throw pillow featuring a mushroom silhouette with beaded detailing allover.",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$50.00",
     },
     {
         "name": "V-Neck Geometric Sweater Vest",
@@ -151,7 +152,7 @@ items_data = [
         "imageAlt": "V-neck geometric sweater vest",
         "description": "Wear with jeans or over a dress for a retro look.",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$40.00",
     },
     {
         "name": "Wicker Vanity and Stool Set",
@@ -159,7 +160,7 @@ items_data = [
         "imageAlt": "Wicker vanity and stool set",
         "description": "Vintage-inspired details and inviting materials combine to create this standout vanity two-piece set, including a table and stool that fit together just right.",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$150.00",
     },
     {
         "name": "Off-the-Shoulder Mesh Tee",
@@ -167,7 +168,7 @@ items_data = [
         "imageAlt": "Long-sleeved mesh tee",
         "description": "Unique and edgy, pair with your favorite denim cutoffs or low-rise trousers for a fun look!",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$20.00",
     },
     {
         "name": "Denim Maxi Skirt",
@@ -175,7 +176,7 @@ items_data = [
         "imageAlt": "Denim maxi skirt",
         "description": "Wear with a tank top and loafers for an edgy look.",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$40.00",
     },
     {
         "name": "Mystery Date Board Game",
@@ -183,7 +184,7 @@ items_data = [
         "imageAlt": "Mystery Date board game",
         "description": "A board game full of surprises, get ready before your date arrives at the door.",
         "category_name": "Misc",
-        "price": "",
+        "price": "$15.00",
     },
     {
         "name": "Sun & Moon Knit Top",
@@ -191,7 +192,7 @@ items_data = [
         "imageAlt": "Sun and moon knit top",
         "description": "Super soft and lovely with a maxi skirt and sandals.",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$30.00",
     },
     {
         "name": "Kit-Cat Classic Clock",
@@ -199,7 +200,7 @@ items_data = [
         "imageAlt": "Kit-Cat classic clock",
         "description": "The original! Complete any space (and keep track of the time).",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$50.00",
     },
     {
         "name": "Patent Leather Loafers",
@@ -207,7 +208,7 @@ items_data = [
         "imageAlt": "Patent leather loafers",
         "description": "Timeless and versatile, these loafers will go with any outfit.",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$50.00",
     },
     {
         "name": "Lava Lamp",
@@ -215,7 +216,7 @@ items_data = [
         "imageAlt": "Lava lamp",
         "description": "Create a groovy scene in your space with this lava lamp featuring a sleek silhouette with vibrant globs of lava.",
         "category_name": "Misc",
-        "price": "",
+        "price": "$30.00",
     },
     {
         "name": "Heart-Shaped Purse",
@@ -223,7 +224,7 @@ items_data = [
         "imageAlt": "Heart-shaped purse",
         "description": "Adorable and perfect for any night out!",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$30.00",
     },
     {
         "name": "Sun Tufted Rug",
@@ -231,7 +232,7 @@ items_data = [
         "imageAlt": "Sun tufted rug",
         "description": "The coziest addition to any space, this tufted rug features a geometric sun motif allover the top in muted shades that infuse your room with warm and inviting appeal.",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$40.00",
     },
     {
         "name": "Silver Star Earrings",
@@ -239,7 +240,7 @@ items_data = [
         "imageAlt": "Silver star earrings",
         "description": "Lovely with an off-the-shoulder top or dress!",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$15.00",
     },
     {
         "name": "Cotton Seed Stitch Throw Blanket",
@@ -247,7 +248,7 @@ items_data = [
         "imageAlt": "Cotton seed stitch throw blanket",
         "description": "Medium-weight throw blanket with seed stitched detailing allover with ditsy florals allover the top with a vibrant blue panel at the reverse.",
         "category_name": "Housewares",
-        "price": "",
+        "price": "$40.00",
     },
     {
         "name": "Floral Bucket Hat",
@@ -255,7 +256,7 @@ items_data = [
         "imageAlt": "Floral bucket hat",
         "description": "Adorable and perfect with jeans or a dress!",
         "category_name": "Clothing",
-        "price": "",
+        "price": "$15.00",
     },
 ]
 

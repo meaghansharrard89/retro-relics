@@ -7,9 +7,9 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from helpers import (
-    dollar_to_cents,
+    # dollar_to_cents,
     validate_not_blank,
-    validate_positive_number,
+    # validate_positive_number,
     validate_type,
 )
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -24,7 +24,7 @@ class Item(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     description = db.Column(db.Text)
-    price = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String)
     imageAlt = db.Column(db.String)
 
@@ -45,17 +45,17 @@ class Item(db.Model, SerializerMixin):
     def validate_not_blank(self, key, value):
         return validate_not_blank(value, key)
 
-    @validates("price")
-    def validate_price(self, key, price):
-        price_in_cents = validate_positive_number(dollar_to_cents(price), key)
-        return price_in_cents
+    # @validates("price")
+    # def validate_price(self, key, price):
+    #     price_in_cents = validate_positive_number(dollar_to_cents(price), key)
+    #     return price_in_cents
 
-    def to_dict(self, convert_price_to_dollars=False):
+    def to_dict(self, convert_price_to_dollars=True):
         data = {
             "id": self.id,
             "name": self.name,
             "description": self.description,
-            "price": self.price / 100 if convert_price_to_dollars else self.price,
+            "price": self.price,
             "image_url": self.image_url,
             "imageAlt": self.imageAlt,
         }

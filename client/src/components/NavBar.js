@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-function NavBar({ cartCount }) {
+function NavBar({ cartCount, user, setUser }) {
   const linkStyle = {
     color: "white",
     backgroundColor: "#A8672A",
@@ -9,6 +9,25 @@ function NavBar({ cartCount }) {
     padding: "10px",
     textDecoration: "none",
     margin: "5px",
+  };
+
+  const handleClick = async (event) => {
+    try {
+      const response = await fetch("/logout", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        localStorage.removeItem("userID");
+        setUser(null);
+      } else {
+        // Handle signup error (e.g., display error message)
+      }
+    } catch (error) {
+      // Handle network errors
+    }
+    // set user, navigate to new page - use setUser as props
   };
 
   return (
@@ -28,6 +47,18 @@ function NavBar({ cartCount }) {
       <NavLink to="/cart" style={linkStyle}>
         Cart <span>{cartCount}</span>
       </NavLink>
+      {user && user.email ? (
+        <>
+          <NavLink to="/profile" style={linkStyle}>
+            Profile
+          </NavLink>
+          <button onClick={handleClick} style={linkStyle}>
+            Logout
+          </button>
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 }

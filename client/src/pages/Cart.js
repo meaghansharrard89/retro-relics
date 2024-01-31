@@ -9,11 +9,41 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
   const location = useLocation();
   const [cartItems, setCartItems] = useState([]);
   const history = useHistory();
+  const [billingInfo, setBillingInfo] = useState({
+    cardName: "",
+    cardNumber: "",
+    expirationDate: "",
+    cvv: "",
+  });
   const [orderDetails, setOrderDetails] = useState([]);
   const [error, setError] = useState(""); // Add error state
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBillingInfo((prevBillingInfo) => ({
+      ...prevBillingInfo,
+      [name]: value,
+    }));
+  };
+
+  const isBillingInfoComplete = () => {
+    const { cardName, cardNumber, expirationDate, cvv } = billingInfo;
+    return (
+      cardName !== "" &&
+      cardNumber !== "" &&
+      expirationDate !== "" &&
+      cvv !== ""
+    );
+  };
+
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price, 0).toFixed(2);
+    return cartItems
+      .reduce((total, item) => {
+        // Remove dollar sign and convert the string to a float
+        const itemPrice = parseFloat(item.price.replace("$", ""));
+        return total + itemPrice;
+      }, 0)
+      .toFixed(2);
   };
 
   const handleDeleteFromCart = (index) => {
@@ -21,7 +51,7 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
     currentCart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(currentCart));
     setCartItems(currentCart);
-    updateCartCount(cartCount.length);
+    // updateCartCount(cartCount.length);
   };
 
   const handleCheckout = async (e) => {
@@ -29,6 +59,13 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
       if (cartItems.length === 0) {
         // Alert the user or provide some feedback that the cart is empty
         window.alert("Cannot checkout with an empty cart.");
+        return;
+      }
+
+      if (!isBillingInfoComplete()) {
+        window.alert(
+          "Please fill out all billing information before confirming the order."
+        );
         return;
       }
 
@@ -54,7 +91,6 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
       }
 
       localStorage.removeItem("cart");
-      window.alert("Order placed successfully!");
       history.push("/checkout", { username: user.firstname });
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
@@ -99,14 +135,59 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
             </button>
           </div>
         ))}
+        <p>Total: ${calculateTotal()}</p>
+        {/*Logged in or new user*/}
         {user && user.email ? (
           <div>
             <h2>Welcome, {user.firstname}!</h2>
-            <p>Complete your order:</p>
-            <p>Total: ${calculateTotal()}</p>
-            {/* Add your order completion content here */}
-            <button onClick={handleCheckout}>Checkout</button>
-            <p>Past orders:</p>
+            <p>Enter your billing information to complete your order:</p>
+            <form>
+              <label>
+                Name on Card:
+                <input
+                  type="text"
+                  name="cardName"
+                  value={billingInfo.cardName}
+                  onChange={handleChange}
+                />
+              </label>
+              <br />
+              <label>
+                Card Number:
+                <input
+                  type="text"
+                  name="cardNumber"
+                  value={billingInfo.cardNumber}
+                  onChange={handleChange}
+                />
+              </label>
+              <br />
+              <label>
+                Expiration Date:
+                <input
+                  type="text"
+                  name="expirationDate"
+                  value={billingInfo.expirationDate}
+                  onChange={handleChange}
+                />
+              </label>
+              <br />
+              <label>
+                CVV:
+                <input
+                  type="text"
+                  name="cvv"
+                  value={billingInfo.cvv}
+                  onChange={handleChange}
+                />
+              </label>
+            </form>
+            <button
+              onClick={handleCheckout}
+              disabled={!isBillingInfoComplete()}
+            >
+              Confirm order
+            </button>
           </div>
         ) : (
           <div className="forms-container">

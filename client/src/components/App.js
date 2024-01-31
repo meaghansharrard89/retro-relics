@@ -14,6 +14,7 @@ import NavBar from "./NavBar";
 import ScrollToTop from "../components/ScrollToTop";
 import Login from "./Login";
 import Checkout from "../components/Checkout";
+import Profile from "../pages/Profile";
 
 function App() {
   const [user, setUser] = useState();
@@ -31,7 +32,7 @@ function App() {
 
   return (
     <Router>
-      <NavBar cartCount={cartCount} />
+      <NavBar cartCount={cartCount} user={user} setUser={setUser} />
       <main>
         <Switch>
           <Route exact path="/">
@@ -63,6 +64,9 @@ function App() {
           </Route>
           <Route exact path="/checkout">
             <Checkout />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
           </Route>
         </Switch>
       </main>
