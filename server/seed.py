@@ -133,7 +133,7 @@ items_data = [
         "name": "V-Neck Geometric Sweater Vest",
         "imageSrc": "https://img1.shopcider.com/product/1700291745000-xWEMcN.jpg?x-oss-process=image/resize,w_350,m_lfit/quality,Q_80/interlace,1",
         "imageAlt": "V-neck geometric sweater vest",
-        "description": "Wear with jeans or over a dress for a retro look."
+        "description": "Wear with jeans or over a dress for a retro look.",
         "category_name": "Clothing",
     },
     {
@@ -285,7 +285,9 @@ def create_fake_users(num_users=2):
                 city=fake.city(),
                 state=fake.state(),
                 zip=fake.zipcode(),
-                password=bcrypt.generate_password_hash(fake.password()).decode("utf-8"),
+                _password_hash=bcrypt.generate_password_hash(fake.password()).decode(
+                    "utf-8"
+                ),
             )
 
             db.session.add(user)
