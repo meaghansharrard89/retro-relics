@@ -298,6 +298,33 @@ class Users(Resource):
 
 api.add_resource(Users, "/users")
 
+
+class UsersById(Resource):
+    def patch(self, id):
+        user = User.query.filter_by(id=id).first()
+        if not user:
+            return make_response({"error": "User not found"}, 404)
+        data = request.get_json()
+        try:
+            setattr(user, "firstname", data["firstname"])
+            setattr(user, "lastname", data["lastname"])
+            setattr(user, "email", data["email"])
+            setattr(user, "address", data["address"])
+            setattr(user, "city", data["city"])
+            setattr(user, "state", data["state"])
+            setattr(user, "zip", data["zip"])
+            db.session.add(user)
+            db.session.commit()
+            return (
+                user.to_dict(),
+                202,
+            )
+        except ValueError:
+            return make_response({"errors": ["validation errors"]}, 400)
+
+
+api.add_resource(UsersById, "/users/<int:id>")
+
 # ORDERS
 
 
