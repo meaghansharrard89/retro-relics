@@ -59,6 +59,7 @@ class Item(db.Model, SerializerMixin):
             "price": self.price,
             "image_url": self.image_url,
             "imageAlt": self.imageAlt,
+            "inStock": self.inStock,
         }
         return data
 

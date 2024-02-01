@@ -7,6 +7,7 @@ import { useOrder } from "../components/OrderContext";
 function Cart({ user, setUser, cartCount, updateCartCount }) {
   const location = useLocation();
   const [cartItems, setCartItems] = useState([]);
+  const [items, setItems] = useState([]);
   const history = useHistory();
   const [billingInfo, setBillingInfo] = useState({
     cardName: "",
@@ -87,22 +88,18 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
         throw new Error("Network response was not ok.");
       }
 
-      // data = await response.json();
+      const data = await response.json();
 
-      // data.order is the new order object
-      // data.items are the updated items
-      // set items state so these items will be updated in it
-
-      // setItems((items) =>
-      //   items.map((item) => {
-      //     updatedItem = data.items.find((i) => i.id == item.id);
-      //     if (updatedItem) {
-      //       return updatedItem;
-      //     } else {
-      //       return item;
-      //     }
-      //   })
-      // );
+      setItems((items) =>
+        items.map((item) => {
+          const updatedItem = data.items.find((i) => i.id === item.id);
+          if (updatedItem) {
+            return updatedItem;
+          } else {
+            return item;
+          }
+        })
+      );
 
       setCompletedOrder(orderDetails);
       localStorage.removeItem("cart");

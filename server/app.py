@@ -157,6 +157,7 @@ class Items(Resource):
                 "price",
                 "image_url",
                 "imageAlt",
+                "inStock",
             ]
             if not all(field in item_data for field in required_fields):
                 return make_response({"error": "Missing required fields"}, 400)
@@ -169,6 +170,7 @@ class Items(Resource):
                 price=new_item_price,
                 image_url=item_data["image_url"],
                 imageAlt=item_data["imageAlt"],
+                inStock=item_data["inStock"],
             )
             db.session.add(new_item)
             db.session.commit()

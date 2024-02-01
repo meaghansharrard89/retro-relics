@@ -68,7 +68,7 @@ function App() {
               <Checkout />
             </Route>
             <Route exact path="/profile">
-              <Profile />
+              <Profile user={user} setUser={setUser} />
             </Route>
           </Switch>
         </main>

@@ -37,28 +37,15 @@ function Shop({ user, setUser, updateCartCount }) {
   }, []);
 
   useEffect(() => {
-    if (orderDetails && orderDetails.length > 0) {
-      console.log("Order Details:", orderDetails);
-      setItems((prevItems) => {
-        const updatedItems = prevItems.map((item) => {
-          const isItemInOrder = orderDetails.some(
-            (orderItem) => orderItem.item_id === item.id
-          );
-          console.log(
-            `Item ${item.name} is ${
-              isItemInOrder ? "in the order" : "not in the order"
-            }`
-          );
-          return {
-            ...item,
-            isSoldOut: isItemInOrder,
-          };
-        });
-        console.log("Updated Items:", updatedItems);
-        return updatedItems; // This line remains unchanged
-      });
-    }
-  }, [orderDetails]);
+    console.log("Current items:", items);
+    console.log("Current orderDetails:", orderDetails);
+    setItems((prevItems) =>
+      prevItems.map((item) => ({
+        ...item,
+        isSoldOut: item.inStock === false, // Set isSoldOut based on inStock
+      }))
+    );
+  }, []);
 
   // useEffect(() => {
   //   const el = document.getElementById("shop");
@@ -83,8 +70,8 @@ function Shop({ user, setUser, updateCartCount }) {
             <p>Price: {item.price}</p>
             <img src={item.image_url} alt={item.imageAlt} width="200px" />
             <br />
-            <button onClick={() => handleClick(item)} disabled={item.inStock}>
-              {item.inStock ? "Sold Out" : "Add to Cart"}
+            <button onClick={() => handleClick(item)} disabled={!item.inStock}>
+              {!item.inStock ? "Sold Out" : "Add to Cart"}
             </button>
           </div>
         ))}
