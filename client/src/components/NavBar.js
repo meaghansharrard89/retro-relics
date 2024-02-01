@@ -52,9 +52,9 @@ function NavBar({ cartCount, user, setUser }) {
           <NavLink to="/profile" style={linkStyle}>
             Profile
           </NavLink>
-          <button onClick={handleClick} style={linkStyle}>
+          <NavLink to="/" style={linkStyle} onClick={handleClick}>
             Logout
-          </button>
+          </NavLink>
         </>
       ) : (
         ""

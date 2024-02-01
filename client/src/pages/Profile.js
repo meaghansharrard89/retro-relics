@@ -158,8 +158,8 @@ export default function Profile({ user, setUser }) {
           <ul>
             {order.order_details.map((detail) => (
               <li key={detail.item_id}>
-                Item ID: {detail.item_id}, Item Name: {detail.item_name}
-                {/* Include other details from OrderDetail and Item if needed */}
+                Item ID: {detail.item_id}, Item Name: {detail.item_name}, Item
+                Price: {detail.item_price}
               </li>
             ))}
           </ul>

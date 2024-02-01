@@ -337,27 +337,46 @@ class Orders(Resource):
                 .join(OrderDetail, Order.id == OrderDetail.order_id)
                 .join(Item, OrderDetail.item_id == Item.id)
                 .filter(Order.user_id == session["user_id"])
-                .group_by(Order.id)
+                .distinct(Order.id, OrderDetail.item_id, Item.id)
                 .all()
             )
 
             # Create a response containing order_id, created_at, item_id, and item_name
-            response_data = [
-                {
-                    "order_id": order.id,
-                    "created_at": order.created_at,
-                    "order_details": [
+            response_data = []
+            processed_orders = set()
+
+            for order, _, item in orders_with_details_and_items:
+                order_id = order.id
+
+                if order_id not in processed_orders:
+                    response_data.append(
                         {
-                            "item_id": detail.item_id,
-                            "item_name": item.name,  # Include the item name
-                            # Include other details from OrderDetail and Item if needed
+                            "order_id": order_id,
+                            "created_at": order.created_at,
+                            "order_details": [],
                         }
-                        for _, detail, item in orders_with_details_and_items
-                        if _.id == order.id
-                    ],
-                }
-                for order, _, _ in orders_with_details_and_items
-            ]
+                    )
+
+                    processed_orders.add(order_id)
+
+                # Add item information to the order_details
+                order_details = next(
+                    (
+                        details
+                        for details in response_data
+                        if details["order_id"] == order_id
+                    ),
+                    None,
+                )
+
+                if order_details:
+                    order_details["order_details"].append(
+                        {
+                            "item_id": item.id,
+                            "item_name": item.name,
+                            "item_price": item.price,
+                        }
+                    )
 
             return make_response(response_data, 200)
         except Exception as error:
