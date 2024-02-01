@@ -331,8 +331,35 @@ api.add_resource(UsersById, "/users/<int:id>")
 class Orders(Resource):
     def get(self):
         try:
-            orders = Order.query.all()
-            return make_response([order.to_dict() for order in orders], 200)
+            # Fetch orders along with related order details and item names
+            orders_with_details_and_items = (
+                db.session.query(Order, OrderDetail, Item)
+                .join(OrderDetail, Order.id == OrderDetail.order_id)
+                .join(Item, OrderDetail.item_id == Item.id)
+                .filter(Order.user_id == session["user_id"])
+                .group_by(Order.id)
+                .all()
+            )
+
+            # Create a response containing order_id, created_at, item_id, and item_name
+            response_data = [
+                {
+                    "order_id": order.id,
+                    "created_at": order.created_at,
+                    "order_details": [
+                        {
+                            "item_id": detail.item_id,
+                            "item_name": item.name,  # Include the item name
+                            # Include other details from OrderDetail and Item if needed
+                        }
+                        for _, detail, item in orders_with_details_and_items
+                        if _.id == order.id
+                    ],
+                }
+                for order, _, _ in orders_with_details_and_items
+            ]
+
+            return make_response(response_data, 200)
         except Exception as error:
             return make_response({"error": str(error)}, 500)
 

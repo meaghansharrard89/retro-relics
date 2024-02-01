@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function Profile({ user, setUser }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...user });
+  const [orders, setOrders] = useState([]);
+  const [ordersLoaded, setOrdersLoaded] = useState(false);
+
+  useEffect(() => {
+    fetch("/orders")
+      .then((r) => r.json())
+      .then((data) => {
+        setOrders(data);
+        setOrdersLoaded(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching orders:", error);
+      });
+  }, []);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -58,7 +72,7 @@ export default function Profile({ user, setUser }) {
             onChange={handleChange}
           />
         ) : (
-          user.firstname
+          user?.firstname || ""
         )}
       </p>
       <p>
@@ -71,7 +85,7 @@ export default function Profile({ user, setUser }) {
             onChange={handleChange}
           />
         ) : (
-          user.lastname
+          user?.lastname || ""
         )}
       </p>
       <p>
@@ -84,7 +98,7 @@ export default function Profile({ user, setUser }) {
             onChange={handleChange}
           />
         ) : (
-          user.email
+          user?.email || ""
         )}
       </p>
       <p>
@@ -97,7 +111,7 @@ export default function Profile({ user, setUser }) {
             onChange={handleChange}
           />
         ) : (
-          user.address
+          user?.address || ""
         )}
       </p>
       <p>
@@ -110,7 +124,7 @@ export default function Profile({ user, setUser }) {
             onChange={handleChange}
           />
         ) : (
-          user.state
+          user?.state || ""
         )}
       </p>
       <p>
@@ -123,7 +137,7 @@ export default function Profile({ user, setUser }) {
             onChange={handleChange}
           />
         ) : (
-          user.zip
+          user?.zip || ""
         )}
       </p>
 
@@ -136,6 +150,21 @@ export default function Profile({ user, setUser }) {
         <button onClick={handleEditClick}>Edit</button>
       )}
       <h2>Previous orders:</h2>
+      {orders.map((order) => (
+        <div key={order.order_id}>
+          <p>Order ID: {order.order_id}</p>
+          <p>Created At: {order.created_at}</p>
+          <p>Order Details:</p>
+          <ul>
+            {order.order_details.map((detail) => (
+              <li key={detail.item_id}>
+                Item ID: {detail.item_id}, Item Name: {detail.item_name}
+                {/* Include other details from OrderDetail and Item if needed */}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </>
   );
 }

@@ -195,6 +195,13 @@ class Order(db.Model, SerializerMixin):
     order_details = db.relationship("OrderDetail", back_populates="order")
     user = db.relationship("User", back_populates="orders")
 
+    # Serializations
+
+    serialize_rules = (
+        "-order_detail",
+        "user",
+    )
+
 
 # OrderDetail Model
 # Links orders to products and includes the quantity of each product in an order.
