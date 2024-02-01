@@ -322,8 +322,8 @@ class Orders(Resource):
                 db.session.add(order_detail)
                 item = Item.query.get(detail["item_id"])
                 if item.inStock:
-                    item.instock = False
-                    items.push(item)
+                    item.inStock = False
+                    # items.push(item)
                     db.session.add(item)
                 else:
                     raise Exception(f"{item.name} not in stock.")

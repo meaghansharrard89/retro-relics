@@ -32,12 +32,7 @@ function Shop({ user, setUser, updateCartCount }) {
     fetch("/items")
       .then((r) => r.json())
       .then((data) => {
-        // Add isSoldOut property to each item initially set to false
-        const itemsWithAvailability = data.items.map((item) => ({
-          ...item,
-          isSoldOut: false,
-        }));
-        setItems(itemsWithAvailability);
+        setItems(data.items);
       });
   }, []);
 

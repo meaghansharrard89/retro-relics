@@ -86,6 +86,24 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
         console.error("Error:", errorData);
         throw new Error("Network response was not ok.");
       }
+
+      // data = await response.json();
+
+      // data.order is the new order object
+      // data.items are the updated items
+      // set items state so these items will be updated in it
+
+      // setItems((items) =>
+      //   items.map((item) => {
+      //     updatedItem = data.items.find((i) => i.id == item.id);
+      //     if (updatedItem) {
+      //       return updatedItem;
+      //     } else {
+      //       return item;
+      //     }
+      //   })
+      // );
+
       setCompletedOrder(orderDetails);
       localStorage.removeItem("cart");
       history.push("/checkout", { username: user.firstname });
