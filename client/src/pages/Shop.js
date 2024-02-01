@@ -25,7 +25,8 @@ function Shop({ user, setUser, updateCartCount }) {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const updatedCart = [...existingCart, item];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    updateCartCount(updatedCart.length);
+    // updateCartCount(updatedCart.length);
+    window.alert("Added to cart!");
   };
 
   useEffect(() => {

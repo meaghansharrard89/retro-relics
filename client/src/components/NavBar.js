@@ -45,7 +45,7 @@ function NavBar({ cartCount, user, setUser }) {
         Social
       </NavLink>
       <NavLink to="/cart" style={linkStyle}>
-        Cart <span>{cartCount}</span>
+        Cart
       </NavLink>
       {user && user.email ? (
         <>
