@@ -10,6 +10,7 @@ export default function Checkout() {
   return (
     <>
       <h2>Congrats on your order, {username}!</h2>
+      {/* Need to display order details */}
       <NavLink to="/shop">Continue Shopping</NavLink>
     </>
   );

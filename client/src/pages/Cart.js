@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
 import { useLocation, useHistory } from "react-router-dom";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
-import Checkout from "../components/Checkout";
+import { useOrder } from "../components/OrderContext";
 
 function Cart({ user, setUser, cartCount, updateCartCount }) {
   const location = useLocation();
@@ -15,8 +14,7 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
     expirationDate: "",
     cvv: "",
   });
-  const [orderDetails, setOrderDetails] = useState([]);
-  const [error, setError] = useState(""); // Add error state
+  const { setCompletedOrder } = useOrder();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,7 +77,6 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: user.id,
           order_details: orderDetails,
         }),
       });
@@ -89,7 +86,7 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
         console.error("Error:", errorData);
         throw new Error("Network response was not ok.");
       }
-
+      setCompletedOrder(orderDetails);
       localStorage.removeItem("cart");
       history.push("/checkout", { username: user.firstname });
     } catch (error) {

@@ -310,17 +310,31 @@ class Orders(Resource):
     def post(self):
         order_data = request.get_json()
         try:
-            new_order = Order(user_id=order_data["user_id"])
+            new_order = Order(user_id=session["user_id"])
             db.session.add(new_order)
             db.session.flush()
+            items = []
             for detail in order_data.get("order_details", []):
                 order_detail = OrderDetail(
                     order_id=new_order.id,
                     item_id=detail["item_id"],
                 )
                 db.session.add(order_detail)
+                item = Item.query.get(detail["item_id"])
+                if item.inStock:
+                    item.instock = False
+                    items.push(item)
+                    db.session.add(item)
+                else:
+                    raise Exception(f"{item.name} not in stock.")
             db.session.commit()
-            return make_response({"message": "Order created successfully"}, 201)
+            return make_response(
+                {
+                    "order": new_order.to_dict(),
+                    "items": [item.to_dict() for item in items],
+                },
+                201,
+            )
         except Exception as e:
             db.session.rollback()
             return make_response({"error": "Order creation failed: " + str(e)}, 500)

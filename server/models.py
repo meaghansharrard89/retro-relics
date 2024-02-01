@@ -27,6 +27,7 @@ class Item(db.Model, SerializerMixin):
     price = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String)
     imageAlt = db.Column(db.String)
+    inStock = db.Column(db.Boolean, default=True)
 
     # Relationships
 

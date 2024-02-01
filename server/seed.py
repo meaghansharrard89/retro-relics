@@ -5,17 +5,13 @@ from random import randint, choice as rc
 
 # Remote library imports
 from faker import Faker
-from config import app, db
+from config import app, db, bcrypt
 from models import Item, Category, Order, OrderDetail, ItemCategory, User
-from flask_bcrypt import Bcrypt
-
-# from helpers import dollar_to_cents
 
 # Local imports
 from app import app, get_or_create_category
 from models import db
 
-bcrypt = Bcrypt(app)
 
 items_data = [
     {
@@ -261,7 +257,6 @@ items_data = [
 ]
 
 fake = Faker()
-bcrypt = Bcrypt(app)
 
 
 def create_fake_orders(num_orders=5):
@@ -373,9 +368,14 @@ def create_fake_items():
 
 
 if __name__ == "__main__":
-    bcrypt = Bcrypt(app)
     fake = Faker()
     with app.app_context():
+        OrderDetail.query.delete()
+        ItemCategory.query.delete()
+        Order.query.delete()
+        User.query.delete()
+        Category.query.delete()
+        Item.query.delete()
         db.create_all()
         create_fake_users()
         create_fake_orders()

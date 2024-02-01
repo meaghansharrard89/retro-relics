@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { useLocation, useHistory } from "react-router-dom";
+import { useOrder } from "../components/OrderContext";
 
 function Shop({ user, setUser, updateCartCount }) {
   const [items, setItems] = useState([]);
   const location = useLocation();
   const history = useHistory();
+  const { orderDetails } = useOrder();
 
   const itemList = {
     listStyle: "none",
@@ -30,14 +32,38 @@ function Shop({ user, setUser, updateCartCount }) {
     fetch("/items")
       .then((r) => r.json())
       .then((data) => {
-        setItems(data.items);
-        // setLoading(false);
+        // Add isSoldOut property to each item initially set to false
+        const itemsWithAvailability = data.items.map((item) => ({
+          ...item,
+          isSoldOut: false,
+        }));
+        setItems(itemsWithAvailability);
       });
-    // .catch((err) => {
-    //   setError(err);
-    //   setLoading(false);
-    // });
   }, []);
+
+  useEffect(() => {
+    if (orderDetails && orderDetails.length > 0) {
+      console.log("Order Details:", orderDetails);
+      setItems((prevItems) => {
+        const updatedItems = prevItems.map((item) => {
+          const isItemInOrder = orderDetails.some(
+            (orderItem) => orderItem.item_id === item.id
+          );
+          console.log(
+            `Item ${item.name} is ${
+              isItemInOrder ? "in the order" : "not in the order"
+            }`
+          );
+          return {
+            ...item,
+            isSoldOut: isItemInOrder,
+          };
+        });
+        console.log("Updated Items:", updatedItems);
+        return updatedItems; // This line remains unchanged
+      });
+    }
+  }, [orderDetails]);
 
   // useEffect(() => {
   //   const el = document.getElementById("shop");
@@ -62,7 +88,9 @@ function Shop({ user, setUser, updateCartCount }) {
             <p>Price: {item.price}</p>
             <img src={item.image_url} alt={item.imageAlt} width="200px" />
             <br />
-            <button onClick={() => handleClick(item)}>Add to Cart</button>
+            <button onClick={() => handleClick(item)} disabled={item.inStock}>
+              {item.inStock ? "Sold Out" : "Add to Cart"}
+            </button>
           </div>
         ))}
       </div>
