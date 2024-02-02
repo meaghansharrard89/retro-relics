@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { useLocation, useHistory } from "react-router-dom";
+import CuratorFeed from "../components/CuratorFeed";
 
 function Social({ user, setUser }) {
   const location = useLocation();
@@ -18,6 +19,7 @@ function Social({ user, setUser }) {
     <>
       <div id="social">
         <h1>Check out our Instagram!</h1>
+        <CuratorFeed />
       </div>
     </>
   );
