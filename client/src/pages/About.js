@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-function About( { user, setUser } ) {
+function About({ user, setUser }) {
   const location = useLocation();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function About( { user, setUser } ) {
   return (
     <>
       <div id="about">
-        <h1>Welcome to Retro Relics! Where thrift meets fashion.</h1>
+        <h1>Welcome to Retro Revival! Where thrift meets fashion.</h1>
       </div>
     </>
   );
