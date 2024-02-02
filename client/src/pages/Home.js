@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { useLocation, useHistory } from "react-router-dom";
 
-function Home( { user, setUser } ) {
+function Home({ user, setUser }) {
   const location = useLocation();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function Home( { user, setUser } ) {
   return (
     <>
       <div id="home">
-        <h1>Retro Relics</h1>
+        <h1>Retro Revival</h1>
       </div>
     </>
   );
