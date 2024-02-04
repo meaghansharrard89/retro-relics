@@ -4,7 +4,7 @@
   </a>
 </p>
 
-#🌈 Retro Revival ✨
+# Retro Revival 🌈
 
 ## Description
 
@@ -26,3 +26,72 @@ _Retro Revival_ is an exciting online thrift reselling platform seamlessly blend
 
 5. **Instagram Integration:**
    Stay connected with the Retro Revival community by seamlessly integrating with our Instagram feed. Follow us for a daily dose of vintage inspiration, behind-the-scenes glimpses, and updates on the latest additions to our collection.
+
+## Project Details
+
+<h3><b>Client</b></h3>
+
+Contains the following components:
+
+Contains the following pages:
+
+<h3><p>Server</p></h3>
+
+Contains the following models: Item, Category, ItemCategory, User, Order, OrderDetails.
+
+<p align="center">
+  <a href="https://ibb.co/Gp7bf9q">
+    <img src="https://i.ibb.co/kBKWVJt/DBDiagram.png" alt="DBDiagram" border="0">
+  </a>
+</p>
+
+## Using this Program
+
+To begin this program, you'll use the following commands:
+
+pipenv install && pipenv shell
+cd server
+flask db init
+flask db migrate -m "implement relationships"
+flask db upgrade head
+python seed.py
+python app.py
+
+Open up an additional terminal and use the following commands:
+
+cd client
+npm start
+
+<h3><p>Home</p></h3>
+
+Takes the user to the homepage.
+
+<h3><p>About</p></h3>
+
+Contains information about the thrift reseller shop.
+
+<h3><p>Shop</p></h3>
+
+Allows the user to peruse available items and add to shopping cart.
+
+<h3><p>Social</p></h3>
+
+Contains an embedded instagram for the shop that the user can look through.
+
+<h3><p>Cart</p></h3>
+
+Contains all of the items the user added while shopping. Items can be added to the cart without having to log in.
+
+In order to purchase the items, the user will need to log in with an existing account or create a new account.
+
+Once logged in, the user can enter in their billing details to complete the order. The "Profile" and "Logout" tab appear once the user is logged in.
+
+<h3><p>Profile</p></h3>
+
+Contains the user's profile information, which can be edited and will persist in the database. This page will also contain all previous orders the user has made.
+
+<h3><p>Logout</p></h3>
+
+Logs the user out of their session and takes them back to the homepage.
+
+<h3><p>Chat</p></h3>
