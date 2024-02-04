@@ -27,11 +27,16 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
 
   const isBillingInfoComplete = () => {
     const { cardName, cardNumber, expirationDate, cvv } = billingInfo;
+    // Add validations for card number, expiration date, and CVV
+    const isCardNumberValid = /^\d{16}$/.test(cardNumber);
+    const isExpirationDateValid = /^\d{2}\/\d{2}$/.test(expirationDate);
+    const isCvvValid = /^\d{3,4}$/.test(cvv);
+
     return (
       cardName !== "" &&
-      cardNumber !== "" &&
-      expirationDate !== "" &&
-      cvv !== ""
+      isCardNumberValid &&
+      isExpirationDateValid &&
+      isCvvValid
     );
   };
 

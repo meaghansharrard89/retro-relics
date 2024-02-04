@@ -14,8 +14,31 @@ export default function Signup({ user, setUser }) {
     password: "",
   });
 
+  const validateEmail = (email) => {
+    // Simple email validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateZip = (zip) => {
+    // Simple zip code validation for 5 digits
+    return /^\d{5}$/.test(zip);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Validate email and zip code before making the POST request
+    if (!validateEmail(formData.email)) {
+      alert("Invalid email address");
+      return;
+    }
+
+    if (!validateZip(formData.zip)) {
+      alert("Invalid zip code");
+      return;
+    }
+
     try {
       const response = await fetch("/signup", {
         method: "POST",
