@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Retro Revival
+#🌈 Retro Revival ✨
 
 ## Description
 
