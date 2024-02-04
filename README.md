@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Retro Revival 🌈
+# Retro Revival
 
 ## Description
 
@@ -49,18 +49,22 @@ Contains the following models: Item, Category, ItemCategory, User, Order, OrderD
 
 To begin this program, you'll use the following commands:
 
-pipenv install && pipenv shell
-cd server
-flask db init
-flask db migrate -m "implement relationships"
-flask db upgrade head
-python seed.py
-python app.py
+<ul>
+<li>pipenv install && pipenv shell</li>
+<li>cd server</li>
+<li>flask db init</li>
+<li>flask db migrate -m "implement relationships"</li>
+<li>flask db upgrade head</li>
+<li>python seed.py</li>
+<li>python app.py</li>
+</ul>
 
 Open up an additional terminal and use the following commands:
 
-cd client
-npm start
+<ul>
+<li>cd client</li>
+<li>npm start</li>
+</ul>
 
 <h3><p>Home</p></h3>
 
