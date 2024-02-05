@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-import { useLocation, useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import CuratorFeed from "../components/CuratorFeed";
 import Chatbot from "../components/Chatbot";
 
-function Social({ user, setUser }) {
+function Social() {
   const location = useLocation();
 
   useEffect(() => {

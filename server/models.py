@@ -7,16 +7,10 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from helpers import (
-    # dollar_to_cents,
     validate_not_blank,
-    # validate_positive_number,
     validate_type,
 )
 from sqlalchemy.ext.hybrid import hybrid_property
-
-# Product Model
-# This class represents the products that we're selling.
-
 
 class Item(db.Model, SerializerMixin):
     __tablename__ = "items"
@@ -46,11 +40,6 @@ class Item(db.Model, SerializerMixin):
     def validate_not_blank(self, key, value):
         return validate_not_blank(value, key)
 
-    # @validates("price")
-    # def validate_price(self, key, price):
-    #     price_in_cents = validate_positive_number(dollar_to_cents(price), key)
-    #     return price_in_cents
-
     def to_dict(self, convert_price_to_dollars=True):
         data = {
             "id": self.id,
@@ -65,11 +54,6 @@ class Item(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f"<Product {self.name}>"
-
-
-# Category Model
-# This class represents the categories (housewares, clothing, misc) of products that we're selling.
-
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = "categories"
@@ -95,11 +79,6 @@ class Category(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f"<Category {self.name}>"
-
-
-# ItemCategory Model
-# This class represents the relationship between products and categories.
-# This is a many to many relationship between products and categories.
 
 
 class ItemCategory(db.Model, SerializerMixin):
@@ -134,10 +113,6 @@ class ItemCategory(db.Model, SerializerMixin):
         return f"<ItemCategory Item: {self.product_id}, Category: {self.category_id}>"
 
 
-# User Model
-# This class represents the users of our site; they can buy products.
-
-
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
@@ -159,7 +134,6 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ("-orders",)
 
     # Validations
-    # every field needs to be required/have validation
 
     @hybrid_property
     def password_hash(self):
@@ -180,10 +154,6 @@ class User(db.Model, SerializerMixin):
         return email
 
 
-# Order Model
-# Represents an order made by a user. An order can contain multiple products.
-
-
 class Order(db.Model, SerializerMixin):
     __tablename__ = "orders"
     id = db.Column(db.Integer, primary_key=True)
@@ -201,11 +171,6 @@ class Order(db.Model, SerializerMixin):
         "-order_detail",
         "user",
     )
-
-
-# OrderDetail Model
-# Links orders to products and includes the quantity of each product in an order.
-
 
 class OrderDetail(db.Model, SerializerMixin):
     __tablename__ = "order_details"

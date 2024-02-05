@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-import { useLocation, useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Chatbot from "../components/Chatbot";
 
-function Home({ user, setUser }) {
+function Home() {
   const location = useLocation();
 
   useEffect(() => {
@@ -15,29 +14,14 @@ function Home({ user, setUser }) {
       });
   }, [location]);
 
-  //   const history = useHistory();
-
-  //   useEffect(() => {
-  //     const handleScroll = () => {
-  //   const homeSection = document.getElementById("home");
-  //   const homeSectionOffset = homeSection.offsetTop;
-
-  //   if (window.scrollY >= homeSectionOffset) {
-  //     history.replace(`${location.pathname}#home`);
-  //   }
-  // };
-
-  // window.addEventListener("scroll", handleScroll);
-
-  //     return () => {
-  //       window.removeEventListener("scroll", handleScroll);
-  //     };
-  //   }, [location.pathname, history]);
-
   return (
     <>
       <div id="home">
-        <h1>Retro Revival</h1>
+        <img
+          src="https://i.ibb.co/qsxyBYp/Retro-Revival.png"
+          alt="Retro-Revival"
+          style={{ maxWidth: "100%" }}
+        />
         <Chatbot />
       </div>
     </>

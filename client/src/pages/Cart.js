@@ -5,7 +5,7 @@ import Login from "../components/Login";
 import { useOrder } from "../components/OrderContext";
 import Chatbot from "../components/Chatbot";
 
-function Cart({ user, setUser, cartCount, updateCartCount }) {
+function Cart({ user, setUser }) {
   const location = useLocation();
   const [cartItems, setCartItems] = useState([]);
   const [items, setItems] = useState([]);
@@ -28,7 +28,6 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
 
   const isBillingInfoComplete = () => {
     const { cardName, cardNumber, expirationDate, cvv } = billingInfo;
-    // Add validations for card number, expiration date, and CVV
     const isCardNumberValid = /^\d{16}$/.test(cardNumber);
     const isExpirationDateValid = /^\d{2}\/\d{2}$/.test(expirationDate);
     const isCvvValid = /^\d{3,4}$/.test(cvv);
@@ -44,7 +43,6 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
   const calculateTotal = () => {
     return cartItems
       .reduce((total, item) => {
-        // Remove dollar sign and convert the string to a float
         const itemPrice = parseFloat(item.price.replace("$", ""));
         return total + itemPrice;
       }, 0)
@@ -56,13 +54,11 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
     currentCart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(currentCart));
     setCartItems(currentCart);
-    // updateCartCount(cartCount.length);
   };
 
   const handleCheckout = async (e) => {
     try {
       if (cartItems.length === 0) {
-        // Alert the user or provide some feedback that the cart is empty
         window.alert("Cannot checkout with an empty cart.");
         return;
       }
@@ -117,14 +113,6 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
   };
 
   useEffect(() => {
-    // const el = document.getElementById("cart");
-    // el &&
-    //   window.scrollTo({
-    //     behavior: "smooth",
-    //     top: el.offsetTop,
-    //   });
-
-    // Load cart items from local storage when the Cart component mounts
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(storedCart);
   }, [location]);

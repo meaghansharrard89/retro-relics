@@ -27,11 +27,6 @@ app.api_key = environ.get("OPENAI_API_KEY")
 app.api_url = environ.get("OPENAI_API_URL")
 
 
-# @app.route("/")
-# def index():
-#     return "<h1>Retro Relics</h1>"
-
-
 # Define the endpoint to provide the OpenAI API key
 @app.route("/api/openai-key")
 def get_openai_key():
@@ -398,7 +393,6 @@ class Orders(Resource):
                 item = Item.query.get(detail["item_id"])
                 if item.inStock:
                     item.inStock = False
-                    # items.push(item)
                     db.session.add(item)
                 else:
                     raise Exception(f"{item.name} not in stock.")
@@ -461,7 +455,7 @@ api.add_resource(Categories, "/categories")
 def get_or_create_category(category_name):
     category = (
         db.session.query(Category).filter_by(name=category_name).first()
-    )  # first row is more effcient than all() as it only takes one in memory.Filters one where the anem matches.
+    ) 
     if category is None:
         category = Category(name=category_name)
         db.session.add(category)
@@ -502,27 +496,6 @@ class ItemCategories(Resource):
 
 
 api.add_resource(ItemCategories, "/item_categories")
-
-# LOGIN
-
-
-# class Login(Resource):
-#     def post(self):
-#         data = request.get_json()
-#         if not all(key in data for key in ("username", "password")):
-#             return make_response({"error": "Username and password are required"}, 400)
-#         username = data["username"]
-#         password = data["password"]
-#         user = User.query.filter_by(username=username).first()
-#         if user and user.authenticate(password):
-#             return make_response(
-#                 {"message": "Login successful", "user_id": user.id}, 200
-#             )
-#         else:
-#             return make_response({"error": "Invalid credentials"}, 401)
-
-
-# api.add_resource(Login, "/login")
 
 
 if __name__ == "__main__":

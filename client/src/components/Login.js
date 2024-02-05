@@ -1,7 +1,6 @@
 import { useState } from "react";
-// import { Link } from "react-router-dom";
 
-export default function Login({ user, setUser }) {
+export default function Login({ setUser }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,14 +18,10 @@ export default function Login({ user, setUser }) {
       if (response.ok) {
         const user = await response.json();
         localStorage.setItem("userID", user.id);
-        setUser(user); // Store user ID in local storage
-        // Redirect to the appropriate page or display a success message
+        setUser(user);
       } else {
-        // Handle signup error (e.g., display error message)
       }
-    } catch (error) {
-      // Handle network errors
-    }
+    } catch (error) {}
     console.log("I was submitted");
   };
 

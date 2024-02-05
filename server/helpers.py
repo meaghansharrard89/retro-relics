@@ -23,20 +23,5 @@ def validate_type(value, field_name, expected_type):
     return value
 
 
-# def dollar_to_cents(dollar_amount):
-#     try:
-#         # Check if the input is already an integer
-#         if isinstance(dollar_amount, int):
-#             return dollar_amount * 100
-#         # Convert to float for string or float inputs, then to int
-#         return int(float(dollar_amount) * 100)
-#     except ValueError:
-#         raise ValueError(f"Invalid dollar amount: {dollar_amount}")
-
-
 def cents_to_dollar(cents):
     return f"${cents / 100:.2f}"
-
-
-# def normalize_price_input(price_input):
-#     return dollar_to_cents(price_input)

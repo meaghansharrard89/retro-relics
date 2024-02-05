@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { Link } from "react-router-dom";
 
-function NavBar({ cartCount, user, setUser }) {
+function NavBar({ user, setUser }) {
   const linkStyle = {
     color: "white",
     backgroundColor: "#A8672A",
@@ -22,12 +21,9 @@ function NavBar({ cartCount, user, setUser }) {
         localStorage.removeItem("userID");
         setUser(null);
       } else {
-        // Handle signup error (e.g., display error message)
       }
     } catch (error) {
-      // Handle network errors
     }
-    // set user, navigate to new page - use setUser as props
   };
 
   return (

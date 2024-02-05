@@ -1,6 +1,4 @@
 import { useState } from "react";
-// import Container from "@mui/material/Container";
-// import { Link } from "react-router-dom";
 
 export default function Signup({ user, setUser }) {
   const [formData, setFormData] = useState({
@@ -15,30 +13,24 @@ export default function Signup({ user, setUser }) {
   });
 
   const validateEmail = (email) => {
-    // Simple email validation using regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const validateZip = (zip) => {
-    // Simple zip code validation for 5 digits
     return /^\d{5}$/.test(zip);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Validate email and zip code before making the POST request
     if (!validateEmail(formData.email)) {
       alert("Invalid email address");
       return;
     }
-
     if (!validateZip(formData.zip)) {
       alert("Invalid zip code");
       return;
     }
-
     try {
       const response = await fetch("/signup", {
         method: "POST",
@@ -52,19 +44,15 @@ export default function Signup({ user, setUser }) {
         setUser(user);
       } else {
         const errorData = await response.json();
-        // Handle signup error (e.g., display error message using errorData)
       }
     } catch (error) {
-      // Handle network errors
     }
-    // set user, navigate to new page - use setUser as props
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>First Name:</label>
       <input
-        // type="email"
         value={formData.firstname}
         onChange={(e) =>
           setFormData({ ...formData, firstname: e.target.value })
@@ -74,7 +62,6 @@ export default function Signup({ user, setUser }) {
       <br />
       <label>Last Name:</label>
       <input
-        // type="email"
         value={formData.lastname}
         onChange={(e) => setFormData({ ...formData, lastname: e.target.value })}
         required
@@ -82,7 +69,6 @@ export default function Signup({ user, setUser }) {
       <br />
       <label style={{ marginTop: "15px" }}>Email:</label>
       <input
-        // type="text"
         value={formData.email}
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         required

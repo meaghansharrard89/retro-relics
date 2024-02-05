@@ -1,32 +1,13 @@
 import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
-import { useLocation, useHistory } from "react-router-dom";
-import { useOrder } from "../components/OrderContext";
 import Chatbot from "../components/Chatbot";
 
-function Shop({ user, setUser, updateCartCount }) {
+function Shop() {
   const [items, setItems] = useState([]);
-  const location = useLocation();
-  const history = useHistory();
-  const { orderDetails } = useOrder();
-
-  const itemList = {
-    listStyle: "none",
-    padding: "8px",
-    border: "1px solid #ccc",
-    marginBottom: "10px",
-    borderRadius: "5px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    alignItems: "center",
-  };
 
   const handleClick = (item) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const updatedCart = [...existingCart, item];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    // updateCartCount(updatedCart.length);
     window.alert("Added to cart!");
   };
 
@@ -39,24 +20,13 @@ function Shop({ user, setUser, updateCartCount }) {
   }, []);
 
   useEffect(() => {
-    console.log("Current items:", items);
-    console.log("Current orderDetails:", orderDetails);
     setItems((prevItems) =>
       prevItems.map((item) => ({
         ...item,
-        isSoldOut: item.inStock === false, // Set isSoldOut based on inStock
+        isSoldOut: item.inStock === false,
       }))
     );
   }, []);
-
-  // useEffect(() => {
-  //   const el = document.getElementById("shop");
-  //   el &&
-  //     window.scrollTo({
-  //       behavior: "smooth",
-  //       top: el.offsetTop,
-  //     });
-  // }, [location]);
 
   return (
     <>

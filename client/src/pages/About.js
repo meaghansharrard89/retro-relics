@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { useLocation, useHistory } from "react-router-dom";
-import NavBar from "../components/NavBar";
+import { useLocation } from "react-router-dom";
 import Chatbot from "../components/Chatbot";
 
-function About({ user, setUser }) {
+function About() {
   const location = useLocation();
 
   useEffect(() => {

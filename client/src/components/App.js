@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useLocation,
 } from "react-router-dom";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
@@ -16,18 +15,7 @@ import Login from "./Login";
 import Checkout from "../components/Checkout";
 import Profile from "../pages/Profile";
 import { OrderProvider } from "../components/OrderContext";
-
-//Chatbot function:
 import Chatbot from "../components/Chatbot";
-// import "@chatscope/chat-ui-kit-react-styles/dist/default/styles.min.css";
-// import {
-//   MainContainer,
-//   ChatContainer,
-//   MessageList,
-//   Message,
-//   MessageInput,
-//   TypingIndicator,
-// } from "@chatscope/chat-ui-kit-react";
 
 function App() {
   const [user, setUser] = useState();

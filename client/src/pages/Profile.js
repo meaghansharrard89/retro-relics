@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Chatbot from "../components/Chatbot";
 
 export default function Profile({ user, setUser }) {
@@ -35,12 +34,10 @@ export default function Profile({ user, setUser }) {
       });
 
       if (response.ok) {
-        // Update the local user state if the update is successful
         setUser(editedUser);
         setIsEditing(false);
         console.log("User updated successfully");
       } else {
-        // Handle error response from the server
         const errorData = await response.json();
         console.error("Error:", errorData);
       }
@@ -50,7 +47,6 @@ export default function Profile({ user, setUser }) {
   };
 
   const handleCancelClick = () => {
-    // Reset editedUser to original user data
     setEditedUser({ ...user });
     setIsEditing(false);
   };
@@ -62,7 +58,7 @@ export default function Profile({ user, setUser }) {
 
   return (
     <>
-      <h2>Edit profile information</h2>
+      <h2>Edit Profile Information</h2>
       <p>
         First name:{" "}
         {isEditing ? (
@@ -150,17 +146,15 @@ export default function Profile({ user, setUser }) {
       ) : (
         <button onClick={handleEditClick}>Edit</button>
       )}
-      <h2>Previous orders:</h2>
+      <h2>Previous Orders:</h2>
       {orders.map((order) => (
         <div key={order.order_id}>
-          <p>Order ID: {order.order_id}</p>
-          <p>Created At: {order.created_at}</p>
-          <p>Order Details:</p>
+          <p>Ordered on: {order.created_at}</p>
+          <p>Details:</p>
           <ul>
             {order.order_details.map((detail) => (
               <li key={detail.item_id}>
-                Item ID: {detail.item_id}, Item Name: {detail.item_name}, Item
-                Price: {detail.item_price}
+                Item(s): {detail.item_name}, Price: {detail.item_price}
               </li>
             ))}
           </ul>
