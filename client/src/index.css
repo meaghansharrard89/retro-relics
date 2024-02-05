@@ -5,7 +5,13 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
+#navbar {
+  font-family: "Caprasimo", serif;
+  letter-spacing: 2px;
+  font-size: 1.4em;
+}
+
 body {
   background-color: #de9c62;
-  font-family: Anybody, sans-serif;
+  font-family: "Playfair Display", serif;
 }

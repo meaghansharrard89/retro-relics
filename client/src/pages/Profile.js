@@ -112,6 +112,19 @@ export default function Profile({ user, setUser }) {
         )}
       </p>
       <p>
+        City:{" "}
+        {isEditing ? (
+          <input
+            type="text"
+            name="city"
+            value={editedUser.city}
+            onChange={handleChange}
+          />
+        ) : (
+          user?.city || ""
+        )}
+      </p>
+      <p>
         State:{" "}
         {isEditing ? (
           <input

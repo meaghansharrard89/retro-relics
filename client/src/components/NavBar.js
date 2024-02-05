@@ -22,40 +22,39 @@ function NavBar({ user, setUser }) {
         setUser(null);
       } else {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   return (
-    <>
+    <div id="navbar">
       <NavLink to="/" style={linkStyle}>
-        Home
+        HOME
       </NavLink>
       <NavLink to="/about" style={linkStyle}>
-        About
+        ABOUT
       </NavLink>
       <NavLink to="/shop" style={linkStyle}>
-        Shop
+        SHOP
       </NavLink>
       <NavLink to="/social" style={linkStyle}>
-        Social
+        SOCIAL
       </NavLink>
       <NavLink to="/cart" style={linkStyle}>
-        Cart
+        CART
       </NavLink>
       {user && user.email ? (
         <>
           <NavLink to="/profile" style={linkStyle}>
-            Profile
+            PROFILE
           </NavLink>
           <NavLink to="/" style={linkStyle} onClick={handleClick}>
-            Logout
+            LOGOUT
           </NavLink>
         </>
       ) : (
         ""
       )}
-    </>
+    </div>
   );
 }
 

@@ -31,16 +31,15 @@ function Shop() {
   return (
     <>
       <div id="shop">
-        <h1>Shop</h1>
         {items.map((item) => (
           <div
             key={item.id}
             style={{ padding: "10px 0", borderBottom: "1px solid #ccc" }}
           >
+            <img src={item.image_url} alt={item.imageAlt} width="200px" />
             <h3>{item.name}</h3>
             <p>{item.description}</p>
             <p>Price: {item.price}</p>
-            <img src={item.image_url} alt={item.imageAlt} width="200px" />
             <br />
             <button onClick={() => handleClick(item)} disabled={!item.inStock}>
               {!item.inStock ? "Sold Out" : "Add to Cart"}
