@@ -17,6 +17,18 @@ import Checkout from "../components/Checkout";
 import Profile from "../pages/Profile";
 import { OrderProvider } from "../components/OrderContext";
 
+//Chatbot function:
+import Chatbot from "../components/Chatbot";
+// import "@chatscope/chat-ui-kit-react-styles/dist/default/styles.min.css";
+// import {
+//   MainContainer,
+//   ChatContainer,
+//   MessageList,
+//   Message,
+//   MessageInput,
+//   TypingIndicator,
+// } from "@chatscope/chat-ui-kit-react";
+
 function App() {
   const [user, setUser] = useState();
   const [cartCount, setCartCount] = useState(0);
@@ -69,6 +81,9 @@ function App() {
             </Route>
             <Route exact path="/profile">
               <Profile user={user} setUser={setUser} />
+            </Route>
+            <Route exact path="/chatbot">
+              <Chatbot />
             </Route>
           </Switch>
         </main>
