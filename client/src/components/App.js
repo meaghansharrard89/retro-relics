@@ -15,7 +15,6 @@ import Chatbot from "../components/Chatbot";
 
 function App() {
   const [user, setUser] = useState();
-  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     fetch("/check_session")
@@ -23,14 +22,10 @@ function App() {
       .then((u) => setUser(u));
   }, []);
 
-  const updateCartCount = (count) => {
-    setCartCount(count);
-  };
-
   return (
     <OrderProvider>
       <Router>
-        <NavBar cartCount={cartCount} user={user} setUser={setUser} />
+        <NavBar user={user} setUser={setUser} />
         <main>
           <Switch>
             <Route exact path="/">
@@ -40,22 +35,13 @@ function App() {
               <About user={user} setUser={setUser} />
             </Route>
             <Route exact path="/shop">
-              <Shop
-                user={user}
-                setUser={setUser}
-                updateCartCount={updateCartCount}
-              />
+              <Shop user={user} setUser={setUser} />
             </Route>
             <Route exact path="/social">
               <Social user={user} setUser={setUser} />
             </Route>
             <Route exact path="/cart">
-              <Cart
-                user={user}
-                setUser={setUser}
-                updateCartCount={updateCartCount}
-                cartCount={cartCount}
-              />
+              <Cart user={user} setUser={setUser} />
             </Route>
             <Route exact path="/login">
               <Login />

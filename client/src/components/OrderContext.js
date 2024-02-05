@@ -4,7 +4,6 @@ const OrderContext = createContext();
 
 export const OrderProvider = ({ children }) => {
   const [orderDetails, setOrderDetails] = useState(null);
-
   const setCompletedOrder = (details) => {
     setOrderDetails(details);
   };
