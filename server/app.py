@@ -22,6 +22,7 @@ DATABASE = os.environ.get(
 )
 load_dotenv()
 app.secret_key = environ.get("SECRET_KEY")
+app.api_key = environ.get("API_KEY")
 
 
 @app.route("/")

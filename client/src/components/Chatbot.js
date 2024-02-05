@@ -9,8 +9,6 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = "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";
-
 export default function Chatbot() {
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
