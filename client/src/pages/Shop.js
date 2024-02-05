@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { useLocation, useHistory } from "react-router-dom";
 import { useOrder } from "../components/OrderContext";
+import Chatbot from "../components/Chatbot";
 
 function Shop({ user, setUser, updateCartCount }) {
   const [items, setItems] = useState([]);
@@ -77,6 +78,7 @@ function Shop({ user, setUser, updateCartCount }) {
           </div>
         ))}
       </div>
+      <Chatbot />
     </>
   );
 }

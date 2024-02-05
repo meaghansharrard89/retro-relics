@@ -3,6 +3,7 @@ import { useLocation, useHistory } from "react-router-dom";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
 import { useOrder } from "../components/OrderContext";
+import Chatbot from "../components/Chatbot";
 
 function Cart({ user, setUser, cartCount, updateCartCount }) {
   const location = useLocation();
@@ -221,6 +222,7 @@ function Cart({ user, setUser, cartCount, updateCartCount }) {
           </div>
         )}
       </div>
+      <Chatbot />
     </>
   );
 }

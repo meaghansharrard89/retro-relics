@@ -5,6 +5,7 @@
 # Remote library imports
 from flask import jsonify, make_response, session, request
 from flask_restful import Resource
+import requests
 import os
 from sqlalchemy.exc import IntegrityError
 
@@ -22,34 +23,32 @@ DATABASE = os.environ.get(
 )
 load_dotenv()
 app.secret_key = environ.get("SECRET_KEY")
-app.api_key = environ.get("API_KEY")
+app.api_key = environ.get("OPENAI_API_KEY")
+app.api_url = environ.get("OPENAI_API_URL")
 
 
-@app.route("/")
-def index():
-    return "<h1>Retro Relics</h1>"
+# @app.route("/")
+# def index():
+#     return "<h1>Retro Relics</h1>"
 
 
-# AUTHENTICATION
+# Define the endpoint to provide the OpenAI API key
+@app.route("/api/openai-key")
+def get_openai_key():
+    return jsonify({"openaiApiKey": app.api_key})
 
 
-# @app.before_request
-# def check_if_logged_in():
-#     open_access_list = [
-#         "signup",
-#         "login",
-#         "check_session",
-#         "about",
-#         "shop",
-#         "cart",
-#         "social",
-#         "home",
-#     ]
+# Define the endpoint for chat completions
+@app.route("/api/chat-completions", methods=["POST"])
+def chat_completions():
+    data = request.get_json()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {app.api_key}",
+    }
+    response = requests.post(app.api_url, json=data, headers=headers)
+    return jsonify(response.json())
 
-#     if (request.endpoint) not in open_access_list and (not session.get("user_id")):
-#         return {"error": "401 Unauthorized"}, 401
-
-# TEST
 
 # SIGNUP
 

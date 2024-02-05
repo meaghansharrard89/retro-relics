@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import Chatbot from "../components/Chatbot";
 
 export default function Profile({ user, setUser }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -165,6 +166,7 @@ export default function Profile({ user, setUser }) {
           </ul>
         </div>
       ))}
+      <Chatbot />
     </>
   );
 }

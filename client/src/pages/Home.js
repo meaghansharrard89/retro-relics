@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { useLocation, useHistory } from "react-router-dom";
+import Chatbot from "../components/Chatbot";
 
 function Home({ user, setUser }) {
   const location = useLocation();
@@ -37,6 +38,7 @@ function Home({ user, setUser }) {
     <>
       <div id="home">
         <h1>Retro Revival</h1>
+        <Chatbot />
       </div>
     </>
   );

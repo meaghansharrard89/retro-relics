@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -13,10 +13,23 @@ export default function Chatbot() {
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I am your Support Bot!",
+      message: "Hello, I am your Retro Revival Support Bot!",
       sender: "ChatGPT",
     },
   ]);
+  const [API_KEY, setApiKey] = useState(""); // State to store the API key
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Fetch OpenAI API key from backend on component mount
+    const fetchApiKey = async () => {
+      const response = await fetch("/api/openai-key");
+      const { openaiApiKey } = await response.json();
+      setApiKey(openaiApiKey);
+    };
+
+    fetchApiKey();
+  }, []);
 
   const handleSend = async (message) => {
     const newMessage = {
@@ -64,7 +77,7 @@ export default function Chatbot() {
       ],
     };
 
-    await fetch("https://api.openai.com/v1/chat/completions", {
+    await fetch("/api/chat-completions", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + API_KEY,
@@ -89,24 +102,41 @@ export default function Chatbot() {
       });
   }
 
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
   return (
     <div className="App">
-      <div style={{ position: "relative", height: "800px", width: "700px" }}>
-        <MainContainer>
-          <ChatContainer>
-            <MessageList
-              scrollBehavior="smooth"
-              typingIndicator={
-                typing ? <TypingIndicator content="ChatGPT is typing" /> : null
-              }
-            >
-              {messages.map((message, index) => {
-                return <Message key={index} model={message} />;
-              })}
-            </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />
-          </ChatContainer>
-        </MainContainer>
+      <div>
+        <button onClick={toggleVisibility}>Open Chat</button>
+        {isVisible && (
+          <div
+            className="modal"
+            style={{ position: "relative", height: "800px", width: "700px" }}
+          >
+            <MainContainer>
+              <ChatContainer>
+                <MessageList
+                  scrollBehavior="smooth"
+                  typingIndicator={
+                    typing ? (
+                      <TypingIndicator content="ChatGPT is typing" />
+                    ) : null
+                  }
+                >
+                  {messages.map((message, index) => {
+                    return <Message key={index} model={message} />;
+                  })}
+                </MessageList>
+                <MessageInput
+                  placeholder="Type message here"
+                  onSend={handleSend}
+                />
+              </ChatContainer>
+            </MainContainer>
+          </div>
+        )}
       </div>
     </div>
   );
