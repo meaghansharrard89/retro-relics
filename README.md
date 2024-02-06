@@ -8,7 +8,7 @@
 
 ## Description
 
-_Retro Revival_ is an exciting online thrift reselling platform seamlessly blending the charm of yesteryears with the convenience of modern technology. This innovative project, built with a dynamic combination of React and Python, takes thrift shopping to a whole new level. Embrace the nostalgia as you explore a curated collection of timeless housewares and clothing, each item carefully selected to evoke a sense of vintage allure.
+_Retro Revival_ is an exciting online thrift reselling platform seamlessly blending the charm of yesteryears with the convenience of modern technology. This innovative project, built with a dynamic combination of React and Python, takes thrift shopping to a whole new level. Embrace the nostalgia as you explore a curated collection of timeless housewares and clothing, each item carefully selected to evoke a sense of vintage allure. Plus, experience our interactive chatbot feature guiding you through your thrift shopping journey, providing personalized recommendations and answering any queries you may have along the way. Additionally, enjoy a visually captivating experience with our embedded Instagram feed, where you can immerse yourself in the latest trends, behind-the-scenes glimpses, and customer favorites. Retro Revival is not just a platform; it's a nostalgic adventure waiting to be explored.
 
 ## Key Features
 
