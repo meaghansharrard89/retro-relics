@@ -22,7 +22,6 @@ export default function Chatbot() {
   const { isVisible, toggleVisibility, chatMessages, addMessage } = useChat();
 
   useEffect(() => {
-    // Fetch OpenAI API key from backend on component mount
     const fetchApiKey = async () => {
       const response = await fetch("/api/openai-key");
       const { openaiApiKey } = await response.json();
@@ -41,7 +40,6 @@ export default function Chatbot() {
     const newMessages = [...messages, newMessage]; //all the old message + the new message
     //update our message state
     setMessages(newMessages);
-    //set a typing indicator (chatgpt is typing)
     setTyping(true);
     //process message to chatGPT (send it over and see the response)
     await processMessageToChatGPT(newMessages);

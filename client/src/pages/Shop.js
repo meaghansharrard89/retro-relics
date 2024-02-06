@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Chatbot from "../components/Chatbot";
-import { useChat } from "../components/ChatContext";
+// import Chatbot from "../components/Chatbot";
+// import { useChat } from "../components/ChatContext";
 
 function Shop({ user, setUser }) {
   const [items, setItems] = useState([]);
-  const { isVisible, toggleVisibility } = useChat();
+  // const { isVisible, toggleVisibility } = useChat();
   const [filterStatus, setFilterStatus] = useState("");
 
   const handleClick = (item) => {
@@ -77,8 +77,8 @@ function Shop({ user, setUser }) {
           </div>
         ))}
       </div>
-      <button onClick={toggleVisibility}>Open Chat</button>
-      {isVisible && <Chatbot />}
+      {/* <button onClick={toggleVisibility}>Open Chat</button>
+      {isVisible && <Chatbot />} */}
     </>
   );
 }

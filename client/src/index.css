@@ -15,3 +15,7 @@ body {
   background-color: #de9c62;
   font-family: "Playfair Display", serif;
 }
+
+p {
+  font-size: 1.1em;
+}

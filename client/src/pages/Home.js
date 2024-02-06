@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Chatbot from "../components/Chatbot";
-import { useChat } from "../components/ChatContext";
+// import Chatbot from "../components/Chatbot";
+// import { useChat } from "../components/ChatContext";
 
 function Home() {
   const location = useLocation();
-  const { isVisible, toggleVisibility } = useChat();
+  // const { isVisible, toggleVisibility } = useChat();
 
   return (
     <>
@@ -16,8 +16,8 @@ function Home() {
           style={{ maxWidth: "100%" }}
         />
         <br />
-        <button onClick={toggleVisibility}>Open Chat</button>
-        {isVisible && <Chatbot />}
+        {/* <button onClick={toggleVisibility}>Open Chat</button> */}
+        {/* {isVisible && <Chatbot />} */}
       </div>
     </>
   );

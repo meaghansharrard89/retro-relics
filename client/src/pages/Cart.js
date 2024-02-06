@@ -3,8 +3,8 @@ import { useLocation, useHistory } from "react-router-dom";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
 import { useOrder } from "../components/OrderContext";
-import Chatbot from "../components/Chatbot";
-import { useChat } from "../components/ChatContext";
+// import Chatbot from "../components/Chatbot";
+// import { useChat } from "../components/ChatContext";
 
 function Cart({ user, setUser }) {
   const location = useLocation();
@@ -18,7 +18,7 @@ function Cart({ user, setUser }) {
     cvv: "",
   });
   const { setCompletedOrder } = useOrder();
-  const { isVisible, toggleVisibility } = useChat();
+  // const { isVisible, toggleVisibility } = useChat();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -212,8 +212,8 @@ function Cart({ user, setUser }) {
           </div>
         )}
       </div>
-      <button onClick={toggleVisibility}>Open Chat</button>
-      {isVisible && <Chatbot />}
+      {/* <button onClick={toggleVisibility}>Open Chat</button>
+      {isVisible && <Chatbot />} */}
     </>
   );
 }

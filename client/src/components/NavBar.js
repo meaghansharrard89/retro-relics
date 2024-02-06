@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
+import { useChat } from "../components/ChatContext";
+import Chatbot from "../components/Chatbot";
 
 function NavBar({ user, setUser }) {
+  const { isVisible, toggleVisibility } = useChat();
   const linkStyle = {
     color: "white",
     backgroundColor: "#A8672A",
@@ -54,6 +57,10 @@ function NavBar({ user, setUser }) {
       ) : (
         ""
       )}
+      <button onClick={toggleVisibility}>
+        {isVisible ? "End Chat" : "Start Chat"}
+      </button>{" "}
+      {isVisible && <Chatbot />} {/* Render Chatbot if isVisible is true */}
     </div>
   );
 }
