@@ -18,18 +18,8 @@ export default function Chatbot() {
       sender: "ChatGPT",
     },
   ]);
-  const [API_KEY, setApiKey] = useState(""); // State to store the API key
+  const [setApiKey, apiKey] = useState(""); // State to store the API key
   const { isVisible, toggleVisibility, chatMessages, addMessage } = useChat();
-
-  useEffect(() => {
-    const fetchApiKey = async () => {
-      const response = await fetch("/api/openai-key");
-      const { openaiApiKey } = await response.json();
-      setApiKey(openaiApiKey);
-    };
-
-    fetchApiKey();
-  }, []);
 
   const handleSend = async (message) => {
     const newMessage = {

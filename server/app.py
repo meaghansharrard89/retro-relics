@@ -27,12 +27,6 @@ app.api_key = environ.get("OPENAI_API_KEY")
 app.api_url = environ.get("OPENAI_API_URL")
 
 
-# Define the endpoint to provide the OpenAI API key
-@app.route("/api/openai-key")
-def get_openai_key():
-    return jsonify({"openaiApiKey": app.api_key})
-
-
 # Define the endpoint for chat completions
 @app.route("/api/chat-completions", methods=["POST"])
 def chat_completions():
