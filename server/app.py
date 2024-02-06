@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import jsonify, make_response, session, request
+from flask import jsonify, make_response, session, request, render_template
 from flask_restful import Resource
 import requests
 import os
@@ -15,7 +15,12 @@ from helpers import validate_not_blank, validate_type
 
 from models import Item, Category, Order, OrderDetail, ItemCategory, User
 
-# Builds app, set attributes
+
+# Render front-end
+@app.route("/")
+@app.route("/<int:id>")
+def index(id=0):
+    return render_template("index.html")
 
 
 # Define the endpoint for chat completions
