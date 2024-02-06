@@ -3,13 +3,14 @@ import { useLocation, useHistory } from "react-router-dom";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
 import { useOrder } from "../components/OrderContext";
-// import Chatbot from "../components/Chatbot";
-// import { useChat } from "../components/ChatContext";
+import { useUser } from "../components/UserContext";
 
-function Cart({ user, setUser }) {
+function Cart() {
   const location = useLocation();
+  const { user, setUser } = useUser();
   const [cartItems, setCartItems] = useState([]);
   const [items, setItems] = useState([]);
+  const { setCompletedOrder } = useOrder();
   const history = useHistory();
   const [billingInfo, setBillingInfo] = useState({
     cardName: "",
@@ -17,8 +18,6 @@ function Cart({ user, setUser }) {
     expirationDate: "",
     cvv: "",
   });
-  const { setCompletedOrder } = useOrder();
-  // const { isVisible, toggleVisibility } = useChat();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,18 +63,15 @@ function Cart({ user, setUser }) {
         window.alert("Cannot checkout with an empty cart.");
         return;
       }
-
       if (!isBillingInfoComplete()) {
         window.alert(
           "Please fill out all billing information before confirming the order."
         );
         return;
       }
-
       const orderDetails = cartItems.map((item) => ({
         item_id: item.id,
       }));
-
       const response = await fetch("/orders", {
         method: "POST",
         headers: {
@@ -85,13 +81,11 @@ function Cart({ user, setUser }) {
           order_details: orderDetails,
         }),
       });
-
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error:", errorData);
         throw new Error("Network response was not ok.");
       }
-
       const data = await response.json();
 
       setItems((items) =>
@@ -212,8 +206,6 @@ function Cart({ user, setUser }) {
           </div>
         )}
       </div>
-      {/* <button onClick={toggleVisibility}>Open Chat</button>
-      {isVisible && <Chatbot />} */}
     </>
   );
 }

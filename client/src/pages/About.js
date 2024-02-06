@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-// import Chatbot from "../components/Chatbot";
-// import { useChat } from "../components/ChatContext";
 
 function About() {
   const location = useLocation();
-  // const { isVisible, toggleVisibility } = useChat();
 
   useEffect(() => {
     const el = document.getElementById("about");
@@ -36,8 +33,6 @@ function About() {
           So why wait? Come on in, browse to your heart's content, and let Retro
           Revival ignite your passion for all things retro!
         </p>
-        {/* <button onClick={toggleVisibility}>Open Chat</button> */}
-        {/* {isVisible && <Chatbot />} */}
       </div>
     </>
   );

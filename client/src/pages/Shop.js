@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-// import Chatbot from "../components/Chatbot";
-// import { useChat } from "../components/ChatContext";
 
-function Shop({ user, setUser }) {
+function Shop() {
   const [items, setItems] = useState([]);
-  // const { isVisible, toggleVisibility } = useChat();
   const [filterStatus, setFilterStatus] = useState("");
 
   const handleClick = (item) => {
@@ -54,11 +51,6 @@ function Shop({ user, setUser }) {
           <option value="Clothing">Clothing</option>
           <option value="Housewares">Housewares</option>
           <option value="Misc">Misc</option>
-          {/* {filteredItems.categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))} */}
         </select>
         <br />
         {filteredItems.map((item) => (
@@ -77,8 +69,6 @@ function Shop({ user, setUser }) {
           </div>
         ))}
       </div>
-      {/* <button onClick={toggleVisibility}>Open Chat</button>
-      {isVisible && <Chatbot />} */}
     </>
   );
 }

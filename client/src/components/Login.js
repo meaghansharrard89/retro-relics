@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useUser } from "./UserContext";
 
-export default function Login({ setUser }) {
+export default function Login() {
+  const { user, setUser } = useUser();
   const [formData, setFormData] = useState({
     email: "",
     password: "",

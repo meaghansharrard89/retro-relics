@@ -102,10 +102,6 @@ export default function Chatbot() {
       });
   }
 
-  // const toggleVisibility = () => {
-  //   setIsVisible(!isVisible);
-  // };
-
   return (
     <div className="App">
       <div>

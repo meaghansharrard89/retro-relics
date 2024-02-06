@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-// import Chatbot from "../components/Chatbot";
-// import { useChat } from "../components/ChatContext";
+import { useUser } from "../components/UserContext";
 
-export default function Profile({ user, setUser }) {
+export default function Profile() {
+  const { user, setUser } = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...user });
   const [orders, setOrders] = useState([]);
   const [ordersLoaded, setOrdersLoaded] = useState(false);
-  // const { isVisible, toggleVisibility } = useChat();
 
   useEffect(() => {
     fetch("/orders")
@@ -202,8 +201,6 @@ export default function Profile({ user, setUser }) {
           </ul>
         </div>
       ))}
-      {/* <button onClick={toggleVisibility}>Open Chat</button>
-      {isVisible && <Chatbot />} */}
     </>
   );
 }

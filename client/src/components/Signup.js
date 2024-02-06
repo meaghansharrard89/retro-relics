@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useUser } from "../components/UserContext";
 
-export default function Signup({ user, setUser }) {
+export default function Signup() {
+  const { user, setUser } = useUser();
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
