@@ -11,6 +11,7 @@ import Login from "./Login";
 import Checkout from "../components/Checkout";
 import Profile from "../pages/Profile";
 import { OrderProvider } from "../components/OrderContext";
+import { ChatProvider } from "./ChatContext";
 import Chatbot from "../components/Chatbot";
 
 function App() {
@@ -24,40 +25,42 @@ function App() {
 
   return (
     <OrderProvider>
-      <Router>
-        <NavBar user={user} setUser={setUser} />
-        <main>
-          <Switch>
-            <Route exact path="/">
-              <Home user={user} setUser={setUser} />
-            </Route>
-            <Route exact path="/about">
-              <About user={user} setUser={setUser} />
-            </Route>
-            <Route exact path="/shop">
-              <Shop user={user} setUser={setUser} />
-            </Route>
-            <Route exact path="/social">
-              <Social user={user} setUser={setUser} />
-            </Route>
-            <Route exact path="/cart">
-              <Cart user={user} setUser={setUser} />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/checkout">
-              <Checkout />
-            </Route>
-            <Route exact path="/profile">
-              <Profile user={user} setUser={setUser} />
-            </Route>
-            <Route exact path="/chatbot">
-              <Chatbot />
-            </Route>
-          </Switch>
-        </main>
-      </Router>
+      <ChatProvider>
+        <Router>
+          <NavBar user={user} setUser={setUser} />
+          <main>
+            <Switch>
+              <Route exact path="/">
+                <Home user={user} setUser={setUser} />
+              </Route>
+              <Route exact path="/about">
+                <About user={user} setUser={setUser} />
+              </Route>
+              <Route exact path="/shop">
+                <Shop user={user} setUser={setUser} />
+              </Route>
+              <Route exact path="/social">
+                <Social user={user} setUser={setUser} />
+              </Route>
+              <Route exact path="/cart">
+                <Cart user={user} setUser={setUser} />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/checkout">
+                <Checkout />
+              </Route>
+              <Route exact path="/profile">
+                <Profile user={user} setUser={setUser} />
+              </Route>
+              <Route exact path="/chatbot">
+                <Chatbot />
+              </Route>
+            </Switch>
+          </main>
+        </Router>
+      </ChatProvider>
     </OrderProvider>
   );
 }

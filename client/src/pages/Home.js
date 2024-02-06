@@ -1,18 +1,11 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Chatbot from "../components/Chatbot";
+import { useChat } from "../components/ChatContext";
 
 function Home() {
   const location = useLocation();
-
-  useEffect(() => {
-    const el = document.getElementById("home");
-    el &&
-      window.scrollTo({
-        behavior: "smooth",
-        top: el.offsetTop,
-      });
-  }, [location]);
+  const { isVisible, toggleVisibility } = useChat();
 
   return (
     <>
@@ -22,7 +15,9 @@ function Home() {
           alt="Retro-Revival"
           style={{ maxWidth: "100%" }}
         />
-        <Chatbot />
+        <br />
+        <button onClick={toggleVisibility}>Open Chat</button>
+        {isVisible && <Chatbot />}
       </div>
     </>
   );

@@ -12,6 +12,7 @@ from helpers import (
 )
 from sqlalchemy.ext.hybrid import hybrid_property
 
+
 class Item(db.Model, SerializerMixin):
     __tablename__ = "items"
 
@@ -54,6 +55,7 @@ class Item(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f"<Product {self.name}>"
+
 
 class Category(db.Model, SerializerMixin):
     __tablename__ = "categories"
@@ -127,7 +129,9 @@ class User(db.Model, SerializerMixin):
 
     # Relationships
 
-    orders = db.relationship("Order", back_populates="user")
+    orders = db.relationship(
+        "Order", back_populates="user", cascade="all, delete-orphan"
+    )
 
     # Serializations
 
@@ -162,7 +166,9 @@ class Order(db.Model, SerializerMixin):
 
     # Relationships
 
-    order_details = db.relationship("OrderDetail", back_populates="order")
+    order_details = db.relationship(
+        "OrderDetail", back_populates="order", cascade="all, delete-orphan"
+    )
     user = db.relationship("User", back_populates="orders")
 
     # Serializations
@@ -171,6 +177,7 @@ class Order(db.Model, SerializerMixin):
         "-order_detail",
         "user",
     )
+
 
 class OrderDetail(db.Model, SerializerMixin):
     __tablename__ = "order_details"

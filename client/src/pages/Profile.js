@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Chatbot from "../components/Chatbot";
+import { useChat } from "../components/ChatContext";
 
 export default function Profile({ user, setUser }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...user });
   const [orders, setOrders] = useState([]);
   const [ordersLoaded, setOrdersLoaded] = useState(false);
+  const { isVisible, toggleVisibility } = useChat();
 
   useEffect(() => {
     fetch("/orders")
@@ -54,6 +56,48 @@ export default function Profile({ user, setUser }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditedUser((prevUser) => ({ ...prevUser, [name]: value }));
+  };
+
+  const handleDeleteClick = () => {
+    const email = window.prompt("Please enter your email:");
+    const password = window.prompt("Please enter your password:");
+
+    // Check if both email and password are provided and not null
+    if (email !== null && password !== null) {
+      // Now you can proceed with the email, password verification, and profile deletion
+      // Call a function to verify the email, password, and delete the profile
+      verifyEmailPasswordAndDeleteProfile(email, password);
+    }
+  };
+
+  const verifyEmailPasswordAndDeleteProfile = async (email, password) => {
+    try {
+      // Proceed to delete the user using the provided credentials
+      const response = await fetch("/users", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Account deletion failed");
+      }
+
+      console.log("Account deleted successfully");
+
+      // Logout the user
+      await fetch("/logout", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      // Redirect to the home page after successful deletion and logout
+      window.location.href = "/"; // Change the URL to your home page URL
+    } catch (error) {
+      console.error("Error during account deletion:", error);
+      console.error(error.message);
+      // Optionally, you can add logic to handle the error, like showing an error message to the user
+    }
   };
 
   return (
@@ -157,7 +201,11 @@ export default function Profile({ user, setUser }) {
           <button onClick={handleCancelClick}>Cancel</button>
         </>
       ) : (
-        <button onClick={handleEditClick}>Edit</button>
+        <>
+          <button onClick={handleEditClick}>Edit</button>
+          <br />
+          <button onClick={handleDeleteClick}>Delete Profile</button>
+        </>
       )}
       <h2>Previous Orders:</h2>
       {orders.map((order) => (
@@ -173,7 +221,8 @@ export default function Profile({ user, setUser }) {
           </ul>
         </div>
       ))}
-      <Chatbot />
+      <button onClick={toggleVisibility}>Open Chat</button>
+      {isVisible && <Chatbot />}
     </>
   );
 }

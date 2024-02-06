@@ -258,9 +258,12 @@ class Users(Resource):
             data = request.get_json()
             if not all(key in data for key in ("email", "password")):
                 return make_response({"error": "Email and password are required"}, 400)
+
             email = data["email"]
             password = data["password"]
+
             user = User.query.filter_by(email=email).first()
+
             if user and user.authenticate(password):
                 user_to_delete = user
                 db.session.delete(user_to_delete)
@@ -299,23 +302,55 @@ class UsersById(Resource):
         user = User.query.filter_by(id=id).first()
         if not user:
             return make_response({"error": "User not found"}, 404)
+
         data = request.get_json()
+
+        # Check if the user id matches the current user id
+        if user.id == session["user_id"]:
+            try:
+                # Update user profile
+                setattr(user, "firstname", data["firstname"])
+                setattr(user, "lastname", data["lastname"])
+                setattr(user, "email", data["email"])
+                setattr(user, "address", data["address"])
+                setattr(user, "city", data["city"])
+                setattr(user, "state", data["state"])
+                setattr(user, "zip", data["zip"])
+
+                db.session.commit()
+
+                return user.to_dict(), 202
+            except ValueError:
+                return make_response({"errors": ["validation errors"]}, 400)
+        else:
+            return make_response({"error": "Unauthorized access"}, 403)
+
+    def delete(self, id):
         try:
-            setattr(user, "firstname", data["firstname"])
-            setattr(user, "lastname", data["lastname"])
-            setattr(user, "email", data["email"])
-            setattr(user, "address", data["address"])
-            setattr(user, "city", data["city"])
-            setattr(user, "state", data["state"])
-            setattr(user, "zip", data["zip"])
-            db.session.add(user)
-            db.session.commit()
-            return (
-                user.to_dict(),
-                202,
-            )
-        except ValueError:
-            return make_response({"errors": ["validation errors"]}, 400)
+            data = request.get_json()
+            if "password" not in data:
+                return make_response({"error": "Password is required"}, 400)
+
+            password = data["password"]
+
+            # Find the user by id
+            user = User.query.filter_by(id=id).first()
+
+            if user and user.id is not None:
+                # Verify the entered password
+                if user.authenticate(password):
+                    # Delete the user
+                    db.session.delete(user)
+                    db.session.commit()
+
+                    return make_response({"message": "User deleted successfully"}, 200)
+                else:
+                    return make_response({"error": "Invalid password"}, 401)
+            else:
+                return make_response({"error": "User not found"}, 404)
+
+        except Exception as error:
+            return make_response({"error": str(error)}, 500)
 
 
 api.add_resource(UsersById, "/users/<int:id>")
@@ -453,9 +488,7 @@ api.add_resource(Categories, "/categories")
 
 
 def get_or_create_category(category_name):
-    category = (
-        db.session.query(Category).filter_by(name=category_name).first()
-    ) 
+    category = db.session.query(Category).filter_by(name=category_name).first()
     if category is None:
         category = Category(name=category_name)
         db.session.add(category)

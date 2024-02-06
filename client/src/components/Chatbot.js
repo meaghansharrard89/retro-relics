@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useChat } from "../components/ChatContext";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -18,7 +19,7 @@ export default function Chatbot() {
     },
   ]);
   const [API_KEY, setApiKey] = useState(""); // State to store the API key
-  const [isVisible, setIsVisible] = useState(false);
+  const { isVisible, toggleVisibility, chatMessages, addMessage } = useChat();
 
   useEffect(() => {
     // Fetch OpenAI API key from backend on component mount
@@ -44,6 +45,7 @@ export default function Chatbot() {
     setTyping(true);
     //process message to chatGPT (send it over and see the response)
     await processMessageToChatGPT(newMessages);
+    addMessage(newMessage);
   };
 
   async function processMessageToChatGPT(chatMessages) {
@@ -102,14 +104,13 @@ export default function Chatbot() {
       });
   }
 
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-  };
+  // const toggleVisibility = () => {
+  //   setIsVisible(!isVisible);
+  // };
 
   return (
     <div className="App">
       <div>
-        <button onClick={toggleVisibility}>Open Chat</button>
         {isVisible && (
           <div
             className="modal"
