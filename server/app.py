@@ -24,7 +24,7 @@ def index(id=0):
 
 
 # Define the endpoint for chat completions
-@app.route("/chat-completions", methods=["POST"])
+@app.route("/api/chat-completions", methods=["POST"])
 def chat_completions():
     data = request.get_json()
     headers = {
@@ -74,7 +74,7 @@ class Signup(Resource):
             return {"error": "422 Unprocessable Entity"}, 422
 
 
-api.add_resource(Signup, "/signup", endpoint="signup")
+api.add_resource(Signup, "/api/signup", endpoint="signup")
 
 # CHECK SESSION
 
@@ -88,7 +88,7 @@ class CheckSession(Resource):
         return {}, 401
 
 
-api.add_resource(CheckSession, "/check_session", endpoint="check_session")
+api.add_resource(CheckSession, "/api/check_session", endpoint="check_session")
 
 # LOGIN
 
@@ -106,7 +106,7 @@ class Login(Resource):
         return {"error": "401 Unauthorized"}, 401
 
 
-api.add_resource(Login, "/login", endpoint="login")
+api.add_resource(Login, "/api/login", endpoint="login")
 
 # LOGOUT
 
@@ -117,7 +117,7 @@ class Logout(Resource):
         return {}, 204
 
 
-api.add_resource(Logout, "/logout", endpoint="logout")
+api.add_resource(Logout, "/api/logout", endpoint="logout")
 
 # ITEMS
 
@@ -168,7 +168,7 @@ class Items(Resource):
             return make_response({"error": str(error)}, 500)
 
 
-api.add_resource(Items, "/items")
+api.add_resource(Items, "/api/items")
 
 # ITEMS BY ID
 
@@ -208,7 +208,7 @@ class ItemsById(Resource):
             return make_response({"error": str(error)}), 500
 
 
-api.add_resource(ItemsById, "/items/<int:id>")
+api.add_resource(ItemsById, "/api/items/<int:id>")
 
 # USERS
 
@@ -284,7 +284,7 @@ class Users(Resource):
             return make_response({"error": str(error)}, 500)
 
 
-api.add_resource(Users, "/users")
+api.add_resource(Users, "/api/users")
 
 
 class UsersById(Resource):
@@ -343,7 +343,7 @@ class UsersById(Resource):
             return make_response({"error": str(error)}, 500)
 
 
-api.add_resource(UsersById, "/users/<int:id>")
+api.add_resource(UsersById, "/api/users/<int:id>")
 
 # ORDERS
 
@@ -434,7 +434,7 @@ class Orders(Resource):
             return make_response({"error": "Order creation failed: " + str(e)}, 500)
 
 
-api.add_resource(Orders, "/orders")
+api.add_resource(Orders, "/api/orders")
 
 # ORDER DETAILS
 
@@ -448,7 +448,7 @@ class OrderDetails(Resource):
             return make_response({"error": str(error)}, 500)
 
 
-api.add_resource(OrderDetails, "/order_details")
+api.add_resource(OrderDetails, "/api/order_details")
 
 # CATEGORIES
 
@@ -474,7 +474,7 @@ class Categories(Resource):
             return make_response({"error": "Failed to create category: " + str(e)}, 500)
 
 
-api.add_resource(Categories, "/categories")
+api.add_resource(Categories, "/api/categories")
 
 
 def get_or_create_category(category_name):
@@ -540,7 +540,7 @@ class ItemCategories(Resource):
             )
 
 
-api.add_resource(ItemCategories, "/item_categories")
+api.add_resource(ItemCategories, "/api/item_categories")
 
 
 if __name__ == "__main__":

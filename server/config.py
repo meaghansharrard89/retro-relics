@@ -11,8 +11,6 @@ from flask_bcrypt import Bcrypt
 from os import environ
 from dotenv import load_dotenv
 
-# Local imports
-
 # Instantiate app, set attributes
 app = Flask(
     __name__,
@@ -42,7 +40,7 @@ load_dotenv()
 app.secret_key = environ.get("SECRET_KEY")
 app.api_key = environ.get("OPENAI_API_KEY")
 app.api_url = environ.get("OPENAI_API_URL")
-app.config["APPLICATION_ROOT"] = "/api"
+
 
 migrate = Migrate(app, db)
 db.init_app(app)

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../components/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function Profile() {
-  const navigate = useNavigate();
+  const history = useHistory();
   const { user, setUser } = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...user });
@@ -87,7 +87,7 @@ export default function Profile() {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         });
-        navigate("/");
+        history.push("/");
       }
     } catch (error) {
       console.error("Error during account deletion:", error);
