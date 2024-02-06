@@ -19,7 +19,7 @@ app = Flask(
     static_folder="../client/build",
     template_folder="../client/build",
 )
-if environ["ENV"] == "prod":
+if environ.get("ENV") == "prod":
     app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URI")
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
