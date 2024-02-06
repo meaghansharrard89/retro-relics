@@ -152,10 +152,15 @@ class User(db.Model, SerializerMixin):
         return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
 
     @validates("email")
-    def validate_email(self, key, email):
-        if not re.match("[^@]+@[^@]+\.[^@]+", email):
+    def validate_email(self, key, value):
+        # Check if the provided email is in a valid format
+        if not re.match("[^@]+@[^@]+\.[^@]+", value):
             raise ValueError("Invalid email address.")
-        return email
+        # Check if the provided email already exists in the database
+        existing_user = User.query.filter(User.email == value).first()
+        if existing_user:
+            raise ValueError("Email already exists. Please choose a different email.")
+        return value
 
 
 class Order(db.Model, SerializerMixin):

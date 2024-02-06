@@ -61,42 +61,36 @@ export default function Profile({ user, setUser }) {
   const handleDeleteClick = () => {
     const email = window.prompt("Please enter your email:");
     const password = window.prompt("Please enter your password:");
-
-    // Check if both email and password are provided and not null
     if (email !== null && password !== null) {
-      // Now you can proceed with the email, password verification, and profile deletion
-      // Call a function to verify the email, password, and delete the profile
       verifyEmailPasswordAndDeleteProfile(email, password);
     }
   };
 
   const verifyEmailPasswordAndDeleteProfile = async (email, password) => {
     try {
-      // Proceed to delete the user using the provided credentials
       const response = await fetch("/users", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-
       if (!response.ok) {
-        throw new Error("Account deletion failed");
+        const data = await response.json();
+        if (data.error === "Invalid credentials") {
+          window.alert("Incorrect email or password. Please try again.");
+        } else {
+          throw new Error("Account deletion failed");
+        }
+      } else {
+        window.alert("Account deleted successfully");
+        await fetch("/logout", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        });
+        window.location.href = "/";
       }
-
-      console.log("Account deleted successfully");
-
-      // Logout the user
-      await fetch("/logout", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-      });
-
-      // Redirect to the home page after successful deletion and logout
-      window.location.href = "/"; // Change the URL to your home page URL
     } catch (error) {
       console.error("Error during account deletion:", error);
-      console.error(error.message);
-      // Optionally, you can add logic to handle the error, like showing an error message to the user
+      window.alert("Error during account deletion. Please try again later.");
     }
   };
 
@@ -127,19 +121,6 @@ export default function Profile({ user, setUser }) {
           />
         ) : (
           user?.lastname || ""
-        )}
-      </p>
-      <p>
-        Email:{" "}
-        {isEditing ? (
-          <input
-            type="text"
-            name="email"
-            value={editedUser.email}
-            onChange={handleChange}
-          />
-        ) : (
-          user?.email || ""
         )}
       </p>
       <p>

@@ -44,8 +44,18 @@ export default function Signup({ user, setUser }) {
         setUser(user);
       } else {
         const errorData = await response.json();
+        if (
+          errorData.error &&
+          errorData.error.includes("Email already exists")
+        ) {
+          alert("This email already exists. Please choose a different email.");
+        } else {
+          alert(errorData.error); // Display other validation errors returned by the backend
+        }
       }
     } catch (error) {
+      console.error("Error during signup:", error);
+      // Handle other errors if needed
     }
   };
 

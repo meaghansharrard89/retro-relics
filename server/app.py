@@ -499,6 +499,28 @@ def get_or_create_category(category_name):
 # ITEM CATEGORIES
 
 
+@app.route("/items_with_categories", methods=["GET"])
+def get_items_with_categories():
+    try:
+        items_with_categories = []
+        items = Item.query.all()
+        for item in items:
+            categories = [category.name for category in item.categories]
+            item_with_categories = {
+                "id": item.id,
+                "name": item.name,
+                "description": item.description,
+                "price": item.price,
+                "image_url": item.image_url,
+                "inStock": item.inStock,
+                "categories": categories,
+            }
+            items_with_categories.append(item_with_categories)
+        return jsonify(items_with_categories), 200
+    except Exception as error:
+        return jsonify({"error": str(error)}), 500
+
+
 class ItemCategories(Resource):
     def get(self):
         item_categories = ItemCategory.query.all()
