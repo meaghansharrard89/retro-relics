@@ -6,7 +6,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    fetch("/check_session")
+    fetch("/api/check_session")
       .then((r) => r.json())
       .then((u) => setUser(u));
   }, []);

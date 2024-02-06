@@ -12,23 +12,14 @@ from sqlalchemy.exc import IntegrityError
 # Local imports
 from config import app, db, api
 from helpers import validate_not_blank, validate_type
-from os import environ
-from dotenv import load_dotenv
+
 from models import Item, Category, Order, OrderDetail, ItemCategory, User
 
 # Builds app, set attributes
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DATABASE = os.environ.get(
-    "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'instance', 'app.db')}"
-)
-load_dotenv()
-app.secret_key = environ.get("SECRET_KEY")
-app.api_key = environ.get("OPENAI_API_KEY")
-app.api_url = environ.get("OPENAI_API_URL")
 
 
 # Define the endpoint for chat completions
-@app.route("/api/chat-completions", methods=["POST"])
+@app.route("/chat-completions", methods=["POST"])
 def chat_completions():
     data = request.get_json()
     headers = {

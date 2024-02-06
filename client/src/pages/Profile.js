@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../components/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate();
   const { user, setUser } = useUser();
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...user });
@@ -9,7 +11,7 @@ export default function Profile() {
   const [ordersLoaded, setOrdersLoaded] = useState(false);
 
   useEffect(() => {
-    fetch("/orders")
+    fetch("/api/orders")
       .then((r) => r.json())
       .then((data) => {
         setOrders(data);
@@ -26,7 +28,7 @@ export default function Profile() {
 
   const handleSaveClick = async () => {
     try {
-      const response = await fetch(`/users/${user.id}`, {
+      const response = await fetch(`/api/users/${user.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +69,7 @@ export default function Profile() {
 
   const verifyEmailPasswordAndDeleteProfile = async (email, password) => {
     try {
-      const response = await fetch("/users", {
+      const response = await fetch("/api/users", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -81,11 +83,11 @@ export default function Profile() {
         }
       } else {
         window.alert("Account deleted successfully");
-        await fetch("/logout", {
+        await fetch("/api/logout", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         });
-        window.location.href = "/";
+        navigate("/");
       }
     } catch (error) {
       console.error("Error during account deletion:", error);

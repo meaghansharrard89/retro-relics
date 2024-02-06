@@ -72,7 +72,7 @@ function Cart() {
       const orderDetails = cartItems.map((item) => ({
         item_id: item.id,
       }));
-      const response = await fetch("/orders", {
+      const response = await fetch("/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

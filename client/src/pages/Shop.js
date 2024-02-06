@@ -12,7 +12,7 @@ function Shop() {
   };
 
   useEffect(() => {
-    fetch("/items_with_categories")
+    fetch("/api/items_with_categories")
       .then((r) => r.json())
       .then((data) => {
         setItems(data);

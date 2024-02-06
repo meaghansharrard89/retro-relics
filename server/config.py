@@ -8,6 +8,8 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
+from os import environ
+from dotenv import load_dotenv
 
 # Local imports
 
@@ -25,6 +27,18 @@ metadata = MetaData(
     }
 )
 db = SQLAlchemy(metadata=metadata)
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+DATABASE = os.environ.get(
+    "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'instance', 'app.db')}"
+)
+
+load_dotenv()
+app.secret_key = environ.get("SECRET_KEY")
+app.api_key = environ.get("OPENAI_API_KEY")
+app.api_url = environ.get("OPENAI_API_URL")
+app.config["APPLICATION_ROOT"] = "/api"
+
 migrate = Migrate(app, db)
 db.init_app(app)
 
