@@ -69,7 +69,7 @@ class Signup(Resource):
             return user.to_dict(), 201
         except Exception as e:
             db.session.rollback()  # Rollback the changes if an error occurs
-            return {"error": str(e)}, 422
+            return {"error": e.__str__()}, 422
         except IntegrityError:
             return {"error": "422 Unprocessable Entity"}, 422
 

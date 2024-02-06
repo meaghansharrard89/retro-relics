@@ -8,6 +8,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_bcrypt import Bcrypt
+import os
 from os import environ
 from dotenv import load_dotenv
 
@@ -18,7 +19,10 @@ app = Flask(
     static_folder="../client/build",
     template_folder="../client/build",
 )
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+if environ["ENV"] == "prod":
+    app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URI")
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.compact = False
 bcrypt = Bcrypt(app)
@@ -32,7 +36,7 @@ metadata = MetaData(
 db = SQLAlchemy(metadata=metadata)
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DATABASE = os.environ.get(
+DATABASE = environ.get(
     "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'instance', 'app.db')}"
 )
 
