@@ -16,13 +16,6 @@ from helpers import validate_not_blank, validate_type
 from models import Item, Category, Order, OrderDetail, ItemCategory, User
 
 
-# Render front-end
-@app.route("/")
-@app.route("/<int:id>")
-def index(id=0):
-    return render_template("index.html")
-
-
 # Define the endpoint for chat completions
 @app.route("/api/chat-completions", methods=["POST"])
 def chat_completions():
@@ -356,7 +349,7 @@ class Orders(Resource):
                 db.session.query(Order, OrderDetail, Item)
                 .join(OrderDetail, Order.id == OrderDetail.order_id)
                 .join(Item, OrderDetail.item_id == Item.id)
-                .filter(Order.user_id == session["user_id"])
+                .filter(Order.user_id == session.get("user_id"))
                 .distinct(Order.id, OrderDetail.item_id, Item.id)
                 .all()
             )
@@ -489,7 +482,7 @@ def get_or_create_category(category_name):
 # ITEM CATEGORIES
 
 
-@app.route("/items_with_categories", methods=["GET"])
+@app.route("/api/items_with_categories", methods=["GET"])
 def get_items_with_categories():
     try:
         items_with_categories = []
@@ -541,6 +534,17 @@ class ItemCategories(Resource):
 
 
 api.add_resource(ItemCategories, "/api/item_categories")
+
+
+# Render front-end
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
