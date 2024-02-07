@@ -83,10 +83,7 @@ export default function Profile() {
         }
       } else {
         window.alert("Account deleted successfully");
-        await fetch("/api/logout", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        });
+        setUser(null);
         history.push("/");
       }
     } catch (error) {

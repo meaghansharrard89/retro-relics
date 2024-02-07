@@ -43,24 +43,24 @@ class Signup(Resource):
         state = request_json.get("state")
         zip = request_json.get("zip")
         password = request_json.get("password")
-        user = User(
-            firstname=firstname,
-            lastname=lastname,
-            email=email,
-            address=address,
-            city=city,
-            state=state,
-            zip=zip,
-        )
-        # the setter will encrypt this
         try:
+            user = User(
+                firstname=firstname,
+                lastname=lastname,
+                email=email,
+                address=address,
+                city=city,
+                state=state,
+                zip=zip,
+            )
+            # the setter will encrypt this
             user.password_hash = password
             db.session.add(user)
             db.session.commit()
             user_id = user.id
             session["user_id"] = user_id
             return user.to_dict(), 201
-        except Exception as e:
+        except ValueError as e:
             db.session.rollback()  # Rollback the changes if an error occurs
             return {"error": e.__str__()}, 422
         except IntegrityError:
@@ -251,6 +251,7 @@ class Users(Resource):
                 user_to_delete = user
                 db.session.delete(user_to_delete)
                 db.session.commit()
+                session.clear()
                 return make_response({"message": "User deleted successfully"}, 200)
             else:
                 return make_response({"error": "Invalid credentials"}, 401)
