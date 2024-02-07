@@ -67,7 +67,11 @@ export default function Profile() {
     }
   };
 
-  const verifyEmailPasswordAndDeleteProfile = async (email, password) => {
+  const verifyEmailPasswordAndDeleteProfile = async (
+    email,
+    password,
+    history
+  ) => {
     try {
       const response = await fetch("/api/users", {
         method: "DELETE",
