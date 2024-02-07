@@ -63,7 +63,7 @@ export default function Profile() {
     const email = window.prompt("Please enter your email:");
     const password = window.prompt("Please enter your password:");
     if (email !== null && password !== null) {
-      verifyEmailPasswordAndDeleteProfile(email, password);
+      verifyEmailPasswordAndDeleteProfile(email, password, history);
     }
   };
 
@@ -78,8 +78,8 @@ export default function Profile() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+      const data = await response.json();
       if (!response.ok) {
-        const data = await response.json();
         if (data.error === "Invalid credentials") {
           window.alert("Incorrect email or password. Please try again.");
         } else {
@@ -89,6 +89,8 @@ export default function Profile() {
         window.alert("Account deleted successfully");
         setUser(null);
         history.push("/");
+        // setUser(null);
+        // history.push("/");
       }
     } catch (error) {
       console.error("Error during account deletion:", error);
