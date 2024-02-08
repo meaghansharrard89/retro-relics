@@ -97,7 +97,17 @@ export default function Chatbot() {
         {isVisible && (
           <div
             className="modal"
-            style={{ position: "relative", height: "800px", width: "700px" }}
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              zIndex: "1000",
+              width: "80%",
+              maxWidth: "600px",
+              height: "600px",
+              borderRadius: "15px",
+            }}
           >
             <MainContainer>
               <ChatContainer>

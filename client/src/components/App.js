@@ -14,6 +14,7 @@ import { OrderProvider } from "../components/OrderContext";
 import { ChatProvider } from "./ChatContext";
 import { UserProvider } from "./UserContext";
 import Chatbot from "../components/Chatbot";
+import "../index.css";
 
 function App() {
   return (
