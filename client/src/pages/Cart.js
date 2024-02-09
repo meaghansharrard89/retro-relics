@@ -4,12 +4,15 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import { useOrder } from "../components/OrderContext";
 import { useUser } from "../components/UserContext";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import ErrorModal from "../components/ErrorModal";
 
 function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
   const location = useLocation();
   const { user, setUser } = useUser();
   const { setCompletedOrder } = useOrder();
   const history = useHistory();
+  const [error, setError] = useState(null);
   const [billingInfo, setBillingInfo] = useState({
     cardName: "",
     cardNumber: "",
@@ -51,13 +54,18 @@ function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
   const handleCheckout = async (e) => {
     try {
       if (cartItems.length === 0) {
-        window.alert("Cannot checkout with an empty cart.");
+        setError({
+          title: "Error",
+          message: "Cannot checkout with an empty cart.",
+        });
         return;
       }
       if (!isBillingInfoComplete()) {
-        window.alert(
-          "Please fill out all billing information before confirming the order."
-        );
+        setError({
+          title: "Error",
+          message:
+            "Please fill out all billing information before confirming the order.",
+        });
         return;
       }
       const orderDetails = cartItems.map((item) => ({
@@ -84,7 +92,7 @@ function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
       history.push("/checkout", { username: user.firstname });
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
-      window.alert(`Error: ${error.message}`);
+      setError({ title: "Error", message: `Error: ${error.message}` });
     }
   };
 
@@ -95,6 +103,38 @@ function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
 
   return (
     <>
+      <div className="App">
+        <center>
+          <h1>Register a new account</h1>
+          <Formik>
+            {({ isSubmitting }) => (
+              <Form>
+                <Field
+                  type="text"
+                  name="fullname"
+                  placeholder="Enter your fullname"
+                />
+                <ErrorMessage name="fullname" component="div" />
+
+                <Field
+                  type="email"
+                  name="email"
+                  placeholder="Enter email address"
+                />
+                <ErrorMessage name="email" component="div" />
+
+                <Field type="password" name="password" />
+                <ErrorMessage name="password" component="div" />
+
+                <button type="submit" disabled={isSubmitting}>
+                  Submit
+                </button>
+              </Form>
+            )}
+          </Formik>
+        </center>
+      </div>
+
       <div id="cart">
         <h1>Shopping Cart</h1>
         <h3>Your Items:</h3>
@@ -186,6 +226,14 @@ function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
           </div>
         )}
       </div>
+      {/* Error modal */}
+      {error && (
+        <ErrorModal
+          title={error.title}
+          message={error.message}
+          onClose={() => setError(null)}
+        />
+      )}
     </>
   );
 }

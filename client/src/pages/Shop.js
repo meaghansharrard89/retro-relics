@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-// import AddToCartModal from "../components/AddToCartModal";
 import CartPopout from "../components/CartPopout";
-import Cart from "../pages/Cart";
 import { useHistory } from "react-router-dom";
 
 function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
