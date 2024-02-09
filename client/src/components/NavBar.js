@@ -26,12 +26,12 @@ function NavBar() {
   return (
     <>
       <nav class="bg-dark-accent-light">
-        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div class="relative flex h-16 items-center justify-between">
-            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 rounded-full">
+          <div class="relative flex h-16 items-center justify-between rounded-full">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden rounded-full">
               <button
                 type="button"
-                class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                class="rounded-full relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >
@@ -53,42 +53,42 @@ function NavBar() {
               </button>
             </div>
 
-            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-              <div class="flex flex-shrink-0 items-center">
+            <div class="rounded-full flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              {/* <div class="flex flex-shrink-0 items-center">
                 <img
                   class="h-8 w-auto"
                   src="https://i.ibb.co/CJm7s8x/transparentyellowflower.png"
                   alt="Retro Revival"
                 />
-              </div>
-              <div class="hidden sm:ml-6 sm:block">
+              </div> */}
+              <div class="hidden sm:ml-6 sm:block rounded-full">
                 <div class="flex space-x-4">
                   <a
                     href="/"
-                    class="outline-none hover:outline-accent-lightest text-accent-lightest rounded-md px-3 py-2 text-sm font-medium"
+                    class="relative rounded-full outline-none hover:outline-accent-lightest text-accent-lightest px-3 py-2 text-sm font-medium"
                     activeClassName="outline-accent-lightest text-accent-lightest"
                     aria-current="page"
                   >
-                    HOME
+                    🌙 HOME
                   </a>
                   <a
                     href="/about"
-                    class="outline-none hover:outline-accent-lightest text-accent-lightest rounded-md px-3 py-2 text-sm font-medium"
+                    class="outline-none hover:outline-accent-lightest text-accent-lightest relative rounded-full px-3 py-2 text-sm font-medium"
                     activeClassName="outline-accent-lightest text-accent-lightest"
                   >
-                    ABOUT
+                    🌼 ABOUT
                   </a>
                   <a
                     href="/social"
-                    class="outline-none hover:outline-accent-lightest text-accent-lightest rounded-md px-3 py-2 text-sm font-medium"
+                    class="outline-none hover:outline-accent-lightest text-accent-lightest relative rounded-full px-3 py-2 text-sm font-medium"
                   >
-                    SOCIAL
+                    ⭐️ SOCIAL
                   </a>
                   <a
                     href="/shop"
-                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
                   >
-                    SHOP
+                    💗 SHOP
                   </a>
                 </div>
               </div>
@@ -108,14 +108,14 @@ function NavBar() {
                 <>
                   <a
                     href="/profile"
-                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
                   >
                     PROFILE
                   </a>
                   <a
                     href="/"
                     onClick={handleClick}
-                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
                   >
                     LOGOUT
                   </a>
@@ -123,7 +123,7 @@ function NavBar() {
               )}
               <button
                 onClick={toggleVisibility}
-                class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
               >
                 {isVisible ? "End Chat" : "Start Chat"}
               </button>{" "}
@@ -137,26 +137,26 @@ function NavBar() {
           <div class="space-y-1 px-2 pb-3 pt-2">
             <a
               href="/"
-              class="bg-dark-accent-light outline-none hover:outline-accent-lightest text-accent-lightest block rounded-md px-3 py-2 text-base font-medium"
+              class="bg-dark-accent-light outline-none hover:outline-accent-lightest text-accent-lightest block relative rounded-full px-3 py-2 text-base font-medium"
               aria-current="page"
             >
               HOME
             </a>
             <a
               href="/about"
-              class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+              class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white block relative rounded-full px-3 py-2 text-base font-medium"
             >
               ABOUT
             </a>
             <a
               href="/social"
-              class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+              class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white block relative rounded-full px-3 py-2 text-base font-medium"
             >
               SOCIAL
             </a>
             <a
               href="/shop"
-              class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+              class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white block relative rounded-full px-3 py-2 text-base font-medium"
             >
               SHOP
             </a>
@@ -174,14 +174,14 @@ function NavBar() {
               <>
                 <a
                   href="/profile"
-                  class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
                 >
                   PROFILE
                 </a>
                 <a
                   href="/"
                   onClick={handleClick}
-                  class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
                 >
                   LOGOUT
                 </a>

@@ -13,28 +13,60 @@ function About() {
       });
   }, [location]);
 
+  // useEffect(() => {
+  //   document.body.style.backgroundImage =
+  //     "url('https://i.ibb.co/r6N8qjK/starbackground.png')"; // Replace 'path/to/your/image.jpg' with the path to your background image
+  //   document.body.style.backgroundRepeat = "repeat"; // Make the background image repeat
+
+  //   return () => {
+  //     document.body.style.backgroundImage = null;
+  //     document.body.style.backgroundRepeat = null;
+  //   };
+  // }, []);
+
   return (
-    <>
-      <div id="about">
-        <h1>Welcome to Retro Revival! Where thrift meets fashion.</h1>
-        <p>
+    <div
+      id="about"
+      class="flex justify-between items-center py-8 px-4 mx-auto max-w-6xl mt-14"
+    >
+      >{/* Text column */}
+      <div class="max-w-md mr-8">
+        <h1 class="text-3xl font-bold mb-4">
+          Welcome to Retro Revival! Where thrift meets fashion.
+        </h1>
+        <p class="mb-4">
           Welcome to Retro Revival, your ultimate destination for all things
           vintage and nostalgic! At Retro Revival, we're more than just a thrift
           reseller - we're curators of memories, purveyors of style, and
           champions of individuality.
         </p>
-        <p>
+        <p class="mb-4">
           Whether you're a seasoned thrift shopper or a newcomer to the world of
           vintage fashion, Retro Revival welcomes you with open arms. Join us on
           a journey through the decades, where every item tells a story and
           every purchase brings a little piece of history into your home.
         </p>
-        <p>
+        <p class="mb-4">
           So why wait? Come on in, browse to your heart's content, and let Retro
           Revival ignite your passion for all things retro!
         </p>
       </div>
-    </>
+      {/* Image column */}
+      <div class="relative" style={{ width: "475px" }}>
+        <img
+          src="https://i.ibb.co/FWJxDxj/editedheadshot.jpg"
+          alt="headshot"
+          class="rounded-full w-80 h-auto left-9"
+          style={{ position: "relative", zIndex: 0 }}
+        />
+        <img
+          src="https://i.ibb.co/7KjwB1h/aboutoutline.png"
+          alt="outline"
+          class="absolute top-0 right-12"
+          style={{ width: "100%", height: "auto", zIndex: 1 }}
+        />
+      </div>
+    </div>
   );
 }
 

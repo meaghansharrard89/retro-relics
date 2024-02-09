@@ -12,6 +12,19 @@ function Shop() {
     window.alert("Added to cart!");
   };
 
+  // useEffect(() => {
+  //   // Apply background image to body
+  //   document.body.style.backgroundImage =
+  //     "url('https://i.ibb.co/r6N8qjK/starbackground.png')"; // Replace 'path/to/your/image.jpg' with the path to your background image
+  //   document.body.style.backgroundRepeat = "repeat"; // Make the background image repeat
+
+  //   // Clean up when component unmounts
+  //   return () => {
+  //     document.body.style.backgroundImage = null;
+  //     document.body.style.backgroundRepeat = null;
+  //   };
+  // }, []);
+
   useEffect(() => {
     fetch("/api/items_with_categories")
       .then((r) => r.json())
@@ -35,20 +48,19 @@ function Shop() {
 
   return (
     <>
-      <div class="relative inline-block text-center absolute left-1/2 -translate-x-1/2">
+      <br />
+      <div class="relative inline-block text-center absolute left-1/4 -translate-x-1/2">
         <div
-          class="z-10 mt-2 w-56 origin-top rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="z-10 mt-2 w-56 origin-top rounded-md bg-dark-accent shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
           tabIndex="-1"
         >
-          <div className="py-1" role="none">
-            <p className="px-4 py-2 text-sm text-gray-700">
-              Filter by Category
-            </p>
+          <div class="py-1" role="none">
+            <p class="px-4 py-2 text-accent-lightest">Filter by Category</p>
             <select
-              className="block w-full px-4 py-2 text-sm text-gray-700"
+              class="appearance-none bg-dark-accent block w-full px-4 py-2 text-sm text-accent-lightest"
               value={filterStatus}
               onChange={(e) => {
                 setFilterStatus(e.target.value);
@@ -63,8 +75,6 @@ function Shop() {
           </div>
         </div>
       </div>
-
-      <br />
 
       <div id="shop" class="base">
         <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
