@@ -32,7 +32,7 @@ function Home() {
           // type="video/mp4"
           src="https://i.ibb.co/W0ftHVL/transparenthomelogo.png"
           alt="logo"
-          style={{ width: "30%", height: "70%" }}
+          style={{ maxWidth: "100%", height: "70vh", maxHeight: "80vh" }}
         />
       </div>
     </>

@@ -14,6 +14,7 @@ import { OrderProvider } from "../components/OrderContext";
 import { ChatProvider } from "./ChatContext";
 import { UserProvider } from "./UserContext";
 import Chatbot from "../components/Chatbot";
+import Footer from "../components/Footer";
 import "../index.css";
 
 function App() {
@@ -72,6 +73,7 @@ function App() {
               </Switch>
             </main>
           </Router>
+          <Footer />
         </ChatProvider>
       </OrderProvider>
     </UserProvider>
