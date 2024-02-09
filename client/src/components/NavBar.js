@@ -65,7 +65,7 @@ function NavBar() {
                 <div class="flex space-x-4">
                   <a
                     href="/"
-                    class="relative rounded-full outline-none hover:outline-accent-lightest text-accent-lightest px-3 py-2 text-sm font-medium"
+                    class="relative rounded-full outline-none hover:outline-accent-lightest text-accent-lightest px-3 py-2 text-m font-medium"
                     activeClassName="outline-accent-lightest text-accent-lightest"
                     aria-current="page"
                   >
@@ -73,20 +73,20 @@ function NavBar() {
                   </a>
                   <a
                     href="/about"
-                    class="outline-none hover:outline-accent-lightest text-accent-lightest relative rounded-full px-3 py-2 text-sm font-medium"
+                    class="outline-none hover:outline-accent-lightest text-accent-lightest relative rounded-full px-3 py-2 text-m font-medium"
                     activeClassName="outline-accent-lightest text-accent-lightest"
                   >
                     🌼 ABOUT
                   </a>
                   <a
                     href="/social"
-                    class="outline-none hover:outline-accent-lightest text-accent-lightest relative rounded-full px-3 py-2 text-sm font-medium"
+                    class="outline-none hover:outline-accent-lightest text-accent-lightest relative rounded-full px-3 py-2 text-m font-medium"
                   >
                     ⭐️ SOCIAL
                   </a>
                   <a
                     href="/shop"
-                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
+                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-m font-medium"
                   >
                     💗 SHOP
                   </a>
@@ -101,21 +101,21 @@ function NavBar() {
                 <img
                   src="https://i.ibb.co/W5swS2Y/shoppingbag.png"
                   alt="Shopping Bag Icon"
-                  class="h-14 w-14"
+                  class="h-14 w-16"
                 />
               </a>
               {user && user.email && (
                 <>
                   <a
                     href="/profile"
-                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
+                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-m font-medium"
                   >
                     PROFILE
                   </a>
                   <a
                     href="/"
                     onClick={handleClick}
-                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
+                    class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-m font-medium"
                   >
                     LOGOUT
                   </a>
@@ -123,9 +123,9 @@ function NavBar() {
               )}
               <button
                 onClick={toggleVisibility}
-                class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-sm font-medium"
+                class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-m font-medium"
               >
-                {isVisible ? "End Chat" : "Start Chat"}
+                {isVisible ? "End Chat" : "Chat"}
               </button>{" "}
               {isVisible && <Chatbot />}
             </div>

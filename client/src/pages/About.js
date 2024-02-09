@@ -29,41 +29,41 @@ function About() {
       id="about"
       class="flex justify-between items-center py-8 px-4 mx-auto max-w-6xl mt-14"
     >
-      >{/* Text column */}
+      {/* Text column */}
       <div class="max-w-md mr-8">
         <h1 class="text-3xl font-bold mb-4">
           Welcome to Retro Revival! Where thrift meets fashion.
         </h1>
-        <p class="mb-4">
+        <p class="mb-7 text-2xl">
           Welcome to Retro Revival, your ultimate destination for all things
-          vintage and nostalgic! At Retro Revival, we're more than just a thrift
-          reseller - we're curators of memories, purveyors of style, and
-          champions of individuality.
+          vintage and nostalgic! My name is Meaghan, and here at Retro Revival,
+          we're more than just a thrift reseller - we're curators of memories,
+          purveyors of style, and champions of individuality.
         </p>
-        <p class="mb-4">
+        <p class="mb-7 text-2xl">
           Whether you're a seasoned thrift shopper or a newcomer to the world of
           vintage fashion, Retro Revival welcomes you with open arms. Join us on
           a journey through the decades, where every item tells a story and
           every purchase brings a little piece of history into your home.
         </p>
-        <p class="mb-4">
+        <p class="mb-7 text-2xl">
           So why wait? Come on in, browse to your heart's content, and let Retro
           Revival ignite your passion for all things retro!
         </p>
       </div>
       {/* Image column */}
-      <div class="relative" style={{ width: "475px" }}>
+      <div class="relative" style={{ width: "550px" }}>
         <img
           src="https://i.ibb.co/FWJxDxj/editedheadshot.jpg"
           alt="headshot"
-          class="rounded-full w-80 h-auto left-9"
+          class="rounded-full w-80 h-auto left-20"
           style={{ position: "relative", zIndex: 0 }}
         />
         <img
           src="https://i.ibb.co/7KjwB1h/aboutoutline.png"
           alt="outline"
-          class="absolute top-0 right-12"
-          style={{ width: "100%", height: "auto", zIndex: 1 }}
+          class="absolute top-0 right-8"
+          style={{ width: "100%", height: "auto", zIndex: 1, top: "-40px" }}
         />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Gif from "../images/GIF2.gif";
+import Gif from "../images/GIF3.gif";
 
 function Home() {
   useEffect(() => {
@@ -23,14 +23,14 @@ function Home() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          height: "80vh",
         }}
       >
         <img
           source
           src={Gif}
           type="video/mp4"
-          style={{ width: "50%", height: "80%" }}
+          style={{ width: "30%", height: "70%" }}
         />
       </div>
     </>

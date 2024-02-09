@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import AddToCartModal from "../components/AddToCartModal";
 
 function Shop() {
   const [items, setItems] = useState([]);
   const [filterStatus, setFilterStatus] = useState("");
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleClick = (item) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const updatedCart = [...existingCart, item];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    window.alert("Added to cart!");
+    setIsModalOpen(true);
   };
 
   // useEffect(() => {
@@ -51,7 +53,7 @@ function Shop() {
       <br />
       <div class="relative inline-block text-center absolute left-1/4 -translate-x-1/2">
         <div
-          class="z-10 mt-2 w-56 origin-top rounded-md bg-dark-accent shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="z-10 mt-2 w-56 origin-top rounded-md bg-dark-accent-light shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"
@@ -60,7 +62,7 @@ function Shop() {
           <div class="py-1" role="none">
             <p class="px-4 py-2 text-accent-lightest">Filter by Category</p>
             <select
-              class="appearance-none bg-dark-accent block w-full px-4 py-2 text-sm text-accent-lightest"
+              class="appearance-none bg-dark-accent-light block w-full px-4 py-2 text-sm text-accent-lightest"
               value={filterStatus}
               onChange={(e) => {
                 setFilterStatus(e.target.value);
@@ -89,9 +91,9 @@ function Shop() {
                       class="h-full w-full object-cover object-center group-hover:opacity-75"
                     />
                   </div>
-                  <h3 class="mt-4 text-m text-black-700">{item.name}</h3>
-                  <p class="mt-4 text-sm text-black-700">{item.description}</p>
-                  <p class="mt-1 text-lg font-medium text-gray-900">
+                  <h3 class="mt-4 text-lg text-black-700">{item.name}</h3>
+                  <p class="mt-4 text-m text-black-700">{item.description}</p>
+                  <p class="mt-1 text-xl font-medium text-gray-900">
                     {item.price}
                   </p>
                   <br />
@@ -110,6 +112,10 @@ function Shop() {
           </div>
         </div>
       </div>
+      <AddToCartModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 }
