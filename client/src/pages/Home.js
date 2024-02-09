@@ -28,8 +28,10 @@ function Home() {
       >
         <img
           source
-          src={Gif}
-          type="video/mp4"
+          // src={Gif}
+          // type="video/mp4"
+          src="https://i.ibb.co/W0ftHVL/transparenthomelogo.png"
+          alt="logo"
           style={{ width: "30%", height: "70%" }}
         />
       </div>

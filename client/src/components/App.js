@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Cart from "../pages/Cart";
@@ -17,6 +17,15 @@ import Chatbot from "../components/Chatbot";
 import "../index.css";
 
 function App() {
+  const [cartItems, setCartItems] = useState([]);
+
+  const handleDeleteFromCart = (index) => {
+    const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
+    currentCart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(currentCart));
+    setCartItems(currentCart);
+  };
+
   return (
     <UserProvider>
       <OrderProvider>
@@ -32,13 +41,21 @@ function App() {
                   <About />
                 </Route>
                 <Route exact path="/shop">
-                  <Shop />
+                  <Shop
+                    cartItems={cartItems}
+                    setCartItems={setCartItems}
+                    handleDeleteFromCart={handleDeleteFromCart}
+                  />
                 </Route>
                 <Route exact path="/social">
                   <Social />
                 </Route>
                 <Route exact path="/cart">
-                  <Cart />
+                  <Cart
+                    cartItems={cartItems}
+                    setCartItems={setCartItems}
+                    handleDeleteFromCart={handleDeleteFromCart}
+                  />
                 </Route>
                 <Route exact path="/login">
                   <Login />

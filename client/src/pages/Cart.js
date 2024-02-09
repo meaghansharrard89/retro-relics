@@ -5,11 +5,9 @@ import Login from "../components/Login";
 import { useOrder } from "../components/OrderContext";
 import { useUser } from "../components/UserContext";
 
-function Cart() {
+function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
   const location = useLocation();
   const { user, setUser } = useUser();
-  const [cartItems, setCartItems] = useState([]);
-  const [items, setItems] = useState([]);
   const { setCompletedOrder } = useOrder();
   const history = useHistory();
   const [billingInfo, setBillingInfo] = useState({
@@ -50,13 +48,6 @@ function Cart() {
       .toFixed(2);
   };
 
-  const handleDeleteFromCart = (index) => {
-    const currentCart = JSON.parse(localStorage.getItem("cart")) || [];
-    currentCart.splice(index, 1);
-    localStorage.setItem("cart", JSON.stringify(currentCart));
-    setCartItems(currentCart);
-  };
-
   const handleCheckout = async (e) => {
     try {
       if (cartItems.length === 0) {
@@ -87,17 +78,6 @@ function Cart() {
         throw new Error("Network response was not ok.");
       }
       const data = await response.json();
-
-      setItems((items) =>
-        items.map((item) => {
-          const updatedItem = data.items.find((i) => i.id === item.id);
-          if (updatedItem) {
-            return updatedItem;
-          } else {
-            return item;
-          }
-        })
-      );
 
       setCompletedOrder(orderDetails);
       localStorage.removeItem("cart");

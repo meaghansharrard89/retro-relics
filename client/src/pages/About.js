@@ -31,7 +31,7 @@ function About() {
     >
       {/* Text column */}
       <div class="max-w-md mr-8">
-        <h1 class="text-3xl font-bold mb-4">
+        <h1 class="text-3xl font-bold mb-10">
           Welcome to Retro Revival! Where thrift meets fashion.
         </h1>
         <p class="mb-7 text-2xl">

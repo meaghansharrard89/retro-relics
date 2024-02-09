@@ -1,31 +1,23 @@
 import { useEffect, useState } from "react";
-import AddToCartModal from "../components/AddToCartModal";
+// import AddToCartModal from "../components/AddToCartModal";
+import CartPopout from "../components/CartPopout";
+import Cart from "../pages/Cart";
+import { useHistory } from "react-router-dom";
 
-function Shop() {
+function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
   const [items, setItems] = useState([]);
+  const history = useHistory();
   const [filterStatus, setFilterStatus] = useState("");
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleClick = (item) => {
+    setCartItems((prevCartItems) => [...prevCartItems, item]);
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const updatedCart = [...existingCart, item];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setIsModalOpen(true);
   };
-
-  // useEffect(() => {
-  //   // Apply background image to body
-  //   document.body.style.backgroundImage =
-  //     "url('https://i.ibb.co/r6N8qjK/starbackground.png')"; // Replace 'path/to/your/image.jpg' with the path to your background image
-  //   document.body.style.backgroundRepeat = "repeat"; // Make the background image repeat
-
-  //   // Clean up when component unmounts
-  //   return () => {
-  //     document.body.style.backgroundImage = null;
-  //     document.body.style.backgroundRepeat = null;
-  //   };
-  // }, []);
 
   useEffect(() => {
     fetch("/api/items_with_categories")
@@ -47,6 +39,16 @@ function Shop() {
   const filteredItems = items.filter(
     (item) => !filterStatus || item.categories.includes(filterStatus)
   );
+
+  const continueShopping = () => {
+    setIsModalOpen(false); // Close the modal
+    history.push("/shop"); // Navigate to the shop page
+  };
+
+  const goToCheckout = () => {
+    setIsModalOpen(false); // Close the modal
+    history.push("/cart");
+  };
 
   return (
     <>
@@ -112,9 +114,14 @@ function Shop() {
           </div>
         </div>
       </div>
-      <AddToCartModal
+      <CartPopout
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        setCartItems={setCartItems}
+        cartItems={cartItems}
+        continueShopping={continueShopping}
+        goToCheckout={goToCheckout}
+        handleDeleteFromCart={handleDeleteFromCart}
       />
     </>
   );
