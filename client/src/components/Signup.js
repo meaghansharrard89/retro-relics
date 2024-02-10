@@ -85,8 +85,8 @@ export default function Signup() {
 
   return (
     <>
-      <section class="h-auto text-gray-600 body-font flex items-center justify-center">
-        <div class="container px-5 py-24 mx-auto lg:w-2/6 xl:w-2/5 md:w-2/3 bg-gray-100 rounded-lg p-8 flex flex-col lg:ml-auto w-full">
+      <section class="text-gray-600 body-font flex items-center justify-center">
+        <div class="container px-5 py-24 mx-auto lg:w-2/6 xl:w-2/5 md:w-2/3 bg-accent-lightest rounded-lg p-8 flex flex-col lg:ml-auto w-full">
           <h2 class="text-gray-900 text-lg font-large title-font mb-5 text-center">
             New user? Sign Up!
           </h2>

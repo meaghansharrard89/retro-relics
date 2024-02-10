@@ -33,13 +33,13 @@ function About() {
       class="flex justify-between items-center py-8 px-4 mx-auto max-w-6xl mt-14"
     >
       {/* Text column */}
-      <div class="relative" style={{}}>
+      <div>
         <div class="max-w-md mr-8">
           <img
-            src="https://i.ibb.co/BfbtBrV/lighterblob.png"
+            src="https://i.ibb.co/hWVzZKq/blob.png"
             alt="blob"
-            class="rounded-full w-120 h-auto"
-            style={{ position: "absolute", zIndex: -1 }}
+            class="rounded-full w-160 h-140"
+            style={{ position: "absolute", zIndex: -1, left: "600px" }}
           />
           <h1 class="text-3xl font-bold mb-10">
             Welcome to Retro Revival! Where thrift meets fashion.

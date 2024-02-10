@@ -30,7 +30,6 @@ function CartPopout({
       aria-modal="true"
     >
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-
       <div className="fixed inset-0 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
@@ -49,12 +48,12 @@ function CartPopout({
                               <h3 className="text-lg font-medium text-gray-900">
                                 {cartItem.name}
                               </h3>
+                              <p className="text-gray-500">{cartItem.price}</p>
+                              <br />
                               <p className="text-gray-500">
-                                Price: {cartItem.price}
+                                {cartItem.description}
                               </p>
-                              <p className="text-gray-500">
-                                Description: {cartItem.description}
-                              </p>
+                              <br />
                               <img
                                 src={cartItem.image_url}
                                 alt={cartItem.imageAlt}
@@ -83,13 +82,13 @@ function CartPopout({
                     <div className="flex justify-center text-center">
                       <button
                         onClick={continueShopping}
-                        className="mr-4 bg-accent-light px-6 py-3 text-base font-medium text-white rounded-md shadow-sm hover:bg-dark-accent-light"
+                        className="mr-4 bg-dark-accent px-6 py-3 text-base font-medium text-white rounded-md shadow-sm hover:bg-dark-accent-light"
                       >
                         Continue Shopping
                       </button>
                       <button
                         onClick={goToCheckout}
-                        className="bg-accent-light px-6 py-3 text-base font-medium text-white rounded-md shadow-sm hover:bg-dark-accent-light"
+                        className="bg-dark-accent px-6 py-3 text-base font-medium text-white rounded-md shadow-sm hover:bg-dark-accent-light"
                       >
                         Checkout
                       </button>

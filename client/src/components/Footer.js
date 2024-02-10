@@ -3,26 +3,21 @@ import React from "react";
 function Footer() {
   return (
     <>
-      <footer class="bg-accent text-center text-neutral-600 dark:bg-accent-light dark:text-neutral-200 lg:text-left">
+      <footer class="bg-dark-accent-light text-center text-darker-accent lg:text-left">
         <div class="mx-2 md:mx-6 py-2 md:py-0">
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <div class="mb-4 md:mb-0">
-              <h6 class="mb-2 font-semibold uppercase text-dark-accent">
+              <h6 class="mb-2 font-semibold uppercase text-darker-accent">
                 Useful links
               </h6>
               <p class="mb-2">
-                <a href="#!" class="text-dark-accent dark:text-neutral-200">
+                <a href="#!" class="text-darker-accent">
                   Orders
-                </a>
-              </p>
-              <p>
-                <a href="#!" class="text-dark-accent dark:text-neutral-200">
-                  Help
                 </a>
               </p>
             </div>
             <div class="mb-4 md:mb-0">
-              <h6 class="mb-2 font-semibold uppercase text-dark-accent">
+              <h6 class="mb-2 font-semibold uppercase text-darker-accent">
                 Contact
               </h6>
               <p class="mb-2 flex items-center justify-center md:justify-start">
@@ -39,7 +34,7 @@ function Footer() {
               </p>
             </div>
             <div class="mb-4 md:mb-0">
-              <h6 class="mb-2 font-semibold uppercase text-dark-accent">
+              <h6 class="mb-2 font-semibold uppercase text-darker-accent">
                 © 2023 Copyright:
               </h6>
               <p
@@ -57,6 +52,9 @@ function Footer() {
           width: 100%;
           background-color: #f5f5f5; /* Adjust the background color as needed */
           padding: 20px 0; /* Adjust the padding as needed */
+          position: fixed;
+          bottom: 0;
+          left: 0;
         }
         /* Sticky footer CSS */
         body {

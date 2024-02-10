@@ -91,7 +91,7 @@ function Cart({
   }, [location]);
 
   return (
-    <div class="mb-2 md:mb-0 h-full">
+    <div>
       <CartItems
         cartItems={cartItems}
         handleDeleteFromCart={handleDeleteFromCart}
@@ -148,8 +148,12 @@ function Cart({
           </button>
         </div>
       ) : (
-        <div class="forms-container mb-0">
+        <div class="forms-container">
+          <br />
+          <br />
           <Login user={user} setUser={setUser} />
+          <br />
+          <br />
           <Signup user={user} setUser={setUser} />
         </div>
       )}

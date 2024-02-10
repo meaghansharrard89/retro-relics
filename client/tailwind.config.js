@@ -18,6 +18,7 @@ module.exports = {
         "dark-accent-light": "#9D2C40",
         "dark-accent": "#554738",
         "dark-accent-dark": "#D8B390",
+        "darker-accent": "#373028",
       },
     },
   },

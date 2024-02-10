@@ -11,14 +11,14 @@ export default function CartItems({
   return (
     <>
       <br />
-      <h1 class="text-center mb-6 text-2xl font-bold">Cart Items</h1>
+      <h1 class="text-center mb-6 text-2xl font-bold h-full"></h1>
       {cartItems.map((cartItem, index) => (
         <div
           key={index}
           class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
         >
           <div class="rounded-lg md:w-2/3">
-            <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+            <div class="justify-between mb-6 rounded-lg bg-accent-lightest p-6 shadow-md sm:flex sm:justify-start">
               <img
                 src={cartItem.image_url}
                 alt={cartItem.imageAlt}
