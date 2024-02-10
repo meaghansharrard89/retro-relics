@@ -48,29 +48,12 @@ function Cart({
     );
   };
 
-  // const calculateTotal = () => {
-  //   return cartItems
-  //     .reduce((total, item) => {
-  //       const itemPrice = parseFloat(item.price.replace("$", ""));
-  //       return total + itemPrice;
-  //     }, 0)
-  //     .toFixed(2);
-  // };
-
   const handleCheckout = async (e) => {
     try {
       if (cartItems.length === 0) {
         setError({
           title: "Error",
-          message: "Cannot checkout with an empty cart.",
-        });
-        return;
-      }
-      if (!isBillingInfoComplete()) {
-        setError({
-          title: "Error",
-          message:
-            "Please fill out all billing information before confirming the order.",
+          message: "Cannot checkout with an empty cart",
         });
         return;
       }
@@ -89,7 +72,7 @@ function Cart({
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error:", errorData);
-        throw new Error("Network response was not ok.");
+        throw new Error("Network response was not ok");
       }
       const data = await response.json();
 
@@ -108,7 +91,7 @@ function Cart({
   }, [location]);
 
   return (
-    <div class="mb-2 md:mb-0">
+    <div class="mb-2 md:mb-0 h-full">
       <CartItems
         cartItems={cartItems}
         handleDeleteFromCart={handleDeleteFromCart}

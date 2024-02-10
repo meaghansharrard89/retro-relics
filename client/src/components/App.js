@@ -77,12 +77,13 @@ function App() {
                 <Route exact path="/profile">
                   <Profile />
                 </Route>
-                <Route exact path="/chatbot">
+                {/* <Route exact path="/chatbot">
                   <Chatbot />
-                </Route>
+                </Route> */}
               </Switch>
             </main>
           </Router>
+          <Chatbot />
           <Footer />
         </ChatProvider>
       </OrderProvider>

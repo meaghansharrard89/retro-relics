@@ -106,7 +106,7 @@ export default function Chatbot() {
               width: "80%",
               maxWidth: "600px",
               height: "600px",
-              borderRadius: "15px",
+              borderRadius: "20px",
             }}
           >
             <MainContainer>

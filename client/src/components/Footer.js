@@ -54,12 +54,15 @@ function Footer() {
       </footer>
       <style jsx>{`
         footer {
-          position: fixed;
-          left: 0;
-          bottom: 0;
           width: 100%;
           background-color: #f5f5f5; /* Adjust the background color as needed */
           padding: 20px 0; /* Adjust the padding as needed */
+        }
+        /* Sticky footer CSS */
+        body {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
         }
       `}</style>
     </>

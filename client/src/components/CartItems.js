@@ -1,13 +1,17 @@
 import React from "react";
+import { useUser } from "./UserContext";
 
 export default function CartItems({
   cartItems,
   handleDeleteFromCart,
   calculateTotal,
 }) {
+  const { user } = useUser();
+
   return (
     <>
-      <h1 class="text-center mb-6 text-2xl font-bold"></h1>
+      <br />
+      <h1 class="text-center mb-6 text-2xl font-bold">Cart Items</h1>
       {cartItems.map((cartItem, index) => (
         <div
           key={index}
@@ -64,13 +68,19 @@ export default function CartItems({
           <p class="text-lg font-bold">Total</p>
           <div class="">
             <p class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-              {calculateTotal()}
+              $ {calculateTotal()}
             </p>
           </div>
         </div>
-        <button class="mt-6 w-full rounded-md bg-dark-accent py-1.5 font-medium text-blue-50 hover:bg-dark-accent-light">
-          Check out
-        </button>
+        {user && user.email ? (
+          <button class="mt-6 w-full rounded-md bg-dark-accent py-1.5 font-medium text-blue-50 hover:bg-dark-accent-light">
+            Check out
+          </button>
+        ) : (
+          <p class="mt-6 text-red-500">
+            Please sign in or sign up to make a purchase!
+          </p>
+        )}
       </div>
     </>
   );
