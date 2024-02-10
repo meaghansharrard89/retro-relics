@@ -3,7 +3,9 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(
+    localStorage.getItem("chatVisibility") === "true"
+  );
   const [chatMessages, setChatMessages] = useState([]);
 
   useEffect(() => {
@@ -14,7 +16,9 @@ export const ChatProvider = ({ children }) => {
   }, []);
 
   const toggleVisibility = () => {
-    setIsVisible(!isVisible);
+    const newVisibility = !isVisible;
+    setIsVisible(newVisibility);
+    localStorage.setItem("chatVisibility", newVisibility);
   };
 
   const addMessage = (message) => {

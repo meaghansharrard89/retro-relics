@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useChat } from "../components/ChatContext";
+import Chatbot from "../components/Chatbot";
 
 function About() {
   const location = useLocation();
+  const { isVisible } = useChat();
 
   useEffect(() => {
     const el = document.getElementById("about");
@@ -66,6 +69,7 @@ function About() {
           style={{ width: "100%", height: "auto", zIndex: 1, top: "-40px" }}
         />
       </div>
+      {isVisible && <Chatbot />}
     </div>
   );
 }

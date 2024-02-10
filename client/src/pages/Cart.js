@@ -6,8 +6,14 @@ import { useOrder } from "../components/OrderContext";
 import { useUser } from "../components/UserContext";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ErrorModal from "../components/ErrorModal";
+import CartItems from "../components/CartItems";
 
-function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
+function Cart({
+  cartItems,
+  setCartItems,
+  handleDeleteFromCart,
+  calculateTotal,
+}) {
   const location = useLocation();
   const { user, setUser } = useUser();
   const { setCompletedOrder } = useOrder();
@@ -42,14 +48,14 @@ function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
     );
   };
 
-  const calculateTotal = () => {
-    return cartItems
-      .reduce((total, item) => {
-        const itemPrice = parseFloat(item.price.replace("$", ""));
-        return total + itemPrice;
-      }, 0)
-      .toFixed(2);
-  };
+  // const calculateTotal = () => {
+  //   return cartItems
+  //     .reduce((total, item) => {
+  //       const itemPrice = parseFloat(item.price.replace("$", ""));
+  //       return total + itemPrice;
+  //     }, 0)
+  //     .toFixed(2);
+  // };
 
   const handleCheckout = async (e) => {
     try {
@@ -102,130 +108,68 @@ function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
   }, [location]);
 
   return (
-    <>
-      <div className="App">
-        <center>
-          <h1>Register a new account</h1>
-          <Formik>
-            {({ isSubmitting }) => (
-              <Form>
-                <Field
-                  type="text"
-                  name="fullname"
-                  placeholder="Enter your fullname"
-                />
-                <ErrorMessage name="fullname" component="div" />
-
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="Enter email address"
-                />
-                <ErrorMessage name="email" component="div" />
-
-                <Field type="password" name="password" />
-                <ErrorMessage name="password" component="div" />
-
-                <button type="submit" disabled={isSubmitting}>
-                  Submit
-                </button>
-              </Form>
-            )}
-          </Formik>
-        </center>
-      </div>
-
-      <div id="cart">
-        <h1>Shopping Cart</h1>
-        <h3>Your Items:</h3>
-        {cartItems.map((cartItem, index) => (
-          <div
-            key={index}
-            style={{ border: "1px solid #ccc", padding: "10px" }}
-          >
-            <h3>{cartItem.name}</h3>
-            <p>Price: {cartItem.price}</p>
-            <p>{cartItem.description}</p>
-            <img
-              src={cartItem.image_url}
-              alt={cartItem.imageAlt}
-              width="200px"
-            />
-            <p>Quantity: 1</p>
-            <button onClick={() => handleDeleteFromCart(index)}>
-              Delete from Cart
-            </button>
-          </div>
-        ))}
-        <p>Total: ${calculateTotal()}</p>
-        {/*Logged in or new user*/}
-        {user && user.email ? (
-          <div>
-            <h2>Welcome, {user.firstname}!</h2>
-            <p>Enter your billing information to complete your order:</p>
-            <form>
-              <label>
-                Name on Card:
-                <input
-                  type="text"
-                  name="cardName"
-                  value={billingInfo.cardName}
-                  onChange={handleChange}
-                />
-              </label>
-              <br />
-              <label>
-                Card Number:
-                <input
-                  type="text"
-                  name="cardNumber"
-                  value={billingInfo.cardNumber}
-                  onChange={handleChange}
-                />
-              </label>
-              <br />
-              <label>
-                Expiration Date:
-                <input
-                  type="text"
-                  name="expirationDate"
-                  value={billingInfo.expirationDate}
-                  onChange={handleChange}
-                />
-              </label>
-              <br />
-              <label>
-                CVV:
-                <input
-                  type="text"
-                  name="cvv"
-                  value={billingInfo.cvv}
-                  onChange={handleChange}
-                />
-              </label>
-            </form>
-            <button
-              onClick={handleCheckout}
-              disabled={!isBillingInfoComplete()}
-            >
-              Confirm order
-            </button>
-          </div>
-        ) : (
-          <div className="forms-container">
-            <div className="form-section existing-user">
-              <h2>Have an existing account? Log in:</h2>
-              <br />
-              <Login user={user} setUser={setUser} />
-            </div>
-            <div className="form-section new-user">
-              <h2>New here? Create an account:</h2>
-              <br />
-              <Signup user={user} setUser={setUser} />
-            </div>
-          </div>
-        )}
-      </div>
+    <div class="mb-2 md:mb-0">
+      <CartItems
+        cartItems={cartItems}
+        handleDeleteFromCart={handleDeleteFromCart}
+        calculateTotal={calculateTotal}
+      />
+      {/*Logged in or new user*/}
+      {user && user.email ? (
+        <div>
+          <h2>Welcome, {user.firstname}!</h2>
+          <p>Enter your billing information to complete your order:</p>
+          <form>
+            <label>
+              Name on Card:
+              <input
+                type="text"
+                name="cardName"
+                value={billingInfo.cardName}
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <label>
+              Card Number:
+              <input
+                type="text"
+                name="cardNumber"
+                value={billingInfo.cardNumber}
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <label>
+              Expiration Date:
+              <input
+                type="text"
+                name="expirationDate"
+                value={billingInfo.expirationDate}
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <label>
+              CVV:
+              <input
+                type="text"
+                name="cvv"
+                value={billingInfo.cvv}
+                onChange={handleChange}
+              />
+            </label>
+          </form>
+          <button onClick={handleCheckout} disabled={!isBillingInfoComplete()}>
+            Confirm order
+          </button>
+        </div>
+      ) : (
+        <div class="forms-container mb-0">
+          <Login user={user} setUser={setUser} />
+          <Signup user={user} setUser={setUser} />
+        </div>
+      )}
       {/* Error modal */}
       {error && (
         <ErrorModal
@@ -234,7 +178,7 @@ function Cart({ cartItems, setCartItems, handleDeleteFromCart }) {
           onClose={() => setError(null)}
         />
       )}
-    </>
+    </div>
   );
 }
 

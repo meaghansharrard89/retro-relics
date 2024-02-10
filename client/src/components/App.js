@@ -27,6 +27,15 @@ function App() {
     setCartItems(currentCart);
   };
 
+  const calculateTotal = () => {
+    return cartItems
+      .reduce((total, item) => {
+        const itemPrice = parseFloat(item.price.replace("$", ""));
+        return total + itemPrice;
+      }, 0)
+      .toFixed(2);
+  };
+
   return (
     <UserProvider>
       <OrderProvider>
@@ -56,6 +65,7 @@ function App() {
                     cartItems={cartItems}
                     setCartItems={setCartItems}
                     handleDeleteFromCart={handleDeleteFromCart}
+                    calculateTotal={calculateTotal}
                   />
                 </Route>
                 <Route exact path="/login">
