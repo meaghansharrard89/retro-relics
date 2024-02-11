@@ -4,9 +4,9 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import { useOrder } from "../components/OrderContext";
 import { useUser } from "../components/UserContext";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import ErrorModal from "../components/ErrorModal";
 import CartItems from "../components/CartItems";
+import CheckoutModal from "../components/CheckoutModal";
 
 function Cart({
   cartItems,
@@ -19,6 +19,7 @@ function Cart({
   const { setCompletedOrder } = useOrder();
   const history = useHistory();
   const [error, setError] = useState(null);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [billingInfo, setBillingInfo] = useState({
     cardName: "",
     cardNumber: "",
@@ -78,7 +79,7 @@ function Cart({
 
       setCompletedOrder(orderDetails);
       localStorage.removeItem("cart");
-      history.push("/checkout", { username: user.firstname });
+      setShowCheckoutModal(true);
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
       setError({ title: "Error", message: `Error: ${error.message}` });
@@ -91,71 +92,106 @@ function Cart({
   }, [location]);
 
   return (
-    <div>
-      <CartItems
-        cartItems={cartItems}
-        handleDeleteFromCart={handleDeleteFromCart}
-        calculateTotal={calculateTotal}
-      />
-      {/*Logged in or new user*/}
-      {user && user.email ? (
-        <div>
-          <h2>Welcome, {user.firstname}!</h2>
-          <p>Enter your billing information to complete your order:</p>
-          <form>
-            <label>
-              Name on Card:
-              <input
-                type="text"
-                name="cardName"
-                value={billingInfo.cardName}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              Card Number:
-              <input
-                type="text"
-                name="cardNumber"
-                value={billingInfo.cardNumber}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              Expiration Date:
-              <input
-                type="text"
-                name="expirationDate"
-                value={billingInfo.expirationDate}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              CVV:
-              <input
-                type="text"
-                name="cvv"
-                value={billingInfo.cvv}
-                onChange={handleChange}
-              />
-            </label>
-          </form>
-          <button onClick={handleCheckout} disabled={!isBillingInfoComplete()}>
-            Confirm order
-          </button>
-        </div>
-      ) : (
-        <div class="forms-container">
-          <br />
-          <br />
-          <Login user={user} setUser={setUser} />
-          <br />
-          <br />
-          <Signup user={user} setUser={setUser} />
-        </div>
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow overflow-y-auto">
+        <CartItems
+          cartItems={cartItems}
+          handleDeleteFromCart={handleDeleteFromCart}
+          calculateTotal={calculateTotal}
+        />
+        {/*Logged in or new user*/}
+        {user && user.email ? (
+          <div className="flex flex-col items-center justify-center mx-auto mt-6 rounded-lg border bg-accent-lightest p-6 shadow-md md:w-1/3 mb-80">
+            <form className="flex flex-col items-center justify-center w-full">
+              <p className="text-gray-800 font-medium mb-4">
+                Billing Information:
+              </p>
+              <div className="leading-loose w-full max-h-60 overflow-y-auto">
+                <label
+                  className="block text-sm text-gray-600"
+                  htmlFor="cardName"
+                >
+                  Name on Card
+                </label>
+                <input
+                  className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded mb-2"
+                  id="cardName"
+                  name="cardName"
+                  type="text"
+                  value={billingInfo.cardName}
+                  onChange={handleChange}
+                  placeholder="Your Name"
+                  aria-label="Name on Card"
+                />
+                <label
+                  className="block text-sm text-gray-600"
+                  htmlFor="cardNumber"
+                >
+                  Card Number
+                </label>
+                <input
+                  className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded mb-2"
+                  id="cardNumber"
+                  name="cardNumber"
+                  type="text"
+                  value={billingInfo.cardNumber}
+                  onChange={handleChange}
+                  placeholder="Card Number"
+                  aria-label="Card Number"
+                />
+                <label
+                  className="block text-sm text-gray-600"
+                  htmlFor="expirationDate"
+                >
+                  Expiration Date
+                </label>
+                <input
+                  className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded mb-2"
+                  id="expirationDate"
+                  name="expirationDate"
+                  type="text"
+                  value={billingInfo.expirationDate}
+                  onChange={handleChange}
+                  placeholder="MM/YY"
+                  aria-label="Expiration Date"
+                />
+                <label className="block text-sm text-gray-600" htmlFor="cvv">
+                  CVV
+                </label>
+                <input
+                  className="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded mb-4"
+                  id="cvv"
+                  name="cvv"
+                  type="text"
+                  value={billingInfo.cvv}
+                  onChange={handleChange}
+                  placeholder="CVV"
+                  aria-label="CVV"
+                />
+              </div>
+              <button
+                className="cursor-pointer mt-4 px-4 py-2 text-white font-light tracking-wider bg-dark-accent hover:bg-dark-accent-light rounded"
+                type="button"
+                onClick={handleCheckout}
+                disabled={!isBillingInfoComplete()}
+              >
+                Confirm order
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div class="forms-container">
+            <Login user={user} setUser={setUser} />
+            <Signup user={user} setUser={setUser} />
+          </div>
+        )}
+      </div>
+      {/*Checkout Modal*/}
+      {showCheckoutModal && (
+        <CheckoutModal
+          onClose={() => setShowCheckoutModal(false)}
+          username={user.firstname}
+        />
       )}
       {/* Error modal */}
       {error && (

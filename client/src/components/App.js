@@ -8,7 +8,7 @@ import Social from "../pages/Social";
 import NavBar from "./NavBar";
 import ScrollToTop from "../components/ScrollToTop";
 import Login from "./Login";
-import Checkout from "../components/Checkout";
+import CheckoutModal from "../components/CheckoutModal";
 import Profile from "../pages/Profile";
 import { OrderProvider } from "../components/OrderContext";
 import { ChatProvider } from "./ChatContext";
@@ -72,7 +72,7 @@ function App() {
                   <Login />
                 </Route>
                 <Route exact path="/checkout">
-                  <Checkout />
+                  <CheckoutModal />
                 </Route>
                 <Route exact path="/profile">
                   <Profile />

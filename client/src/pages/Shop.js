@@ -62,7 +62,7 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
           <div class="py-1" role="none">
             <p class="px-4 py-2 text-accent-lightest">Filter by Category</p>
             <select
-              class="appearance-none bg-dark-accent-light block w-full px-4 py-2 text-sm text-accent-lightest"
+              class="cursor-pointer appearance-none bg-dark-accent-light block w-full px-4 py-2 text-sm text-accent-lightest"
               value={filterStatus}
               onChange={(e) => {
                 setFilterStatus(e.target.value);
@@ -79,7 +79,7 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
       </div>
 
       <div id="shop" class="base">
-        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8 mb-60">
           <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {filteredItems.map((item) => (
               <a href="#" class="group">
@@ -121,6 +121,7 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
         goToCheckout={goToCheckout}
         handleDeleteFromCart={handleDeleteFromCart}
       />
+      <br />
     </>
   );
 }

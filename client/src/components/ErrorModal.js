@@ -12,7 +12,7 @@ function ErrorModal({ title, message, onClose }) {
           <h3 className="text-lg font-semibold">{title}</h3>
           <p className="text-sm text-gray-500">{message}</p>
         </div>
-        <div className="mt-4 flex justify-center">
+        <div className="mt-4 flex justify-center cursor-pointer">
           <button className="btn btn-red" onClick={onClose}>
             Close
           </button>

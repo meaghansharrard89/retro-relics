@@ -125,7 +125,7 @@ function NavBar() {
                 onClick={toggleVisibility}
                 class="text-accent-lightest outline-none hover:outline-accent-lightest hover:text-white relative rounded-full px-3 py-2 text-m font-medium"
               >
-                {isVisible ? "End Chat" : "Chat"}
+                {isVisible ? "END CHAT" : "CHAT"}
               </button>{" "}
               {isVisible && <Chatbot />}
             </div>

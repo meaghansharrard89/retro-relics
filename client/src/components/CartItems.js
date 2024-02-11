@@ -11,7 +11,7 @@ export default function CartItems({
   return (
     <>
       <br />
-      <h1 class="text-center mb-6 text-2xl font-bold h-full"></h1>
+      <h1 class="text-center mb-6 text-2xl font-bold h-full">Your Cart:</h1>
       {cartItems.map((cartItem, index) => (
         <div
           key={index}
@@ -29,7 +29,7 @@ export default function CartItems({
                   <h2 class="text-lg font-bold text-gray-900">
                     {cartItem.name}
                   </h2>
-                  <p class="mt-1 text-xs text-gray-700">
+                  <p class="mt-1 text-s text-gray-700">
                     {cartItem.description}
                   </p>
                 </div>
@@ -62,7 +62,7 @@ export default function CartItems({
           </div>
         </div>
       ))}
-      <div class="mx-auto mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3 justify-center">
+      <div class="mx-auto mt-6 h-full rounded-lg border bg-accent-lightest p-6 shadow-md md:mt-0 md:w-1/3 justify-center">
         <hr class="my-4" />
         <div class="flex justify-between">
           <p class="text-lg font-bold">Total</p>
@@ -73,12 +73,12 @@ export default function CartItems({
           </div>
         </div>
         {user && user.email ? (
-          <button class="mt-6 w-full rounded-md bg-dark-accent py-1.5 font-medium text-blue-50 hover:bg-dark-accent-light">
-            Check out
-          </button>
+          <p class="mt-6 text-red-500 text-center">
+            Enter your billing details to make a purchase.
+          </p>
         ) : (
-          <p class="mt-6 text-red-500">
-            Please sign in or sign up to make a purchase!
+          <p class="mt-6 text-red-500 text-center">
+            Please sign in or sign up to make a purchase.
           </p>
         )}
       </div>

@@ -24,10 +24,11 @@ function Home() {
           alignItems: "center",
           height: "80vh",
         }}
+        class="mb-60"
       >
         <img
           source
-          src="https://i.ibb.co/w4CTq0R/updated.png"
+          src="https://i.ibb.co/MPfHmt4/homelogo-2.png"
           alt="logo"
           style={{ maxWidth: "100%", height: "70vh", maxHeight: "80vh" }}
         />
