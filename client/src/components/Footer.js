@@ -38,7 +38,7 @@ function Footer() {
               <img
                 src="https://i.ibb.co/w4CTq0R/updated.png"
                 alt="Your Image Alt Text"
-                className="mx-auto md:mx-0 max-w-full h-auto max-w-10"
+                className="mx-auto md:mx-0 max-h-10 max-w-10"
               />
               {/* <svg
                 xmlns="http://www.w3.org/2000/svg"
