@@ -390,6 +390,8 @@ class Orders(Resource):
                             "item_id": item.id,
                             "item_name": item.name,
                             "item_price": item.price,
+                            "item_description": item.description,
+                            "item_image": item.image_url,
                         }
                     )
 

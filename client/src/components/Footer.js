@@ -7,10 +7,10 @@ function Footer() {
         <div className="mx-2 md:mx-6 py-2 md:py-0">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <div className="mb-4 md:mb-0">
-              <h6 className="mb-2 font-semibold uppercase text-darker-accent">
+              <h6 className="mb-2 font-semibold uppercase text-black">
                 Contact
               </h6>
-              <p className="mb-2 flex items-center justify-center md:justify-start">
+              <p className="mb-2 flex items-center justify-center md:justify-start text-black">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -24,11 +24,11 @@ function Footer() {
               </p>
             </div>
             <div className="mb-4 md:mb-0">
-              <h6 className="mb-2 font-semibold uppercase text-darker-accent">
+              <h6 className="mb-2 font-semibold uppercase text-black">
                 © 2023 Copyright:
               </h6>
               <p
-                className="mb-2 flex items-center justify-center md:justify-start"
+                className="mb-2 flex items-center justify-center md:justify-start text-black"
                 href="https://tw-elements.com/"
               >
                 Retro Revival

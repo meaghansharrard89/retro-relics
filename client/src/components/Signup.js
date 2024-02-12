@@ -30,14 +30,14 @@ export default function Signup() {
     if (!validateEmail(formData.email)) {
       setError({
         title: "Error",
-        message: "Invalid email address",
+        message: "Invalid email address.",
       });
       return;
     }
     if (!validateZip(formData.zip)) {
       setError({
         title: "Error",
-        message: "Invalid zip code",
+        message: "Invalid zip code.",
       });
       return;
     }
@@ -56,7 +56,7 @@ export default function Signup() {
         const errorData = await response.json();
         if (
           errorData.error &&
-          errorData.error.includes("Email already exists")
+          errorData.error.includes("Email already exists.")
         ) {
           setError({
             title: "Error",
