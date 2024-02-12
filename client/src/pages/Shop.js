@@ -9,6 +9,8 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isShowing, setIsShowing] = useState(false);
+
   const handleClick = (item) => {
     setCartItems((prevCartItems) => [...prevCartItems, item]);
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -39,12 +41,12 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
   );
 
   const continueShopping = () => {
-    setIsModalOpen(false); // Close the modal
-    history.push("/shop"); // Navigate to the shop page
+    setIsModalOpen(false);
+    history.push("/shop");
   };
 
   const goToCheckout = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false);
     history.push("/cart");
   };
 

@@ -11,6 +11,7 @@ export default function Profile() {
   const [editedUser, setEditedUser] = useState({ ...user });
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [ordersLoaded, setOrdersLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -101,7 +102,7 @@ export default function Profile() {
 
   return (
     <>
-      <div class="fixed bg-accent-light rounded-lg border-base-200">
+      <div class="fixed bg-accent-darkest rounded-lg border-base-200">
         <div class="border-base-200 p-6 max-w-lg mb-20">
           <form class="w-full" onSubmit={(e) => e.preventDefault()}>
             <div class="space-y-12">
@@ -355,6 +356,7 @@ export default function Profile() {
       {error && (
         <ErrorModal
           title={error.title}
+          isOpen={isModalOpen}
           message={error.message}
           onClose={() => setError(null)}
         />

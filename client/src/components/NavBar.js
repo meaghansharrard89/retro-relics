@@ -1,8 +1,6 @@
-import { NavLink } from "react-router-dom";
 import { useChat } from "../components/ChatContext";
 import Chatbot from "../components/Chatbot";
 import { useUser } from "./UserContext";
-// import React from "react";
 
 function NavBar() {
   const { isVisible, toggleVisibility } = useChat();
@@ -54,13 +52,6 @@ function NavBar() {
             </div>
 
             <div class="rounded-full flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-              {/* <div class="flex flex-shrink-0 items-center">
-                <img
-                  class="h-8 w-auto"
-                  src="https://i.ibb.co/CJm7s8x/transparentyellowflower.png"
-                  alt="Retro Revival"
-                />
-              </div> */}
               <div class="hidden sm:ml-6 sm:block rounded-full">
                 <div class="flex space-x-4">
                   <a

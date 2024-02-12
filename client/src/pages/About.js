@@ -16,32 +16,18 @@ function About() {
       });
   }, [location]);
 
-  // useEffect(() => {
-  //   document.body.style.backgroundImage =
-  //     "url('https://i.ibb.co/3Yv5h9s/revisedbackground.png')"; // Replace 'path/to/your/image.jpg' with the path to your background image
-  //   document.body.style.backgroundRepeat = "repeat"; // Make the background image repeat
-
-  //   return () => {
-  //     document.body.style.backgroundImage = null;
-  //     document.body.style.backgroundRepeat = null;
-  //   };
-  // }, []);
-
   return (
     <div
       id="about"
       className="flex justify-center items-center py-8 px-4 mx-auto max-w-6xl mt-14"
     >
-      {/* Text and image container */}
       <div className="relative flex items-center">
-        {/* Image */}
         <img
           src="https://i.ibb.co/C5NXhkB/yellowblob.png"
           alt="blob"
           className="absolute rounded-full w-130 h-auto"
           style={{ zIndex: -1, left: "50%", transform: "translateX(-50%)" }}
         />
-        {/* Text */}
         <div className="max-w-md text-center">
           <h1 className="text-3xl font-bold mb-10">
             Welcome to Retro Revival! Where thrift meets fashion.

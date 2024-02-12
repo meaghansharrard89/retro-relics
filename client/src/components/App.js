@@ -6,7 +6,6 @@ import About from "../pages/About";
 import Shop from "../pages/Shop";
 import Social from "../pages/Social";
 import NavBar from "./NavBar";
-import ScrollToTop from "../components/ScrollToTop";
 import Login from "./Login";
 import CheckoutModal from "../components/CheckoutModal";
 import Profile from "../pages/Profile";
@@ -77,9 +76,6 @@ function App() {
                 <Route exact path="/profile">
                   <Profile />
                 </Route>
-                {/* <Route exact path="/chatbot">
-                  <Chatbot />
-                </Route> */}
               </Switch>
             </main>
           </Router>

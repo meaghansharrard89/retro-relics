@@ -17,7 +17,6 @@ export default function DeleteModal({
       return;
     }
     await verifyEmailPasswordAndDeleteProfile(email, password, history);
-    // Close the modal or navigate away if needed
   };
 
   return (
@@ -32,9 +31,11 @@ export default function DeleteModal({
               >
                 Delete Account
               </h3>
+              <br />
               <p className="text-sm text-gray-500">
                 Please enter your email and password to confirm deletion.
               </p>
+              <br />
             </div>
             <div className="mt-4">
               <input
@@ -52,6 +53,7 @@ export default function DeleteModal({
                 placeholder="Password"
               />
             </div>
+            <br />
             <div className="mt-4 flex justify-end">
               <button
                 onClick={handleDelete}

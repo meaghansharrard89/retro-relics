@@ -8,12 +8,12 @@
 
 ## Description
 
-_Retro Revival_ is an exciting online thrift reselling platform seamlessly blending the charm of yesteryears with the convenience of modern technology. This innovative project, built with a dynamic combination of React and Python, takes thrift shopping to a whole new level. Embrace the nostalgia as you explore a curated collection of timeless housewares and clothing, each item carefully selected to evoke a sense of vintage allure. Plus, experience our interactive chatbot feature guiding you through your thrift shopping journey, providing personalized recommendations and answering any queries you may have along the way. Additionally, enjoy a visually captivating experience with our embedded Instagram feed, where you can immerse yourself in the latest trends, behind-the-scenes glimpses, and customer favorites. Retro Revival is not just a platform; it's a nostalgic adventure waiting to be explored.
+_Retro Revival_ is an exciting online thrift reselling platform seamlessly blending the charm of yesteryears with the convenience of modern technology. This innovative project, built with a dynamic combination of React and Python, takes thrift shopping to a whole new level. Embrace the nostalgia as you explore a curated collection of timeless housewares and clothing, each item carefully selected to evoke a sense of vintage allure. Experience our interactive chatbot feature guiding you through your thrift shopping journey, providing personalized recommendations and answering any queries you may have along the way. Additionally, enjoy a visually captivating experience with our embedded Instagram feed, where you can immerse yourself in the latest trends, behind-the-scenes glimpses, and customer favorites. Retro Revival is not just a platform; it's a nostalgic adventure waiting to be explored.
 
 ## Key Features
 
 1. **Browse and Discover:**
-   Immerse yourself in a treasure trove of retro finds. From classic housewares to fashion-forward clothing, Retro Revival offers a diverse array of items that breathe new life into forgotten gems.
+   Immerse yourself in a treasure trove of retro finds. From classic housewares to vintage clothing, Retro Revival offers a diverse array of items that breathe new life into forgotten gems.
 
 2. **Add to Cart and Purchase:**
    Easily build your collection by adding items to your cart with just a click. The streamlined and user-friendly interface ensures a hassle-free shopping experience, allowing you to rediscover and secure your favorite pieces effortlessly.
@@ -22,18 +22,21 @@ _Retro Revival_ is an exciting online thrift reselling platform seamlessly blend
    With a secure and intuitive checkout process, Retro Revival ensures that your transactions are not only smooth but also protected. Shop confidently as you bring the past into the present with just a few clicks.
 
 4. **User Profiles:**
-   Tailor your Retro Revival experience by creating and customizing your user profile. Easily manage your personal information, track orders, and stay updated on your purchase history. Your profile is your gateway to a personalized thrift-shopping journey.
+   Tailor your Retro Revival experience by creating and customizing your user profile. Easily manage your personal information and stay updated on your purchase history. Your profile is your gateway to a personalized thrift-shopping journey.
 
 5. **Instagram Integration:**
    Stay connected with the Retro Revival community by seamlessly integrating with our Instagram feed. Follow us for a daily dose of vintage inspiration, behind-the-scenes glimpses, and updates on the latest additions to our collection.
+
+6. **ChatBot**
+   Built using Chatscope/Chat UI, this customized ChatBot provides personalized information in real-time. Have a question about an order or where to find Retro Revival on Instagram? ChatBot can handle that!
 
 ## Project Details
 
 <h3><b>Client</b></h3>
 
-Contains the following components:
+Contains the following components: App, CartItem, CartPopout, Chatbot, ChatContext, CheckoutModal, CuratorFeed, DeleteModal, ErrorModal, Footer, Login, NavBar, OrderContext, Signup, and UserContext.
 
-Contains the following pages:
+Contains the following pages: About, Cart, Home, Profile, Shop, Social.
 
 <h3><p>Server</p></h3>
 
@@ -88,7 +91,7 @@ Contains all of the items the user added while shopping. Items can be added to t
 
 In order to purchase the items, the user will need to log in with an existing account or create a new account.
 
-Once logged in, the user can enter in their billing details to complete the order. The "Profile" and "Logout" tab appear once the user is logged in.
+Once logged in, the user can enter in their billing details to complete the order. The "Profile" and "Logout" tabs appear once the user is logged in.
 
 <h3><p>Profile</p></h3>
 
@@ -99,3 +102,5 @@ Contains the user's profile information, which can be edited and will persist in
 Logs the user out of their session and takes them back to the homepage.
 
 <h3><p>Chat</p></h3>
+
+Opens a chat window for the user to submit questions to the ChatBot. This ChatBot is customized for this project and provides information about "orders" and social media.

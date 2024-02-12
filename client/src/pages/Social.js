@@ -14,17 +14,6 @@ function Social() {
       });
   }, [location]);
 
-  // useEffect(() => {
-  //   document.body.style.backgroundImage =
-  //     "url('https://i.ibb.co/r6N8qjK/starbackground.png')"; // Replace 'path/to/your/image.jpg' with the path to your background image
-  //   document.body.style.backgroundRepeat = "repeat"; // Make the background image repeat
-
-  //   return () => {
-  //     document.body.style.backgroundImage = null;
-  //     document.body.style.backgroundRepeat = null;
-  //   };
-  // }, []);
-
   return (
     <>
       <div id="social" class="mb-60">

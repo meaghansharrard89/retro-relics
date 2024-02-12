@@ -1,19 +1,8 @@
 import { useEffect } from "react";
-import Gif from "../images/GIF4.mp4";
-import GIF from "../images/GIF3.gif";
+// import Gif from "../images/GIF4.mp4";
+// import GIF from "../images/GIF3.gif";
 
 function Home() {
-  // useEffect(() => {
-  //   document.body.style.backgroundImage =
-  //     "url('https://i.ibb.co/r6N8qjK/starbackground.png')"; // Replace 'path/to/your/image.jpg' with the path to your background image
-  //   document.body.style.backgroundRepeat = "repeat"; // Make the background image repeat
-
-  //   return () => {
-  //     document.body.style.backgroundImage = null;
-  //     document.body.style.backgroundRepeat = null;
-  //   };
-  // }, []);
-
   return (
     <>
       <div

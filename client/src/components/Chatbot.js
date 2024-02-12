@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useChat } from "../components/ChatContext";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
@@ -18,8 +18,7 @@ export default function Chatbot() {
       sender: "ChatGPT",
     },
   ]);
-  const [setApiKey, apiKey] = useState(""); // State to store the API key
-  const { isVisible, toggleVisibility, chatMessages, addMessage } = useChat();
+  const { isVisible, addMessage } = useChat();
 
   const handleSend = async (message) => {
     const newMessage = {

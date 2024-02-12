@@ -54,7 +54,7 @@ function Cart({
       if (cartItems.length === 0) {
         setError({
           title: "Error",
-          message: "Cannot checkout with an empty cart",
+          message: "Cannot checkout with an empty cart.",
         });
         return;
       }
@@ -194,6 +194,7 @@ function Cart({
       {/*Checkout Modal*/}
       {showCheckoutModal && (
         <CheckoutModal
+          isOpen={showCheckoutModal}
           onClose={() => setShowCheckoutModal(false)}
           username={user.firstname}
         />

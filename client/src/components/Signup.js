@@ -61,7 +61,7 @@ export default function Signup() {
           setError({
             title: "Error",
             message:
-              "This email already exists. Please choose a different email",
+              "This email already exists, please choose a different email.",
           });
         } else {
           setError({
