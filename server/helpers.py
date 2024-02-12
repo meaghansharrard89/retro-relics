@@ -6,10 +6,10 @@ def validate_not_blank(value, field_name):
     return value
 
 
-def validate_positive_number(value, field_name):
-    if value < 0:
-        raise ValueError(f"The {field_name} must not be negative.")
-    return value
+# def validate_positive_number(value, field_name):
+#     if value < 0:
+#         raise ValueError(f"The {field_name} must not be negative.")
+#     return value
 
 
 def validate_type(value, field_name, expected_type):
@@ -23,5 +23,5 @@ def validate_type(value, field_name, expected_type):
     return value
 
 
-def cents_to_dollar(cents):
-    return f"${cents / 100:.2f}"
+# def cents_to_dollar(cents):
+#     return f"${cents / 100:.2f}"

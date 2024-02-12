@@ -115,126 +115,127 @@ api.add_resource(Logout, "/api/logout", endpoint="logout")
 # ITEMS
 
 
-class Items(Resource):
-    def get(self):
-        try:
-            items = [item.to_dict() for item in Item.query.all()]
-            items = [
-                item.to_dict(convert_price_to_dollars=True) for item in Item.query.all()
-            ]
-            return make_response({"items": items}, 200)
-        except Exception as error:
-            return make_response({"error": str(error)}, 500)
-
-    def post(self):
-        item_data = request.get_json()
-        try:
-            required_fields = [
-                "name",
-                "description",
-                "price",
-                "image_url",
-                "imageAlt",
-                "inStock",
-            ]
-            if not all(field in item_data for field in required_fields):
-                return make_response({"error": "Missing required fields"}, 400)
-
-            # Convert price to cents
-            new_item_price = int(float(item_data["price"]) * 100)
-            new_item = Item(
-                name=item_data["name"],
-                description=item_data["description"],
-                price=new_item_price,
-                image_url=item_data["image_url"],
-                imageAlt=item_data["imageAlt"],
-                inStock=item_data["inStock"],
-            )
-            db.session.add(new_item)
-            db.session.commit()
-            return make_response({"new_item": new_item.to_dict()}, 201)
-        except ValueError:
-            return make_response(
-                {"error": "Item creation failed due to a database error."}, 400
-            )
-        except Exception as error:
-            return make_response({"error": str(error)}, 500)
+# class Items(Resource):
+# def get(self):
+#     try:
+#         items = [item.to_dict() for item in Item.query.all()]
+#         items = [
+#             item.to_dict(convert_price_to_dollars=True) for item in Item.query.all()
+#         ]
+#         return make_response({"items": items}, 200)
+#     except Exception as error:
+#         return make_response({"error": str(error)}, 500)
 
 
-api.add_resource(Items, "/api/items")
+# def post(self):
+#     item_data = request.get_json()
+#     try:
+#         required_fields = [
+#             "name",
+#             "description",
+#             "price",
+#             "image_url",
+#             "imageAlt",
+#             "inStock",
+#         ]
+#         if not all(field in item_data for field in required_fields):
+#             return make_response({"error": "Missing required fields"}, 400)
+
+#         # Convert price to cents
+#         new_item_price = int(float(item_data["price"]) * 100)
+#         new_item = Item(
+#             name=item_data["name"],
+#             description=item_data["description"],
+#             price=new_item_price,
+#             image_url=item_data["image_url"],
+#             imageAlt=item_data["imageAlt"],
+#             inStock=item_data["inStock"],
+#         )
+#         db.session.add(new_item)
+#         db.session.commit()
+#         return make_response({"new_item": new_item.to_dict()}, 201)
+#     except ValueError:
+#         return make_response(
+#             {"error": "Item creation failed due to a database error."}, 400
+#         )
+#     except Exception as error:
+#         return make_response({"error": str(error)}, 500)
+
+
+# api.add_resource(Items, "/api/items")
 
 # ITEMS BY ID
 
 
-class ItemsById(Resource):
-    def get(self, id):
-        item = Item.query.get(id)
-        if item:
-            return make_response(item.to_dict(convert_price_to_dollars=True), 200)
-        else:
-            return make_response({"error": "Item not found"}, 404)
+# class ItemsById(Resource):
+#     def get(self, id):
+#         item = Item.query.get(id)
+#         if item:
+#             return make_response(item.to_dict(convert_price_to_dollars=True), 200)
+#         else:
+#             return make_response({"error": "Item not found"}, 404)
 
-    def patch(self, id):
-        item = Item.query.get(id)
-        if item:
-            data = request.get_json()
-            try:
-                for attr in data:
-                    setattr(item, attr, data[attr])
-                db.session.commit()
-                return make_response(item.to_dict(), 202)
-            except ValueError:
-                return make_response({"errors": ["validation errors"]}, 400)
-        else:
-            return make_response({"error": "Item not found"}, 404)
+#     def patch(self, id):
+#         item = Item.query.get(id)
+#         if item:
+#             data = request.get_json()
+#             try:
+#                 for attr in data:
+#                     setattr(item, attr, data[attr])
+#                 db.session.commit()
+#                 return make_response(item.to_dict(), 202)
+#             except ValueError:
+#                 return make_response({"errors": ["validation errors"]}, 400)
+#         else:
+#             return make_response({"error": "Item not found"}, 404)
 
-    def delete(self, id):
-        try:
-            item = Item.query.get(id)
-            if item:
-                db.session.delete(item)
-                db.session.commit()
-                return jsonify({}), 204
-            else:
-                return make_response({"error": "Item not found"}), 404
-        except Exception as error:
-            return make_response({"error": str(error)}), 500
+#     def delete(self, id):
+#         try:
+#             item = Item.query.get(id)
+#             if item:
+#                 db.session.delete(item)
+#                 db.session.commit()
+#                 return jsonify({}), 204
+#             else:
+#                 return make_response({"error": "Item not found"}), 404
+#         except Exception as error:
+#             return make_response({"error": str(error)}), 500
 
 
-api.add_resource(ItemsById, "/api/items/<int:id>")
+# api.add_resource(ItemsById, "/api/items/<int:id>")
 
 # USERS
 
 
 class Users(Resource):
-    def get(self):
-        return make_response([user.to_dict() for user in User.query.all()], 200)
+    # def get(self):
+    #     return make_response([user.to_dict() for user in User.query.all()], 200)
 
-    def post(self):
-        user_data = request.get_json()
-        try:
-            new_user = User(
-                email=user_data["email"],
-                firstname=user_data.get("firstname", ""),
-                lastname=user_data.get("lastname", ""),
-                address=user_data.get("address", ""),
-                city=user_data.get("city", ""),
-                state=user_data.get("state", ""),
-                zip=user_data.get("zip", ""),
-            )
-            new_user.password = user_data["password"]
-            db.session.add(new_user)
-            db.session.commit()
-            return make_response({"message": "User created successfully"}, 201)
-        except ValueError as e:
-            db.session.rollback()
-            if "UNIQUE constraint failed" in str(e):
-                return make_response({"error": "Email already exists."}, 409)
-            else:
-                return make_response({"error": "Database integrity error."}, 500)
-        except Exception as error:
-            db.session.rollback()
-            return make_response({"error": "User creation failed: " + str(error)}, 500)
+    # def post(self):
+    #     user_data = request.get_json()
+    #     try:
+    #         new_user = User(
+    #             email=user_data["email"],
+    #             firstname=user_data.get("firstname", ""),
+    #             lastname=user_data.get("lastname", ""),
+    #             address=user_data.get("address", ""),
+    #             city=user_data.get("city", ""),
+    #             state=user_data.get("state", ""),
+    #             zip=user_data.get("zip", ""),
+    #         )
+    #         new_user.password = user_data["password"]
+    #         db.session.add(new_user)
+    #         db.session.commit()
+    #         return make_response({"message": "User created successfully"}, 201)
+    #     except ValueError as e:
+    #         db.session.rollback()
+    #         if "UNIQUE constraint failed" in str(e):
+    #             return make_response({"error": "Email already exists."}, 409)
+    #         else:
+    #             return make_response({"error": "Database integrity error."}, 500)
+    #     except Exception as error:
+    #         db.session.rollback()
+    #         return make_response({"error": "User creation failed: " + str(error)}, 500)
 
     def delete(self):
         try:
@@ -258,24 +259,24 @@ class Users(Resource):
         except Exception as error:
             return make_response({"error": str(error)}, 500)
 
-    def patch(self):
-        data = request.get_json()
-        try:
-            if not all(key in data for key in ("email", "password", "newPassword")):
-                return make_response({"error": "Required fields are missing"}, 400)
-            email = data["email"]
-            password = data["password"]
-            new_password = data["newPassword"]
+    # def patch(self):
+    #     data = request.get_json()
+    #     try:
+    #         if not all(key in data for key in ("email", "password", "newPassword")):
+    #             return make_response({"error": "Required fields are missing"}, 400)
+    #         email = data["email"]
+    #         password = data["password"]
+    #         new_password = data["newPassword"]
 
-            user = User.query.filter_by(email=email).first()
-            if user and user.authenticate(password):
-                user.password = new_password
-                db.session.commit()
-                return make_response({"message": "Password updated successfully"}, 200)
-            else:
-                return make_response({"error": "Invalid credentials"}, 401)
-        except Exception as error:
-            return make_response({"error": str(error)}, 500)
+    #         user = User.query.filter_by(email=email).first()
+    #         if user and user.authenticate(password):
+    #             user.password = new_password
+    #             db.session.commit()
+    #             return make_response({"message": "Password updated successfully"}, 200)
+    #         else:
+    #             return make_response({"error": "Invalid credentials"}, 401)
+    #     except Exception as error:
+    #         return make_response({"error": str(error)}, 500)
 
 
 api.add_resource(Users, "/api/users")
@@ -309,32 +310,32 @@ class UsersById(Resource):
         else:
             return make_response({"error": "Unauthorized access"}, 403)
 
-    def delete(self, id):
-        try:
-            data = request.get_json()
-            if "password" not in data:
-                return make_response({"error": "Password is required"}, 400)
+    # def delete(self, id):
+    #     try:
+    #         data = request.get_json()
+    #         if "password" not in data:
+    #             return make_response({"error": "Password is required"}, 400)
 
-            password = data["password"]
+    #         password = data["password"]
 
-            # Find the user by id
-            user = User.query.filter_by(id=id).first()
+    #         # Find the user by id
+    #         user = User.query.filter_by(id=id).first()
 
-            if user and user.id is not None:
-                # Verify the entered password
-                if user.authenticate(password):
-                    # Delete the user
-                    db.session.delete(user)
-                    db.session.commit()
+    #         if user and user.id is not None:
+    #             # Verify the entered password
+    #             if user.authenticate(password):
+    #                 # Delete the user
+    #                 db.session.delete(user)
+    #                 db.session.commit()
 
-                    return make_response({"message": "User deleted successfully"}, 200)
-                else:
-                    return make_response({"error": "Invalid password"}, 401)
-            else:
-                return make_response({"error": "User not found"}, 404)
+    #                 return make_response({"message": "User deleted successfully"}, 200)
+    #             else:
+    #                 return make_response({"error": "Invalid password"}, 401)
+    #         else:
+    #             return make_response({"error": "User not found"}, 404)
 
-        except Exception as error:
-            return make_response({"error": str(error)}, 500)
+    #     except Exception as error:
+    #         return make_response({"error": str(error)}, 500)
 
 
 api.add_resource(UsersById, "/api/users/<int:id>")
@@ -447,28 +448,28 @@ api.add_resource(OrderDetails, "/api/order_details")
 # CATEGORIES
 
 
-class Categories(Resource):
-    def get(self):
-        Categories = Category.query.all()
-        return make_response([category.to_dict() for category in Categories], 200)
+# class Categories(Resource):
+#     def get(self):
+#         Categories = Category.query.all()
+#         return make_response([category.to_dict() for category in Categories], 200)
 
-    def post(self):
-        category_data = request.get_json()
-        name = category_data.get("name")
-        try:
-            validate_not_blank(name, "name")
-            new_category = Category(name=name)
-            db.session.add(new_category)
-            db.session.commit()
-            return make_response({"message": "Category created successfully"}, 201)
-        except ValueError as e:
-            return make_response({"error": str(e)}, 400)
-        except Exception as e:
-            db.session.rollback()
-            return make_response({"error": "Failed to create category: " + str(e)}, 500)
+#     def post(self):
+#         category_data = request.get_json()
+#         name = category_data.get("name")
+#         try:
+#             validate_not_blank(name, "name")
+#             new_category = Category(name=name)
+#             db.session.add(new_category)
+#             db.session.commit()
+#             return make_response({"message": "Category created successfully"}, 201)
+#         except ValueError as e:
+#             return make_response({"error": str(e)}, 400)
+#         except Exception as e:
+#             db.session.rollback()
+#             return make_response({"error": "Failed to create category: " + str(e)}, 500)
 
 
-api.add_resource(Categories, "/api/categories")
+# api.add_resource(Categories, "/api/categories")
 
 
 def get_or_create_category(category_name):
@@ -505,36 +506,36 @@ def get_items_with_categories():
         return jsonify({"error": str(error)}), 500
 
 
-class ItemCategories(Resource):
-    def get(self):
-        item_categories = ItemCategory.query.all()
-        return make_response(
-            [item_category.to_dict() for item_category in item_categories], 200
-        )
+# class ItemCategories(Resource):
+#     def get(self):
+#         item_categories = ItemCategory.query.all()
+#         return make_response(
+#             [item_category.to_dict() for item_category in item_categories], 200
+#         )
 
-    def post(self):
-        data = request.get_json()
-        item_id = data.get("item_id")
-        category_id = data.get("category_id")
+#     def post(self):
+#         data = request.get_json()
+#         item_id = data.get("item_id")
+#         category_id = data.get("category_id")
 
-        try:
-            validate_type(item_id, "item_id", int)
-            validate_type(category_id, "category_id", int)
+#         try:
+#             validate_type(item_id, "item_id", int)
+#             validate_type(category_id, "category_id", int)
 
-            new_item_category = ItemCategory(item_id=item_id, category_id=category_id)
-            db.session.add(new_item_category)
-            db.session.commit()
-            return make_response({"message": "ItemCategory created successfully"}, 201)
-        except ValueError as e:
-            return make_response({"error": str(e)}, 400)
-        except Exception as e:
-            db.session.rollback()
-            return make_response(
-                {"error": "Failed to create product category: " + str(e)}, 500
-            )
+#             new_item_category = ItemCategory(item_id=item_id, category_id=category_id)
+#             db.session.add(new_item_category)
+#             db.session.commit()
+#             return make_response({"message": "ItemCategory created successfully"}, 201)
+#         except ValueError as e:
+#             return make_response({"error": str(e)}, 400)
+#         except Exception as e:
+#             db.session.rollback()
+#             return make_response(
+#                 {"error": "Failed to create product category: " + str(e)}, 500
+#             )
 
 
-api.add_resource(ItemCategories, "/api/item_categories")
+# api.add_resource(ItemCategories, "/api/item_categories")
 
 
 # Render front-end

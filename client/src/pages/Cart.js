@@ -93,12 +93,13 @@ function Cart({
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="flex-grow overflow-y-auto">
+      <div className="flex-grow overflow-y-auto mb-60">
         <CartItems
           cartItems={cartItems}
           handleDeleteFromCart={handleDeleteFromCart}
           calculateTotal={calculateTotal}
         />
+        <br />
         {/*Logged in or new user*/}
         {user && user.email ? (
           <div className="flex flex-col items-center justify-center mx-auto mt-6 rounded-lg border bg-accent-lightest p-6 shadow-md md:w-1/3 mb-80">
@@ -180,10 +181,14 @@ function Cart({
             </form>
           </div>
         ) : (
-          <div class="forms-container">
-            <Login user={user} setUser={setUser} />
-            <Signup user={user} setUser={setUser} />
-          </div>
+          <>
+            <div class="forms-container">
+              <Login user={user} setUser={setUser} />
+              <br />
+              <Signup user={user} setUser={setUser} />
+            </div>
+            <br />
+          </>
         )}
       </div>
       {/*Checkout Modal*/}

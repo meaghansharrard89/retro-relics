@@ -30,7 +30,7 @@ function CartPopout({
       aria-modal="true"
     >
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-      <div className="fixed inset-0 overflow-hidden">
+      <div className="fixed inset-0 overflow-hidden ease-in duration-300">
         <div className="absolute inset-0 overflow-hidden">
           <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
             <div className="pointer-events-auto w-screen max-w-md">

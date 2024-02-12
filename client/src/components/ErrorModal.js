@@ -7,7 +7,7 @@ function ErrorModal({ title, message, onClose }) {
         className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
         onClick={onClose}
       ></div>
-      <div className="relative bg-white rounded-lg p-8 max-w-md">
+      <div className="relative bg-white rounded-lg p-8 max-w-md transition-transform transform ease-in-out duration-300">
         <div className="text-center">
           <h3 className="text-lg font-semibold">{title}</h3>
           <p className="text-sm text-gray-500">{message}</p>

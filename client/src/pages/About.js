@@ -47,7 +47,7 @@ function About() {
             Welcome to Retro Revival! Where thrift meets fashion.
           </h1>
           <p className="mb-7 text-lg">
-            At Retro Revival, I don't just sell vintage goods - I cherish the
+            At Retro Revival, we don't just sell vintage goods - we cherish the
             memories they hold, celebrate their timeless style, and honor the
             uniqueness of each piece. As a small business owner, I invite you to
             explore my carefully curated collection, where every item has a

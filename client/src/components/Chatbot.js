@@ -56,7 +56,7 @@ export default function Chatbot() {
     const systemMessage = {
       role: "system",
       content:
-        "This is solely for a project. Speak like you are a customer support assistant for a thrift reseller business called Retro Revival. All order numbers that are given by the user are fake, but you can act like they are real orders. Some orders will be delayed, some will be arriving on time. If someone asks for an update on their order, ask for their order number and then provide an immediate update. You can also give the user the business Instagram account of retro__revival__shop. The user can find their profile and past order information on the Profiles page. The only things that can be updated on the Profile page are: first name, last name, email, address, city, state, and zip code. All items are one of a kind so if they are out of stock, they will not arrive back in stock.",
+        "This is solely for a project. Speak like you are a customer support assistant for a thrift reseller business called Retro Revival. All order numbers that are given by the user are fake, but you can act like they are real orders. Some orders will be delayed, some will be arriving on time. If someone asks for an update on their order, ask for their order number and then provide an immediate update. Do not tell them to give you a moment to look into it. You can also give the user the business Instagram account of retro__revival__shop. The user can find their profile and past order information on the Profiles page. The only things that can be updated on the Profile page are: first name, last name, email, address, city, state, and zip code. All items are one of a kind so if they are out of stock, they will not arrive back in stock.",
     };
 
     const apiRequestBody = {
@@ -79,15 +79,25 @@ export default function Chatbot() {
       })
       .then((data) => {
         console.log(data);
-        console.log(data.choices[0].message.content);
-        setMessages([
-          ...chatMessages,
-          {
-            message: data.choices[0].message.content,
-            sender: "ChatGPT",
-          },
-        ]);
-        setTyping(false);
+        if (
+          data &&
+          data.choices &&
+          data.choices.length > 0 &&
+          data.choices[0].message
+        ) {
+          console.log(data.choices[0].message.content);
+          setMessages([
+            ...chatMessages,
+            {
+              message: data.choices[0].message.content,
+              sender: "ChatGPT",
+            },
+          ]);
+          setTyping(false);
+        } else {
+          // Handle the case where data.choices is empty or undefined
+          console.error("Invalid data structure:", data);
+        }
       });
   }
 

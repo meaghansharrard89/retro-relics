@@ -105,7 +105,7 @@ export default function Profile() {
           </h1>
         </div>
 
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-60">
           <div class="sm:col-span-3">
             <label
               for="first-name"
@@ -237,7 +237,7 @@ export default function Profile() {
         </div>
       </form>
 
-      <div class="flex justify-start item-start space-y-2 flex-col">
+      <div class="flex justify-start item-start space-y-2 flex-col mb-60">
         <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
           Previous Orders:
         </h1>
@@ -358,7 +358,7 @@ export default function Profile() {
               </div>
             </div>
           </div>
-          <div class="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
+          <div class="flex justify-center flex-col md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8 mb-60">
             <div class="flex flex-col px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 dark:bg-gray-800 space-y-6">
               <h3 class="text-xl dark:text-white font-semibold leading-5 text-gray-800">
                 Summary
