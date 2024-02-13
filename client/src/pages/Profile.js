@@ -3,6 +3,7 @@ import { useUser } from "../components/UserContext";
 import { useHistory } from "react-router-dom";
 import DeleteModal from "../components/DeleteModal";
 import ErrorModal from "../components/ErrorModal";
+import { Transition } from "@headlessui/react";
 
 export default function Profile() {
   const history = useHistory();
@@ -14,6 +15,7 @@ export default function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [ordersLoaded, setOrdersLoaded] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isShowing, setIsShowing] = useState(false);
 
   useEffect(() => {
     fetch("/api/orders")
@@ -65,6 +67,7 @@ export default function Profile() {
   };
 
   const handleDeleteClick = () => {
+    setIsShowing((isShowing) => !isShowing);
     setShowDeleteModal(true);
   };
 
@@ -342,25 +345,46 @@ export default function Profile() {
           <br />
         </div>
       </div>
-      {showDeleteModal && (
-        <DeleteModal
-          setShowDeleteModal={setShowDeleteModal}
-          verifyEmailPasswordAndDeleteProfile={
-            verifyEmailPasswordAndDeleteProfile
-          }
-          history={history}
-          isOpen={showDeleteModal} // Add this line to pass the isOpen prop
-        />
-      )}
+      <Transition
+        show={isShowing}
+        enter="transition-opacity duration-75"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-150"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        {showDeleteModal && (
+          <DeleteModal
+            setShowDeleteModal={setShowDeleteModal}
+            verifyEmailPasswordAndDeleteProfile={
+              verifyEmailPasswordAndDeleteProfile
+            }
+            history={history}
+            setIsOpen={setShowDeleteModal}
+            isOpen={showDeleteModal} // Add this line to pass the isOpen prop
+          />
+        )}
+      </Transition>
       {/* Error modal */}
-      {error && (
-        <ErrorModal
-          title={error.title}
-          isOpen={isModalOpen}
-          message={error.message}
-          onClose={() => setError(null)}
-        />
-      )}
+      <Transition
+        show={isShowing}
+        enter="transition-opacity duration-75"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-150"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        {error && (
+          <ErrorModal
+            title={error.title}
+            isOpen={isModalOpen}
+            message={error.message}
+            onClose={() => setError(null)}
+          />
+        )}
+      </Transition>
     </>
   );
 }

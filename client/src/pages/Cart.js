@@ -7,6 +7,7 @@ import { useUser } from "../components/UserContext";
 import ErrorModal from "../components/ErrorModal";
 import CartItems from "../components/CartItems";
 import CheckoutModal from "../components/CheckoutModal";
+import { Transition } from "@headlessui/react";
 
 function Cart({
   cartItems,
@@ -20,6 +21,7 @@ function Cart({
   const history = useHistory();
   const [error, setError] = useState(null);
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
+  const [isShowing, setIsShowing] = useState(false);
   const [billingInfo, setBillingInfo] = useState({
     cardName: "",
     cardNumber: "",
@@ -52,6 +54,7 @@ function Cart({
   const handleCheckout = async (e) => {
     try {
       if (cartItems.length === 0) {
+        setIsShowing((isShowing) => !isShowing);
         setError({
           title: "Error",
           message: "Cannot checkout with an empty cart.",
@@ -79,6 +82,7 @@ function Cart({
 
       setCompletedOrder(orderDetails);
       localStorage.removeItem("cart");
+      setIsShowing((isShowing) => !isShowing);
       setShowCheckoutModal(true);
     } catch (error) {
       console.error("There was a problem with your fetch operation:", error);
@@ -192,21 +196,41 @@ function Cart({
         )}
       </div>
       {/*Checkout Modal*/}
-      {showCheckoutModal && (
-        <CheckoutModal
-          isOpen={showCheckoutModal}
-          onClose={() => setShowCheckoutModal(false)}
-          username={user.firstname}
-        />
-      )}
+      <Transition
+        show={isShowing}
+        enter="transition-opacity duration-75"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-150"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        {showCheckoutModal && (
+          <CheckoutModal
+            isOpen={showCheckoutModal}
+            onClose={() => setShowCheckoutModal(false)}
+            username={user.firstname}
+          />
+        )}
+      </Transition>
       {/* Error modal */}
-      {error && (
-        <ErrorModal
-          title={error.title}
-          message={error.message}
-          onClose={() => setError(null)}
-        />
-      )}
+      <Transition
+        show={isShowing}
+        enter="transition-opacity duration-75"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-150"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        {error && (
+          <ErrorModal
+            title={error.title}
+            message={error.message}
+            onClose={() => setError(null)}
+          />
+        )}
+      </Transition>
     </div>
   );
 }

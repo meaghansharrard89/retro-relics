@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function DeleteModal({
   verifyEmailPasswordAndDeleteProfile,
   history,
   isOpen,
+  setIsOpen,
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +19,10 @@ export default function DeleteModal({
       return;
     }
     await verifyEmailPasswordAndDeleteProfile(email, password, history);
+  };
+
+  const handleCancelClick = () => {
+    setIsOpen(!isOpen); // Toggle isOpen state
   };
 
   return (
@@ -61,12 +67,12 @@ export default function DeleteModal({
               >
                 Delete Account
               </button>
-              <NavLink
-                to="/profile"
+              <button
+                onClick={handleCancelClick}
                 className="cursor-pointer inline-flex justify-center rounded-md bg-dark-accent hover:bg-dark-accent-light px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 sm:mt-0 sm:w-auto"
               >
                 Cancel
-              </NavLink>
+              </button>
             </div>
           </div>
           <div

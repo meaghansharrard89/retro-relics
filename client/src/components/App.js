@@ -14,6 +14,7 @@ import { ChatProvider } from "./ChatContext";
 import { UserProvider } from "./UserContext";
 import Chatbot from "../components/Chatbot";
 import Footer from "../components/Footer";
+import DeleteModal from "../components/DeleteModal";
 import "../index.css";
 
 function App() {

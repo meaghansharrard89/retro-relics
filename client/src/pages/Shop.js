@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CartPopout from "../components/CartPopout";
 import { useHistory } from "react-router-dom";
+import { Transition } from "@headlessui/react";
 
 function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
   const [items, setItems] = useState([]);
@@ -8,7 +9,6 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
   const [filterStatus, setFilterStatus] = useState("");
   const [isDropdownClicked, setIsDropdownClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [isShowing, setIsShowing] = useState(false);
 
   const handleClick = (item) => {
@@ -16,7 +16,8 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const updatedCart = [...existingCart, item];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setIsModalOpen(true);
+    setIsShowing((isShowing) => !isShowing);
+    // setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -41,12 +42,14 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
   );
 
   const continueShopping = () => {
-    setIsModalOpen(false);
+    // setIsModalOpen(false);
+    setIsShowing((isShowing) => !isShowing);
     history.push("/shop");
   };
 
   const goToCheckout = () => {
-    setIsModalOpen(false);
+    // setIsModalOpen(false);
+    setIsShowing((isShowing) => !isShowing);
     history.push("/cart");
   };
 
@@ -114,15 +117,25 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
           </div>
         </div>
       </div>
-      <CartPopout
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        setCartItems={setCartItems}
-        cartItems={cartItems}
-        continueShopping={continueShopping}
-        goToCheckout={goToCheckout}
-        handleDeleteFromCart={handleDeleteFromCart}
-      />
+      <Transition
+        show={isShowing}
+        enter="transition-opacity duration-75"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-150"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <CartPopout
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          setCartItems={setCartItems}
+          cartItems={cartItems}
+          continueShopping={continueShopping}
+          goToCheckout={goToCheckout}
+          handleDeleteFromCart={handleDeleteFromCart}
+        />
+      </Transition>
       <br />
     </>
   );
