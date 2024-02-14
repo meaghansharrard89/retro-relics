@@ -157,7 +157,7 @@ class UsersById(Resource):
                 # Update user profile
                 setattr(user, "firstname", data["firstname"])
                 setattr(user, "lastname", data["lastname"])
-                # setattr(user, "email", data["email"])
+                setattr(user, "email", data["email"])
                 setattr(user, "address", data["address"])
                 setattr(user, "city", data["city"])
                 setattr(user, "state", data["state"])

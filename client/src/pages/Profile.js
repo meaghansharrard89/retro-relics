@@ -46,7 +46,7 @@ export default function Profile() {
       if (response.ok) {
         setUser(editedUser);
         setIsEditing(false);
-        history.push("/profile");
+        // history.push("/profile");
         console.log("User updated successfully");
       } else {
         const errorData = await response.json();
@@ -114,6 +114,7 @@ export default function Profile() {
                 Profile
               </h1>
             </div>
+
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div class="sm:col-span-3">
                 <p
@@ -159,6 +160,28 @@ export default function Profile() {
                     <p class="bg-white p-1.5 rounded-md">
                       {user?.lastname || ""}
                     </p>
+                  )}
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
+                <label
+                  for="email"
+                  class="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Email
+                </label>
+                <div class="mt-2">
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      name="email"
+                      value={editedUser.email}
+                      onChange={handleChange}
+                      class="bg-white block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                  ) : (
+                    <p class="bg-white p-1.5 rounded-md">{user?.email || ""}</p>
                   )}
                 </div>
               </div>
