@@ -12,6 +12,8 @@ import os
 from os import environ
 from dotenv import load_dotenv
 
+load_dotenv()
+
 # Instantiate app, set attributes
 app = Flask(
     __name__,
@@ -19,7 +21,9 @@ app = Flask(
     static_folder="../client/build",
     template_folder="../client/build",
 )
-if environ.get("ENV") == "prod":
+
+if environ.get("RENDER"):
+    # if True:
     app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URI")
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
@@ -40,7 +44,6 @@ DATABASE = environ.get(
     "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'instance', 'app.db')}"
 )
 
-load_dotenv()
 app.secret_key = environ.get("SECRET_KEY")
 app.api_key = environ.get("OPENAI_API_KEY")
 app.api_url = environ.get("OPENAI_API_URL")
