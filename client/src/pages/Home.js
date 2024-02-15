@@ -13,7 +13,7 @@ function Home() {
           alignItems: "center",
           height: "80vh",
         }}
-        class="mb-60"
+        class="mb-20"
       >
         <img
           source

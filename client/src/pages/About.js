@@ -19,7 +19,7 @@ function About() {
   return (
     <div
       id="about"
-      className="flex justify-center items-center py-8 px-4 mx-auto max-w-6xl mt-14"
+      className="flex justify-center items-center py-8 px-4 mx-auto max-w-6xl mt-14 mb-60"
     >
       <div className="relative flex items-center">
         <img
