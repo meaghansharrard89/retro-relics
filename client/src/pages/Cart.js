@@ -97,7 +97,7 @@ function Cart({
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="flex-grow overflow-y-auto mb-60">
+      <div className="flex-grow overflow-y-auto">
         <CartItems
           cartItems={cartItems}
           handleDeleteFromCart={handleDeleteFromCart}

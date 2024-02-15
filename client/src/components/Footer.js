@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <>
-      <footer className="bg-dark-accent-light text-center text-darker-accent lg:text-left">
+      <footer className="bg-dark-accent-light text-center text-darker-accent lg:text-left min-h-screen-30">
         <div className="mx-2 md:mx-6 py-2 md:py-0">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             <div className="mb-4 md:mb-0">
@@ -44,33 +44,6 @@ function Footer() {
           </div>
         </div>
       </footer>
-      <style jsx>{`
-        footer {
-          width: 100%;
-          background-color: #f5f5f5; /* Adjust the background color as needed */
-          padding: 20px 0; /* Adjust the padding as needed */
-          bottom: 0;
-          left: 0;
-        }
-        /* Sticky footer CSS */
-        body {
-          display: flex;
-          flex-direction: column;
-          min-height: 100vh;
-        }
-        /* Adjustments for small screens */
-        @media (max-width: 768px) {
-          footer {
-            padding: 10px 0;
-          }
-          .grid {
-            grid-template-columns: 1fr;
-          }
-          .mb-4 {
-            margin-bottom: 1rem;
-          }
-        }
-      `}</style>
     </>
   );
 }

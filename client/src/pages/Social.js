@@ -16,7 +16,7 @@ function Social() {
 
   return (
     <>
-      <div id="social" class="mb-60">
+      <div id="social">
         <h1 class="text-3xl font-bold mb-4 text-center mt-12">
           Check us out on Instagram at retro__revival__shop!
         </h1>

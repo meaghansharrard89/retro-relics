@@ -158,7 +158,7 @@ class User(db.Model, SerializerMixin):
             raise ValueError("Invalid email address.")
         # Check if the provided email already exists in the database
         existing_user = User.query.filter(User.email == value).first()
-        if existing_user:
+        if existing_user and existing_user is not self:
             raise ValueError("Email already exists. Please choose a different email.")
         return value
 

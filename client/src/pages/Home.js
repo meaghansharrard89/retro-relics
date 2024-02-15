@@ -5,16 +5,7 @@ import { useEffect } from "react";
 function Home() {
   return (
     <>
-      <div
-        id="home"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}
-        class="mb-20"
-      >
+      <div id="home" class="flex justify-center grow">
         <img
           source
           src="https://i.ibb.co/MPfHmt4/homelogo-2.png"

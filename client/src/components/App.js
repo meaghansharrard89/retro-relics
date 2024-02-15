@@ -40,48 +40,50 @@ function App() {
     <UserProvider>
       <OrderProvider>
         <ChatProvider>
-          <Router>
-            <NavBar />
-            <main>
-              <Switch>
-                <Route exact path="/">
-                  <Home />
-                </Route>
-                <Route exact path="/about">
-                  <About />
-                </Route>
-                <Route exact path="/shop">
-                  <Shop
-                    cartItems={cartItems}
-                    setCartItems={setCartItems}
-                    handleDeleteFromCart={handleDeleteFromCart}
-                  />
-                </Route>
-                <Route exact path="/social">
-                  <Social />
-                </Route>
-                <Route exact path="/cart">
-                  <Cart
-                    cartItems={cartItems}
-                    setCartItems={setCartItems}
-                    handleDeleteFromCart={handleDeleteFromCart}
-                    calculateTotal={calculateTotal}
-                  />
-                </Route>
-                <Route exact path="/login">
-                  <Login />
-                </Route>
-                <Route exact path="/checkout">
-                  <CheckoutModal />
-                </Route>
-                <Route exact path="/profile">
-                  <Profile />
-                </Route>
-              </Switch>
-            </main>
-          </Router>
-          <Chatbot />
-          <Footer />
+          <div class="flex flex-col h-screen justify-between">
+            <Router>
+              <NavBar />
+              <main class="grow">
+                <Switch>
+                  <Route exact path="/">
+                    <Home />
+                  </Route>
+                  <Route exact path="/about">
+                    <About />
+                  </Route>
+                  <Route exact path="/shop">
+                    <Shop
+                      cartItems={cartItems}
+                      setCartItems={setCartItems}
+                      handleDeleteFromCart={handleDeleteFromCart}
+                    />
+                  </Route>
+                  <Route exact path="/social">
+                    <Social />
+                  </Route>
+                  <Route exact path="/cart">
+                    <Cart
+                      cartItems={cartItems}
+                      setCartItems={setCartItems}
+                      handleDeleteFromCart={handleDeleteFromCart}
+                      calculateTotal={calculateTotal}
+                    />
+                  </Route>
+                  <Route exact path="/login">
+                    <Login />
+                  </Route>
+                  <Route exact path="/checkout">
+                    <CheckoutModal />
+                  </Route>
+                  <Route exact path="/profile">
+                    <Profile />
+                  </Route>
+                </Switch>
+              </main>
+            </Router>
+            <Chatbot />
+            <Footer />
+          </div>
         </ChatProvider>
       </OrderProvider>
     </UserProvider>

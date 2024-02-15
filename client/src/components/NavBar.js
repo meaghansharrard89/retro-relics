@@ -166,7 +166,7 @@ function NavBar() {
                 class="h-14 w-14"
               />
             </a> */}
-            {user && user.email && (
+            {/* {user && user.email && (
               <>
                 <a
                   href="/profile"
@@ -182,7 +182,7 @@ function NavBar() {
                   LOGOUT
                 </a>
               </>
-            )}
+            )} */}
           </div>
         </div>
       </nav>

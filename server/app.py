@@ -166,8 +166,8 @@ class UsersById(Resource):
                 db.session.commit()
 
                 return user.to_dict(), 202
-            except ValueError:
-                return make_response({"errors": ["validation errors"]}, 400)
+            except ValueError as e:
+                return make_response({"errors": e.__str__()}, 400)
         else:
             return make_response({"error": "Unauthorized access"}, 403)
 
