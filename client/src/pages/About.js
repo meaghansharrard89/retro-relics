@@ -19,9 +19,9 @@ function About() {
   return (
     <div
       id="about"
-      className="flex justify-center items-center py-8 px-4 mx-auto max-w-6xl mt-14"
+      className="flex justify-center grow items-center py-8 px-4 mx-auto max-w-6xl mt-14"
     >
-      <div className="relative flex items-center">
+      <div className="flex justify-center grow pt-10 pb-10">
         <img
           src="https://i.ibb.co/C5NXhkB/yellowblob.png"
           alt="blob"
@@ -29,9 +29,10 @@ function About() {
           style={{ zIndex: -1, left: "50%", transform: "translateX(-50%)" }}
         />
         <div className="max-w-md text-center">
-          <h1 className="text-3xl font-bold mb-10">
+          <h1 className="text-4xl font-bold pt-6 pb-6">
             Welcome to Retro Revival! Where thrift meets fashion.
           </h1>
+          <br />
           <p className="mb-7 text-lg">
             At Retro Revival, we don't just sell vintage goods - we cherish the
             memories they hold, celebrate their timeless style, and honor the

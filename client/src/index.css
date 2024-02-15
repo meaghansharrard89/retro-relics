@@ -37,7 +37,4 @@ footer {
   .grid {
     grid-template-columns: 1fr;
   }
-  /* .mb-4 {
-    margin-bottom: 1rem;
-  } */
 }

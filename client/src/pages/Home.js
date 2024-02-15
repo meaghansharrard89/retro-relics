@@ -5,7 +5,7 @@ import { useEffect } from "react";
 function Home() {
   return (
     <>
-      <div id="home" class="flex justify-center grow">
+      <div id="home" class="flex justify-center grow pt-10">
         <img
           source
           src="https://i.ibb.co/MPfHmt4/homelogo-2.png"

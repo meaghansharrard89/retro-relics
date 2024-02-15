@@ -106,218 +106,226 @@ export default function Profile() {
 
   return (
     <>
-      <div class="fixed bg-accent-darkest rounded-lg border-base-200">
-        <div class="border-base-200 p-6 max-w-lg mb-20">
-          <form class="w-full" onSubmit={(e) => e.preventDefault()}>
-            <div class="space-y-12">
-              <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
-                Profile
-              </h1>
-            </div>
-
-            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div class="sm:col-span-3">
-                <p
-                  for="first-name"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  First name:{" "}
-                </p>
-                <div class="mt-2">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      name="firstname"
-                      value={editedUser.firstname}
-                      onChange={handleChange}
-                      class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  ) : (
-                    <p class="bg-white p-1.5 rounded-md">
-                      {user?.firstname || ""}
-                    </p>
-                  )}
-                </div>
+      <div class="overflow-y-auto max-h-screen">
+        <div class="fixed bg-accent-darkest rounded-lg border-base-200 pl-4 max-w-screen-md">
+          <div class="border-base-200 p-6 max-w-lg">
+            <form class="w-full" onSubmit={(e) => e.preventDefault()}>
+              <div class="space-y-12">
+                <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
+                  Profile
+                </h1>
               </div>
 
-              <div class="sm:col-span-3">
-                <label
-                  for="last-name"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Last name
-                </label>
-                <div class="mt-2">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      name="lastname"
-                      value={editedUser.lasttname}
-                      onChange={handleChange}
-                      class="bg-white block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  ) : (
-                    <p class="bg-white p-1.5 rounded-md">
-                      {user?.lastname || ""}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div class="sm:col-span-3">
-                <label
-                  for="email"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Email
-                </label>
-                <div class="mt-2">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      name="email"
-                      value={editedUser.email}
-                      onChange={handleChange}
-                      class="bg-white block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  ) : (
-                    <p class="bg-white p-1.5 rounded-md">{user?.email || ""}</p>
-                  )}
-                </div>
-              </div>
-
-              <div class="sm:col-span-4">
-                <label
-                  for="email"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Address
-                </label>
-                <div class="mt-2">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      name="address"
-                      value={editedUser.address}
-                      onChange={handleChange}
-                      class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  ) : (
-                    <p class="bg-white p-1.5 rounded-md">
-                      {user?.address || ""}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div class="col-span-full sm:col-span-3">
-                <label
-                  for="street-address"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  City
-                </label>
-                <div class="mt-2">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      name="city"
-                      value={editedUser.city}
-                      onChange={handleChange}
-                      class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  ) : (
-                    <p class="bg-white p-1.5 rounded-md">{user?.city || ""}</p>
-                  )}
-                </div>
-              </div>
-
-              <div class="sm:col-span-2 sm:col-start-1">
-                <label
-                  for="city"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  State
-                </label>
-                <div class="mt-2">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      name="state"
-                      value={editedUser.state}
-                      onChange={handleChange}
-                      class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  ) : (
-                    <p class="bg-white p-1.5 rounded-md">{user?.state || ""}</p>
-                  )}
-                </div>
-              </div>
-
-              <div class="sm:col-span-2">
-                <label
-                  for="region"
-                  class="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Zip Code
-                </label>
-                <div class="mt-2">
-                  {isEditing ? (
-                    <input
-                      type="text"
-                      name="zip"
-                      value={editedUser.zip}
-                      onChange={handleChange}
-                      class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  ) : (
-                    <p class="bg-white p-1.5 rounded-md">{user?.zip || ""}</p>
-                  )}
-                </div>
-              </div>
-
-              {isEditing ? (
-                <>
-                  <div class="sm:col-span-6 flex justify-left">
-                    <button
-                      onClick={handleSaveClick}
-                      class="rounded-md bg-dark-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-dark-accent-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={handleCancelClick}
-                      class="rounded-md bg-dark-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-dark-accent-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2"
-                    >
-                      Cancel
-                    </button>
+              <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div class="sm:col-span-3">
+                  <p
+                    for="first-name"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    First name:{" "}
+                  </p>
+                  <div class="mt-2">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="firstname"
+                        value={editedUser.firstname}
+                        onChange={handleChange}
+                        class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    ) : (
+                      <p class="bg-white p-1.5 rounded-md">
+                        {user?.firstname || ""}
+                      </p>
+                    )}
                   </div>
-                </>
-              ) : (
-                <>
-                  <div class="sm:col-span-6 flex justify-left">
-                    <button
-                      onClick={handleEditClick}
-                      class="rounded-md bg-dark-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-dark-accent-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={handleDeleteClick}
-                      class="rounded-md bg-dark-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-dark-accent-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                      Delete
-                    </button>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label
+                    for="last-name"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Last name
+                  </label>
+                  <div class="mt-2">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="lastname"
+                        value={editedUser.lasttname}
+                        onChange={handleChange}
+                        class="bg-white block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    ) : (
+                      <p class="bg-white p-1.5 rounded-md">
+                        {user?.lastname || ""}
+                      </p>
+                    )}
                   </div>
-                </>
-              )}
-            </div>
-          </form>
+                </div>
+
+                <div class="sm:col-span-3">
+                  <label
+                    for="email"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Email
+                  </label>
+                  <div class="mt-2">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="email"
+                        value={editedUser.email}
+                        onChange={handleChange}
+                        class="bg-white block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    ) : (
+                      <p class="bg-white p-1.5 rounded-md">
+                        {user?.email || ""}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div class="sm:col-span-4">
+                  <label
+                    for="email"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Address
+                  </label>
+                  <div class="mt-2">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="address"
+                        value={editedUser.address}
+                        onChange={handleChange}
+                        class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    ) : (
+                      <p class="bg-white p-1.5 rounded-md">
+                        {user?.address || ""}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div class="col-span-full sm:col-span-3">
+                  <label
+                    for="street-address"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    City
+                  </label>
+                  <div class="mt-2">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="city"
+                        value={editedUser.city}
+                        onChange={handleChange}
+                        class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    ) : (
+                      <p class="bg-white p-1.5 rounded-md">
+                        {user?.city || ""}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div class="sm:col-span-2 sm:col-start-1">
+                  <label
+                    for="city"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    State
+                  </label>
+                  <div class="mt-2">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="state"
+                        value={editedUser.state}
+                        onChange={handleChange}
+                        class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    ) : (
+                      <p class="bg-white p-1.5 rounded-md">
+                        {user?.state || ""}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label
+                    for="region"
+                    class="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Zip Code
+                  </label>
+                  <div class="mt-2">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="zip"
+                        value={editedUser.zip}
+                        onChange={handleChange}
+                        class="bg-white block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    ) : (
+                      <p class="bg-white p-1.5 rounded-md">{user?.zip || ""}</p>
+                    )}
+                  </div>
+                </div>
+
+                {isEditing ? (
+                  <>
+                    <div class="sm:col-span-6 flex justify-left">
+                      <button
+                        onClick={handleSaveClick}
+                        class="rounded-md bg-dark-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-dark-accent-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={handleCancelClick}
+                        class="rounded-md bg-dark-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-dark-accent-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div class="sm:col-span-6 flex justify-left">
+                      <button
+                        onClick={handleEditClick}
+                        class="rounded-md bg-dark-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-dark-accent-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-2"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={handleDeleteClick}
+                        class="rounded-md bg-dark-accent px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-dark-accent-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
       <div class="flex justify-center items-center">
-        <div class="flex justify-start items-start space-y-2 flex-col">
+        <div class="flex justify-start items-start space-y-2 flex-col items-center">
           <br />
           <h1 class="text-3xl dark:text-white lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800 mb-6">
             Previous Orders:
@@ -325,7 +333,7 @@ export default function Profile() {
           <br />
           {orders.map((order) => (
             <div key={order.order_id} class="rounded-lg justify-center">
-              <div class="rounded-lg mt-10 flex flex-col xl:flex-row justify-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0 mb-6">
+              <div class="rounded-lg mt-10 flex flex-col xl:flex-row justify-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
                 <div class="justify-center rounded-lg flex flex-col justify-start items-start dark:bg-gray-800 bg-accent-lightest px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
                   <p class="text-base dark:text-black font-medium leading-6 text-black">
                     {order.created_at}

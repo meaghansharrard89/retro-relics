@@ -96,7 +96,7 @@ function Cart({
   }, [location]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen pb-6">
       <div className="flex-grow overflow-y-auto">
         <CartItems
           cartItems={cartItems}
@@ -106,7 +106,7 @@ function Cart({
         <br />
         {/*Logged in or new user*/}
         {user && user.email ? (
-          <div className="flex flex-col items-center justify-center mx-auto mt-6 rounded-lg border bg-accent-lightest p-6 shadow-md md:w-1/3 mb-80">
+          <div className="flex flex-col items-center justify-center mx-auto mt-6 rounded-lg border bg-accent-lightest p-6 shadow-md md:w-1/3">
             <form className="flex flex-col items-center justify-center w-full">
               <p className="text-gray-800 font-medium mb-4">
                 Billing Information:

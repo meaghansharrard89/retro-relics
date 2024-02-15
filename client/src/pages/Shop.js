@@ -56,7 +56,7 @@ function Shop({ cartItems, setCartItems, handleDeleteFromCart }) {
   return (
     <>
       <br />
-      <div class="relative inline-block text-center absolute left-1/4 -translate-x-1/2">
+      <div class="pl-4 relative inline-block text-center absolute left-1/4 -translate-x-1/2">
         <div
           class="z-10 mt-2 w-56 origin-top rounded-md bg-dark-accent-light shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"

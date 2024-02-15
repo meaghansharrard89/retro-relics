@@ -11,7 +11,7 @@ export default function CartItems({
   return (
     <>
       <br />
-      <h1 class="text-center mb-6 text-2xl font-bold h-full">Your Cart:</h1>
+      <h1 class="text-center mb-6 text-3xl font-bold h-full">Your Cart:</h1>
       {cartItems.map((cartItem, index) => (
         <div
           key={index}
